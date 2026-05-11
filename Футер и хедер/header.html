@@ -1,0 +1,1500 @@
+{*
+  iRepair Store — Шапка сайта
+  Тип блока CS-Cart: HTML-блок с поддержкой Smarty
+  Размещение: Design → Layouts → Header
+*}
+
+<style>
+/* ============================================================
+   iRepair Store Header  |  CSS
+   ============================================================ */
+
+/* --- Сброс внутри блока --- */
+#irh {
+  font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont,
+               "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+#irh *, #irh *::before, #irh *::after { box-sizing: border-box; }
+#irh a { text-decoration: none; color: inherit; }
+#irh button { font-family: inherit; cursor: pointer; }
+#irh ul, #irh ol { list-style: none; margin: 0; padding: 0; }
+
+/* --- Контейнер --- */
+.irh-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ============================================================
+   DESKTOP — ВЕРХНЯЯ СТРОКА
+   ============================================================ */
+.irh-top {
+  background: #ffffff;
+  border-bottom: 1px solid #e5e5e5;
+  position: relative;
+  z-index: 100;
+}
+.irh-top-inner {
+  display: flex;
+  align-items: center;
+  height: 58px;
+  gap: 0;
+}
+
+/* Логотип */
+.irh-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-right: 28px;
+}
+.irh-logo img {
+  height: 30px;
+  width: auto;
+  display: block;
+}
+
+/* Утилитарная навигация */
+.irh-util {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+  justify-content: space-between;
+}
+
+/* Левая зона — геолокация */
+.irh-util-left {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Центральная зона — основные ссылки */
+.irh-util-center {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  justify-content: center;
+}
+
+/* Правая зона — телефон */
+.irh-util-right {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Все ссылки */
+.irh-util a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 58px;
+  padding: 0 12px;
+  font-size: 13.5px;
+  color: #1d1d1f;
+  white-space: nowrap;
+  transition: color .18s;
+}
+.irh-util a:hover { color: #0071e3; }
+
+/* Геолокация */
+.irh-util .irh-location { color: #6e6e73; font-weight: 500; font-size: 13px; }
+.irh-util .irh-location svg { flex-shrink: 0; }
+
+/* Телефон */
+.irh-util .irh-phone {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #1d1d1f;
+}
+
+/* ── Выделенные ссылки ── */
+
+/* Сервис — синий акцент */
+.irh-util .irh-link-service {
+  color: #0071e3 !important;
+  font-weight: 500;
+  position: relative;
+}
+.irh-util .irh-link-service::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #0071e3;
+  flex-shrink: 0;
+  margin-right: 2px;
+  opacity: .85;
+}
+.irh-util .irh-link-service:hover { color: #0077ed !important; }
+
+/* Trade-in — оранжевый бейдж */
+.irh-util .irh-link-tradein {
+  font-weight: 500;
+}
+.irh-util .irh-link-tradein::after {
+  content: 'выгодно';
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 7px;
+  background: linear-gradient(135deg, #ff9500, #ff6b00);
+  color: #fff;
+  font-size: 9.5px;
+  font-weight: 700;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  vertical-align: middle;
+  line-height: 1.6;
+  flex-shrink: 0;
+}
+
+/* Иконки */
+.irh-icons {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: 8px;
+  flex-shrink: 0;
+}
+.irh-ibtn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  color: #1d1d1f;
+  background: none;
+  border: none;
+  padding: 0;
+  transition: background .18s, color .18s;
+}
+.irh-ibtn:hover { background: #f5f5f7; color: #0071e3; }
+.irh-ibtn svg {
+  width: 21px;
+  height: 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Бейджи (счётчики) */
+.irh-badge {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  min-width: 16px;
+  height: 16px;
+  background: #0071e3;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+  line-height: 1;
+  pointer-events: none;
+}
+/* скрываем бейдж при пустом или нулевом значении */
+.irh-badge:empty,
+.irh-badge[data-zero="1"] { display: none !important; }
+
+/* ============================================================
+   DESKTOP — НИЖНЯЯ СТРОКА (категории)
+   ============================================================ */
+.irh-cat {
+  background: #333333;
+  /* Растягиваем панель на всю ширину вьюпорта */
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+.irh-cat-inner {
+  display: flex;
+  align-items: center;
+  height: 50px;
+}
+.irh-cat-nav {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.irh-cat-nav::-webkit-scrollbar { display: none; }
+.irh-cat-nav a {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 50px !important;
+  padding: 0 14px !important;
+  font-size: 15px !important;
+  font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif !important;
+  color: rgba(240,240,240,.85) !important;
+  white-space: nowrap !important;
+  text-decoration: none !important;
+  background: none !important;
+  border: none !important;
+  position: relative !important;
+  z-index: 0 !important;
+  /* плавный переход цвета и чуть-чуть масштаба текста */
+  transition: color .22s ease, letter-spacing .22s ease !important;
+}
+
+/* ── Liquid Glass: стеклянная пилюля (фон + граница) ── */
+.irh-cat-nav a::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 3px !important;
+  right: 3px !important;
+  height: 36px !important;
+  border-radius: 10px !important;
+  transform: translateY(-50%) scaleX(.88) scaleY(.8) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  z-index: -1 !important;
+  /* стеклянный градиент */
+  background: linear-gradient(
+    160deg,
+    rgba(255,255,255,.22) 0%,
+    rgba(255,255,255,.08) 55%,
+    rgba(255,255,255,.13) 100%
+  ) !important;
+  /* граница стекла */
+  border: 1px solid rgba(255,255,255,.28) !important;
+  /* глубина + внутренний блик */
+  box-shadow:
+    inset 0 1.5px 0 rgba(255,255,255,.45),
+    inset 0 -1px 0 rgba(0,0,0,.12),
+    0 4px 16px rgba(0,0,0,.25) !important;
+  /* размытие фона (работает на полупрозрачных bg) */
+  backdrop-filter: blur(10px) saturate(1.6) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(1.6) !important;
+  transition:
+    opacity .22s cubic-bezier(.34,1.56,.64,1),
+    transform .22s cubic-bezier(.34,1.56,.64,1) !important;
+}
+
+/* ── Liquid Glass: яркий горизонтальный блик сверху ── */
+.irh-cat-nav a::after {
+  content: '' !important;
+  position: absolute !important;
+  top: calc(50% - 18px + 1px) !important;
+  left: 18% !important;
+  right: 18% !important;
+  height: 1px !important;
+  border-radius: 1px !important;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,255,255,.75) 40%,
+    rgba(255,255,255,.9) 50%,
+    rgba(255,255,255,.75) 60%,
+    transparent 100%
+  ) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity .22s ease .05s !important;
+}
+
+/* ── Состояние hover ── */
+.irh-cat-nav a:hover {
+  color: #ffffff !important;
+}
+.irh-cat-nav a:hover::before {
+  opacity: 1 !important;
+  transform: translateY(-50%) scaleX(1) scaleY(1) !important;
+}
+.irh-cat-nav a:hover::after {
+  opacity: 1 !important;
+}
+
+/* ── Активная страница ── */
+.irh-cat-nav a.irh-active {
+  color: #ffffff !important;
+  font-weight: 500 !important;
+}
+.irh-cat-nav a.irh-active::before {
+  opacity: .75 !important;
+  transform: translateY(-50%) scaleX(1) scaleY(1) !important;
+}
+.irh-cat-nav a.irh-active::after {
+  opacity: .6 !important;
+}
+.irh-cat-sep {
+  width: 1px;
+  height: 18px;
+  background: #555555;
+  flex-shrink: 0;
+  margin: 0 4px;
+}
+
+/* Кнопка поиска в категорийной строке */
+.irh-cat-search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 7px;
+  background: none;
+  border: none;
+  color: #f0f0f0 !important;
+  flex-shrink: 0;
+  margin-left: 6px;
+  transition: background .18s;
+}
+.irh-cat-search:hover { background: rgba(255,255,255,.14); }
+.irh-cat-search svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+/* ============================================================
+   MOBILE HEADER
+   ============================================================ */
+.irh-mob {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  height: 54px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 0 16px;
+}
+.irh-mob-logo img { height: 27px; width: auto; display: block; }
+.irh-mob-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: none;
+  background: none;
+  color: #1d1d1f;
+  border-radius: 8px;
+  padding: 0;
+  transition: background .18s;
+}
+.irh-mob-btn:hover { background: #f5f5f7; }
+.irh-mob-btn svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.irh-mob-btn.irh-ibtn { position: relative; }
+
+/* ============================================================
+   СКРЫТИЕ СТАНДАРТНОГО БЛОКА ПОИСКА CS-CART
+
+   Блок поиска (id=snapping_id_7 / class=top-search) оставлен
+   в макете CS-Cart, но JS скрывает его при загрузке и открывает
+   только внутри нашего оверлея. Можно не убирать блок из лейаута.
+   ============================================================ */
+.irh-cs-search-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+}
+
+/* ============================================================
+   ПОИСКОВЫЙ ОВЕРЛЕЙ
+   ============================================================ */
+.irh-s-bg {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 9998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s;
+}
+.irh-s-bg.on { opacity: 1; pointer-events: auto; }
+
+.irh-s-box {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: #ffffff;
+  z-index: 9999;
+  padding: 14px 20px 16px;
+  box-shadow: 0 8px 40px rgba(0,0,0,.18);
+  transform: translateY(-110%);
+  transition: transform .3s cubic-bezier(.4,0,.2,1);
+}
+.irh-s-box.on { transform: translateY(0); }
+
+.irh-s-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Контейнер для CS-Cart блока поиска внутри оверлея */
+.irh-s-mount {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Стили для CS-Cart блока .top-search когда он внутри нашего оверлея ── */
+#irh-s-box .top-search,
+#irh-s-box .ty-search-block,
+#irh-s-box [class*="search-block"] {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+}
+/* Поле ввода CS-Cart внутри оверлея */
+#irh-s-box .top-search input[type="text"],
+#irh-s-box .ty-search-block__field,
+#irh-s-box input[name="search[query]"] {
+  width: 100% !important;
+  height: 50px !important;
+  font-size: 17px !important;
+  font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif !important;
+  background: #f5f5f7 !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 0 16px 0 44px !important;
+  color: #1d1d1f !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+#irh-s-box input[name="search[query]"]::placeholder { color: #8e8e93 !important; }
+/* Кнопка submit CS-Cart — скрываем, поиск запускается по Enter */
+#irh-s-box .top-search button[type="submit"],
+#irh-s-box .ty-search-block__submit {
+  display: none !important;
+}
+/* Иконка лупы поверх поля ввода */
+.irh-s-mount {
+  position: relative;
+}
+.irh-s-mount::before {
+  content: '';
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238e8e93' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cline x1='16.5' y1='16.5' x2='22' y2='22'/%3E%3C/svg%3E") center / contain no-repeat;
+  pointer-events: none;
+  z-index: 1;
+}
+/* Dropdown с результатами live-поиска CS-Cart */
+#irh-s-box .ty-search-block__results,
+#irh-s-box #search_object,
+#irh-s-box [id*="search_live"],
+#irh-s-box [class*="search-results"],
+#irh-s-box [class*="search_results"] {
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  right: 0 !important;
+  background: #ffffff !important;
+  border-radius: 0 0 12px 12px !important;
+  box-shadow: 0 12px 32px rgba(0,0,0,.15) !important;
+  z-index: 10000 !important;
+  max-height: 420px !important;
+  overflow-y: auto !important;
+}
+
+/* Запасная форма (если .top-search не найден на странице) */
+.irh-s-fallback {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f5f5f7;
+  border-radius: 12px;
+  padding: 0 16px;
+  height: 50px;
+}
+.irh-s-fallback svg {
+  width: 18px; height: 18px;
+  fill: none; stroke: #8e8e93; stroke-width: 2;
+  stroke-linecap: round; flex-shrink: 0;
+}
+.irh-s-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 17px;
+  color: #1d1d1f;
+  outline: none;
+  font-family: inherit;
+}
+.irh-s-input::placeholder { color: #8e8e93; }
+
+.irh-s-cancel {
+  background: none;
+  border: none;
+  font-size: 15px;
+  color: #0071e3;
+  padding: 8px 4px;
+  white-space: nowrap;
+  transition: opacity .15s;
+  flex-shrink: 0;
+}
+.irh-s-cancel:hover { opacity: .7; }
+
+/* ============================================================
+   МОБИЛЬНЫЙ DRAWER
+   ============================================================ */
+.irh-drw-bg {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 9996;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s;
+}
+.irh-drw-bg.on { opacity: 1; pointer-events: auto; }
+
+.irh-drw {
+  position: fixed;
+  top: 0; right: 0;
+  width: 310px;
+  max-width: 92vw;
+  height: 100%;
+  background: #ffffff;
+  z-index: 9997;
+  transform: translateX(105%);
+  transition: transform .3s cubic-bezier(.4,0,.2,1);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.irh-drw.on { transform: translateX(0); }
+
+/* Шапка drawer */
+.irh-drw-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid #e5e5e5;
+  flex-shrink: 0;
+}
+.irh-drw-head img { height: 26px; }
+.irh-drw-close {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px;
+  background: none; border: none;
+  border-radius: 6px; color: #1d1d1f;
+  transition: background .15s;
+}
+.irh-drw-close:hover { background: #f5f5f7; }
+.irh-drw-close svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+
+/* Иконки в drawer */
+.irh-drw-icons {
+  display: flex;
+  gap: 8px;
+  padding: 14px 18px;
+  border-bottom: 1px solid #e5e5e5;
+  flex-shrink: 0;
+}
+.irh-drw-icon {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 46px;
+  background: #f5f5f7;
+  border-radius: 10px;
+  color: #1d1d1f;
+  transition: background .18s;
+}
+.irh-drw-icon:hover { background: #e8e8ed; }
+.irh-drw-icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Ссылки навигации в drawer */
+.irh-drw-nav { flex: 1; padding: 10px 0; }
+.irh-drw-nav a {
+  display: block;
+  padding: 13px 20px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #1d1d1f;
+  transition: background .14s;
+}
+.irh-drw-nav a:hover { background: #f5f5f7; }
+.irh-drw-nav a.irh-sec {
+  font-size: 14px;
+  font-weight: 400;
+  color: #3a3a3c;
+}
+.irh-drw-hr {
+  height: 1px;
+  background: #e5e5e5;
+  margin: 8px 20px;
+}
+
+/* Нижняя часть drawer */
+.irh-drw-foot {
+  padding: 16px 20px;
+  border-top: 1px solid #e5e5e5;
+  flex-shrink: 0;
+}
+.irh-drw-foot .irh-drw-phone {
+  display: block;
+  font-size: 17px;
+  font-weight: 700;
+  color: #1d1d1f;
+  margin-bottom: 10px;
+  letter-spacing: -0.02em;
+}
+.irh-drw-foot a.irh-drw-addr {
+  display: flex; align-items: flex-start; gap: 7px;
+  font-size: 13px; color: #6e6e73;
+  line-height: 1.4;
+}
+.irh-drw-foot a.irh-drw-addr svg { flex-shrink: 0; margin-top: 1px; }
+.irh-drw-foot a.irh-drw-addr:hover { color: #0071e3; }
+
+/* ============================================================
+   GEOLOCATION DIALOG — Apple-style override
+   Стили применяются ТОЛЬКО к диалогу геолокации через класс
+   .irh-geo-dialog, который JS добавляет при открытии диалога.
+   Это предотвращает конфликт с фотовьюером и другими модалками темы.
+   ============================================================ */
+
+/* ── Оверлей (только когда открыт гео-диалог) ── */
+.ui-widget-overlay.irh-geo-overlay {
+  background: rgba(0,0,0,.5) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+}
+
+/* ── Окно диалога ── */
+.ui-dialog.irh-geo-dialog {
+  border: none !important;
+  border-radius: 20px !important;
+  box-shadow: 0 24px 64px rgba(0,0,0,.25), 0 4px 16px rgba(0,0,0,.1) !important;
+  padding: 0 !important;
+  background: #fff !important;
+  font-family: "SF Pro Display","SF Pro Text",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif !important;
+  overflow: hidden !important;
+  width: 560px !important;
+  max-width: 94vw !important;
+}
+
+/* ── Заголовок ── */
+.ui-dialog.irh-geo-dialog .ui-dialog-titlebar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  background: #fff !important;
+  border: none !important;
+  border-bottom: 1px solid #e5e5ea !important;
+  border-radius: 20px 20px 0 0 !important;
+  padding: 18px 20px 16px !important;
+  min-height: 56px !important;
+}
+.ui-dialog.irh-geo-dialog .ui-dialog-title {
+  font-size: 17px !important;
+  font-weight: 600 !important;
+  color: #1d1d1f !important;
+  line-height: 1.2 !important;
+  font-family: inherit !important;
+}
+
+/* ── Кнопка закрытия (×) ── */
+.ui-dialog.irh-geo-dialog .ui-dialog-titlebar-close {
+  position: relative !important;
+  top: auto !important; right: auto !important;
+  float: none !important;
+  flex-shrink: 0 !important;
+  width: 30px !important;
+  height: 30px !important;
+  background: #e8e8ed !important;
+  border: none !important;
+  border-radius: 50% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+  transition: background .15s !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.ui-dialog.irh-geo-dialog .ui-dialog-titlebar-close:hover { background: #d1d1d6 !important; }
+.ui-dialog.irh-geo-dialog .ui-dialog-titlebar-close .ui-icon {
+  background-image: none !important;
+  position: relative !important;
+  top: auto !important; left: auto !important;
+  margin: 0 !important;
+  width: 14px !important;
+  height: 14px !important;
+  text-indent: 0 !important;
+  overflow: visible !important;
+}
+.ui-dialog.irh-geo-dialog .ui-dialog-titlebar-close .ui-icon::before,
+.ui-dialog.irh-geo-dialog .ui-dialog-titlebar-close .ui-icon::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 50% !important; left: 50% !important;
+  width: 12px !important; height: 1.5px !important;
+  background: #6e6e73 !important;
+  border-radius: 2px !important;
+}
+.ui-dialog.irh-geo-dialog .ui-dialog-titlebar-close .ui-icon::before { transform: translate(-50%,-50%) rotate(45deg) !important; }
+.ui-dialog.irh-geo-dialog .ui-dialog-titlebar-close .ui-icon::after  { transform: translate(-50%,-50%) rotate(-45deg) !important; }
+
+/* ── Область контента ── */
+.ui-dialog.irh-geo-dialog .ui-dialog-content {
+  padding: 0 !important;
+  background: #fff !important;
+  overflow: hidden !important;
+  border-radius: 0 0 20px 20px !important;
+}
+
+/* ── Контейнер геолокации ── */
+.ui-dialog.irh-geo-dialog .ty-geo-maps__geolocation__location-selector {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* ── Карта ── */
+.ui-dialog.irh-geo-dialog .ty-geo-maps__geolocation__map {
+  width: 100% !important;
+  height: 380px !important;
+  min-height: 300px !important;
+  display: block !important;
+  touch-action: pan-x pan-y !important;
+  pointer-events: auto !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+.ui-dialog.irh-geo-dialog .ty-geo-maps__geolocation__map * {
+  pointer-events: auto !important;
+}
+
+/* ── Сообщение об ошибке ── */
+.ui-dialog.irh-geo-dialog .ty-geo-maps__geolocation__map__load-error {
+  padding: 16px 20px !important;
+  font-size: 14px !important;
+  color: #6e6e73 !important;
+  text-align: center !important;
+}
+
+/* ── Блок кнопок ── */
+.ui-dialog.irh-geo-dialog .ty-geo-maps__geolocation__location-selector .buttons-container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  padding: 14px 20px 18px !important;
+  background: #fff !important;
+  border-top: 1px solid #f2f2f2 !important;
+  gap: 10px !important;
+}
+
+/* ── Кнопка ОК ── */
+.ui-dialog.irh-geo-dialog .ty-geo-maps__geolocation__set-location {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 40px !important;
+  min-width: 80px !important;
+  padding: 0 22px !important;
+  background: #0071e3 !important;
+  color: #fff !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  font-family: inherit !important;
+  border: none !important;
+  border-radius: 10px !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  transition: opacity .18s !important;
+  float: none !important;
+}
+.ui-dialog.irh-geo-dialog .ty-geo-maps__geolocation__set-location:hover { opacity: .85 !important; }
+.ui-dialog.irh-geo-dialog .ty-geo-maps__geolocation__set-location.pending { opacity: .6 !important; cursor: default !important; }
+
+/* ── Hover на кнопке геолокации в шапке ── */
+#irh-geo-btn:hover { color: #0071e3 !important; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 959px) {
+  .irh-top  { display: none !important; }
+  .irh-cat  { display: none !important; }
+  .irh-mob  { display: flex !important; }
+}
+@media (min-width: 960px) {
+  .irh-mob { display: none !important; }
+}
+</style>
+
+{* ============================================================
+   РАЗМЕТКА ШАПКИ
+   ============================================================ *}
+<div id="irh">
+
+  {* ── DESKTOP: Верхняя строка ── *}
+  <div class="irh-top">
+    <div class="irh-wrap">
+      <div class="irh-top-inner">
+
+        {* Логотип *}
+        <a href="/" class="irh-logo">
+          <img
+            src="https://irepair-store.ru/images/logos/11/logo-irepair-store_9su1-xb_nnqv-ke.png"
+            alt="iRepair Store"
+          >
+        </a>
+
+        {* Утилитарная навигация *}
+        <nav class="irh-util" aria-label="Верхнее меню">
+
+          {* Лево: геолокация *}
+          <div class="irh-util-left">
+            <a href="{fn_url('geo_maps.customer_geolocation')}"
+               class="irh-location cm-dialog-opener cm-dialog-auto-size"
+               id="irh-geo-btn"
+               data-ca-target-id="irh_geo_dialog_content"
+               data-ca-dialog-title="Местоположение покупателя"
+               rel="nofollow"
+               aria-label="Выбрать город">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+                <circle cx="12" cy="9" r="2.5"/>
+              </svg>
+              <span class="irh-loc-city">{$location.city|default:'Москва'}</span>
+            </a>
+            {* Пустой контейнер для CS-Cart геолокационного диалога *}
+            <div class="hidden" id="irh_geo_dialog_content" title="Выберите ваш город"></div>
+          </div>
+
+          {* Центр: основные ссылки — равномерно *}
+          <div class="irh-util-center">
+            <a href="https://irepair.ru/" class="irh-link-service">Сервис</a>
+            <a href="/oplata-i-dostavka/">Оплата и доставка</a>
+            <a href="/trade-in-vykup-tehniki-apple-v-moskve/" class="irh-link-tradein">Trade-in</a>
+          </div>
+
+          {* Право: телефон *}
+          <div class="irh-util-right">
+            <a href="tel:+74995770296" class="irh-phone">+7 (499) 577-02-96</a>
+          </div>
+
+        </nav>
+
+        {* Иконки: аккаунт, избранное, сравнение, корзина *}
+        <div class="irh-icons" role="list">
+
+          {* Аккаунт / Войти *}
+          {if $auth.user_id}
+            <a href="{fn_url('profiles.update')}" class="irh-ibtn" role="listitem" title="Личный кабинет" aria-label="Личный кабинет">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7"/></svg>
+            </a>
+          {else}
+            <a href="{fn_url('auth.login_form')}" class="irh-ibtn" role="listitem" title="Войти" aria-label="Войти в личный кабинет">
+              <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </a>
+          {/if}
+
+          {* Избранное (Wishlist addon) *}
+          <a href="{fn_url('wishlist.view')}" class="irh-ibtn" role="listitem" title="Избранное" aria-label="Избранное" id="irh-wl-btn">
+            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.501 5.501 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <span class="irh-badge" id="irh-wl-cnt">{if isset($wish_list) && $wish_list.products && $wish_list.products|count > 0}{$wish_list.products|count}{/if}</span>
+          </a>
+
+          {* Сравнение *}
+          <a href="{fn_url('product_features.compare')}" class="irh-ibtn" role="listitem" title="Сравнение" aria-label="Список сравнения" id="irh-cmp-btn">
+            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="6" height="18" rx="1"/><rect x="9" y="8" width="6" height="13" rx="1"/><rect x="16" y="5" width="6" height="16" rx="1"/></svg>
+            <span class="irh-badge" id="irh-cmp-cnt"></span>
+          </a>
+
+          {* Корзина *}
+          <a href="{fn_url('checkout.cart')}" class="irh-ibtn" role="listitem" title="Корзина" aria-label="Корзина" id="irh-cart-btn">
+            <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span class="irh-badge" id="irh-cart-cnt">{if $cart.amount > 0}{$cart.amount}{/if}</span>
+          </a>
+
+        </div>{* /irh-icons *}
+      </div>{* /irh-top-inner *}
+    </div>{* /irh-wrap *}
+  </div>{* /irh-top *}
+
+  {* ── DESKTOP: Категорийная строка ── *}
+  <div class="irh-cat" role="navigation" aria-label="Каталог товаров">
+    <div class="irh-wrap">
+      <div class="irh-cat-inner">
+        <nav class="irh-cat-nav">
+          <a href="/shop-iphone/">iPhone</a>
+          <a href="/shop-watch/">Watch</a>
+          <a href="/shop-ipad/">iPad</a>
+          <a href="/shop-mac/">Mac</a>
+          <a href="/shop-airpods/">AirPods</a>
+          <a href="/aksessuary/">Аксессуары</a>
+          <a href="/bu-apple/">Б/У Apple</a>
+          <span class="irh-cat-sep" aria-hidden="true"></span>
+          <a href="/skidki/">Скидки</a>
+          <a href="/aktsii/">Акции</a>
+          <a href="/kontakty/">Контакты</a>
+        </nav>
+
+        {* Кнопка поиска — открывает поисковый оверлей *}
+        <button class="irh-cat-search" id="irh-s-open" aria-label="Поиск" title="Поиск">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        </button>
+
+      </div>
+    </div>
+  </div>{* /irh-cat *}
+
+  {* ── MOBILE HEADER ── *}
+  <div class="irh-mob" role="banner">
+
+    {* Поиск слева *}
+    <button class="irh-mob-btn" id="irh-s-open-mob" aria-label="Поиск">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+    </button>
+
+    {* Логотип по центру *}
+    <a href="/" class="irh-mob-logo" aria-label="iRepair Store — главная">
+      <img
+        src="https://irepair-store.ru/images/logos/11/logo-irepair-store_9su1-xb_nnqv-ke.png"
+        alt="iRepair Store"
+      >
+    </a>
+
+    {* Гамбургер справа *}
+    <button class="irh-mob-btn" id="irh-drw-open" aria-label="Открыть меню" aria-expanded="false" aria-controls="irh-drw">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+
+  </div>{* /irh-mob *}
+
+  {* ============================================================
+     ПОИСКОВЫЙ ОВЕРЛЕЙ
+     JS перемещает блок CS-Cart (.top-search / ID=7) сюда при открытии
+     и возвращает на место при закрытии — все обработчики сохраняются.
+     ============================================================ *}
+  <div class="irh-s-bg" id="irh-s-bg" aria-hidden="true"></div>
+  <div class="irh-s-box" id="irh-s-box" role="dialog" aria-modal="true" aria-label="Поиск по сайту">
+    <div class="irh-s-inner">
+
+      {* Mount-точка: JS поместит сюда .top-search из CS-Cart *}
+      <div class="irh-s-mount" id="irh-s-mount">
+
+        {* Запасная форма — показывается только если CS-Cart блок не найден *}
+        <form class="irh-s-fallback" id="irh-s-fallback"
+              action="{fn_url('products.search')}" method="get" role="search">
+          <input type="hidden" name="dispatch" value="products.search">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+          <input
+            type="text"
+            name="search[query]"
+            id="irh-s-input"
+            class="irh-s-input"
+            placeholder="iPhone, MacBook, AirPods..."
+            autocomplete="off"
+            autocorrect="off"
+            spellcheck="false"
+          >
+        </form>
+
+      </div>
+
+      <button class="irh-s-cancel" id="irh-s-close" type="button">Отмена</button>
+    </div>
+  </div>
+
+  {* ============================================================
+     МОБИЛЬНЫЙ DRAWER (боковое меню)
+     ============================================================ *}
+  <div class="irh-drw-bg" id="irh-drw-bg" aria-hidden="true"></div>
+  <nav class="irh-drw" id="irh-drw" aria-label="Мобильное меню">
+
+    {* Шапка drawer *}
+    <div class="irh-drw-head">
+      <a href="/" aria-label="iRepair Store">
+        <img src="https://irepair-store.ru/images/logos/11/logo-irepair-store_9su1-xb_nnqv-ke.png" alt="iRepair Store">
+      </a>
+      <button class="irh-drw-close" id="irh-drw-close" aria-label="Закрыть меню">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    {* Иконки (аккаунт / избранное / сравнение / корзина) *}
+    <div class="irh-drw-icons">
+      {if $auth.user_id}
+        <a href="{fn_url('profiles.update')}" class="irh-drw-icon" title="Профиль">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7"/></svg>
+        </a>
+      {else}
+        <a href="{fn_url('auth.login_form')}" class="irh-drw-icon" title="Войти">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </a>
+      {/if}
+      <a href="{fn_url('wishlist.view')}" class="irh-drw-icon" title="Избранное">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.501 5.501 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span class="irh-badge" id="irh-wl-cnt-mob">{if isset($wish_list) && $wish_list.products && $wish_list.products|count > 0}{$wish_list.products|count}{/if}</span>
+      </a>
+      <a href="{fn_url('product_features.compare')}" class="irh-drw-icon" title="Сравнение">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="6" height="18" rx="1"/><rect x="9" y="8" width="6" height="13" rx="1"/><rect x="16" y="5" width="6" height="16" rx="1"/></svg>
+        <span class="irh-badge" id="irh-cmp-cnt-mob"></span>
+      </a>
+      <a href="{fn_url('checkout.cart')}" class="irh-drw-icon" title="Корзина">
+        <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="irh-badge" id="irh-cart-cnt-mob">{if $cart.amount > 0}{$cart.amount}{/if}</span>
+      </a>
+    </div>
+
+    {* Навигация *}
+    <div class="irh-drw-nav">
+      <a href="/shop-iphone/">iPhone</a>
+      <a href="/shop-watch/">Watch</a>
+      <a href="/shop-ipad/">iPad</a>
+      <a href="/shop-mac/">Mac</a>
+      <a href="/shop-airpods/">AirPods</a>
+      <a href="/aksessuary/">Аксессуары</a>
+      <a href="/bu-apple/">Б/У Apple</a>
+      <div class="irh-drw-hr"></div>
+      <a href="/skidki/">Скидки</a>
+      <a href="/aktsii/">Акции</a>
+      <div class="irh-drw-hr"></div>
+      <a href="https://irepair.ru/" class="irh-sec">Сервисный центр</a>
+      <a href="/oplata-i-dostavka/" class="irh-sec">Оплата и доставка</a>
+      <a href="/trade-in-vykup-tehniki-apple-v-moskve/" class="irh-sec">Trade-in</a>
+      <a href="/kontakty/" class="irh-sec">Контакты</a>
+    </div>
+
+    {* Нижняя часть *}
+    <div class="irh-drw-foot">
+      <a href="tel:+74995770296" class="irh-drw-phone">+7 (499) 577-02-96</a>
+      <a href="/kontakty/" class="irh-drw-addr">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+          <circle cx="12" cy="9" r="2.5"/>
+        </svg>
+        г. Москва, ул. Большая Садовая, д. 5, офис А24
+      </a>
+    </div>
+
+  </nav>{* /irh-drw *}
+
+</div>{* /irh *}
+
+<script>
+(function () {
+  'use strict';
+
+  /* ── Вспомогательные функции ── */
+  function $(id) { return document.getElementById(id); }
+  function toggle(els, cls, add) {
+    (Array.isArray(els) ? els : [els]).forEach(function (el) {
+      if (!el) return;
+      add ? el.classList.add(cls) : el.classList.remove(cls);
+    });
+  }
+
+  /* ── Блокировка/разблокировка скролла ── */
+  var scrollLocks = 0;
+  function lockScroll()   { if (!scrollLocks++) document.body.style.overflow = 'hidden'; }
+  function unlockScroll() { if (scrollLocks > 0 && !--scrollLocks) document.body.style.overflow = ''; }
+
+  /* ── Обновление бейджей ── */
+  function setBadge(ids, count) {
+    ids.forEach(function (id) {
+      var el = $(id);
+      if (!el) return;
+      if (count > 0) {
+        el.textContent = count;
+        el.removeAttribute('data-zero');
+      } else {
+        el.textContent = '';
+        el.setAttribute('data-zero', '1');
+      }
+    });
+  }
+
+  /* ────────────────────────────────────
+     ПОИСКОВЫЙ ОВЕРЛЕЙ
+     Стратегия: перемещаем CS-Cart блок .top-search (ID=7) в
+     наш оверлей при открытии и возвращаем обратно при закрытии.
+     Все jQuery-обработчики live-поиска CS-Cart сохраняются.
+  ──────────────────────────────────── */
+  var sBg      = $('irh-s-bg');
+  var sBox     = $('irh-s-box');
+  var sMount   = $('irh-s-mount');
+  var sFallback = $('irh-s-fallback');
+
+  /* Ссылки на блок CS-Cart и его исходное место в DOM */
+  var _csSearch     = null;  /* сам элемент .top-search              */
+  var _csParent     = null;  /* родитель до перемещения              */
+  var _csNextSib    = null;  /* следующий сосед (для вставки обратно) */
+
+  /* CSS-класс который скрывает CS-Cart блок в его исходном месте */
+  var CS_HIDDEN = 'irh-cs-search-hidden';
+
+  function findCsSearch() {
+    if (_csSearch) return _csSearch;
+    /* На живом сайте блок поиска = #snapping_id_7 / .top-search
+       (один и тот же элемент). Ищем сначала по точному ID.        */
+    _csSearch =
+      document.getElementById('snapping_id_7')               ||
+      document.querySelector('.top-search')                   ||
+      document.querySelector('[data-ca-block-id="7"]')        ||
+      (function () {                                          /* через input */
+        var inp = document.getElementById('search_input');
+        return inp
+          ? (inp.closest('.top-search') || inp.closest('.ty-search-block') || inp.parentNode)
+          : null;
+      }());
+    if (_csSearch) {
+      _csParent  = _csSearch.parentNode;
+      _csNextSib = _csSearch.nextElementSibling;
+    }
+    return _csSearch;
+  }
+
+  /* Скрываем CS-Cart блок поиска в его исходном месте сразу после загрузки */
+  function hideCsSearch() {
+    var cs = findCsSearch();
+    if (cs) cs.classList.add(CS_HIDDEN);
+  }
+
+  function openSearch() {
+    var cs = findCsSearch();
+
+    if (cs && sMount) {
+      /* Снимаем скрывалку, перемещаем в оверлей */
+      cs.classList.remove(CS_HIDDEN);
+      if (sFallback) sFallback.style.display = 'none';
+      sMount.appendChild(cs);
+    } else {
+      /* CS-Cart блок не найден → показываем запасную форму */
+      if (sFallback) sFallback.style.display = '';
+    }
+
+    toggle([sBg, sBox], 'on', true);
+    lockScroll();
+
+    /* Фокус на поле ввода (CS-Cart: id="search_input") */
+    setTimeout(function () {
+      var inp = document.getElementById('search_input') ||
+        (sMount
+          ? (sMount.querySelector('input[name="search[query]"]') ||
+             sMount.querySelector('input[type="text"]'))
+          : null) ||
+        $('irh-s-input');
+      if (inp) { inp.value = ''; inp.focus(); }
+    }, 300);
+  }
+
+  function closeSearch() {
+    /* Возвращаем CS-Cart блок на исходное место в DOM */
+    if (_csSearch && _csParent) {
+      if (_csNextSib && _csNextSib.parentNode === _csParent) {
+        _csParent.insertBefore(_csSearch, _csNextSib);
+      } else {
+        _csParent.appendChild(_csSearch);
+      }
+      /* Снова скрываем — блок теперь в своём исходном месте */
+      _csSearch.classList.add(CS_HIDDEN);
+    }
+
+    if (sFallback) sFallback.style.display = '';
+    toggle([sBg, sBox], 'on', false);
+    unlockScroll();
+  }
+
+  [$('irh-s-open'), $('irh-s-open-mob')].forEach(function (btn) {
+    if (btn) btn.addEventListener('click', openSearch);
+  });
+  if ($('irh-s-close')) $('irh-s-close').addEventListener('click', closeSearch);
+  if (sBg) sBg.addEventListener('click', closeSearch);
+
+  /* ────────────────────────────────────
+     МОБИЛЬНЫЙ DRAWER
+  ──────────────────────────────────── */
+  var drwBg  = $('irh-drw-bg');
+  var drw    = $('irh-drw');
+  var drwBtn = $('irh-drw-open');
+
+  function openDrawer() {
+    toggle([drwBg, drw], 'on', true);
+    if (drwBtn) drwBtn.setAttribute('aria-expanded', 'true');
+    lockScroll();
+  }
+  function closeDrawer() {
+    toggle([drwBg, drw], 'on', false);
+    if (drwBtn) drwBtn.setAttribute('aria-expanded', 'false');
+    unlockScroll();
+  }
+
+  if (drwBtn) drwBtn.addEventListener('click', openDrawer);
+  if ($('irh-drw-close')) $('irh-drw-close').addEventListener('click', closeDrawer);
+  if (drwBg) drwBg.addEventListener('click', closeDrawer);
+
+  /* Закрыть оба по Escape */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { closeSearch(); closeDrawer(); }
+  });
+
+  /* ────────────────────────────────────
+     ДИНАМИЧЕСКИЕ СЧЁТЧИКИ
+
+     Стратегия — MutationObserver:
+     CS-Cart сам обновляет свои нативные блоки в DOM.
+     Мы наблюдаем за ними и зеркалим значения в наши иконки.
+
+     Корзина  → #cart_status_navbar_mobile   .ty-navbar-mobile__item-badge
+     Избранное→ #account_info_navbar_mobile_wishlist .ty-navbar-mobile__item-badge
+     Сравнение→ кука compare_products (нативного счётчика в DOM нет)
+  ──────────────────────────────────── */
+  function initCounters() {
+    if (typeof jQuery === 'undefined') return;
+    var jQ = jQuery;
+
+    /* ── MutationObserver: зеркалим CS-Cart бейджи в наши иконки ── */
+    function mirrorBlock(csId, ourIds) {
+      var csEl = document.getElementById(csId);
+      if (!csEl) return;
+
+      function sync() {
+        var badge = csEl.querySelector('.ty-navbar-mobile__item-badge');
+        if (!badge) return;
+        setBadge(ourIds, parseInt(badge.textContent.trim(), 10) || 0);
+      }
+
+      sync(); /* начальная синхронизация */
+
+      /* CS-Cart полностью заменяет innerHTML блока при AJAX-обновлении —
+         наблюдаем за любым изменением внутри контейнера               */
+      new MutationObserver(sync).observe(csEl, {
+        childList: true, subtree: true, characterData: true
+      });
+    }
+
+    /* -- Корзина -- */
+    mirrorBlock('cart_status_navbar_mobile', ['irh-cart-cnt', 'irh-cart-cnt-mob']);
+
+    /* Страховка: $.ceEvent на случай отсутствия нативного блока */
+    if (typeof jQ.ceEvent !== 'undefined') {
+      jQ.ceEvent('on', 'ce.cart.update', function (d) {
+        if (d && typeof d.amount !== 'undefined') {
+          setBadge(['irh-cart-cnt', 'irh-cart-cnt-mob'], parseInt(d.amount, 10) || 0);
+        }
+      });
+    }
+
+    /* -- Избранное -- */
+    mirrorBlock('account_info_navbar_mobile_wishlist', ['irh-wl-cnt', 'irh-wl-cnt-mob']);
+
+    /* -- Сравнение: зеркалим нативный блок CS-Cart (#snapping_id_5 / .top-my-account).
+       CS-Cart сам обновляет текст ссылки: "Список сравнения" → "Список сравнения (N)".
+       Читаем число из скобок — точно так же как корзина и избранное.             */
+    function mirrorCompareBlock() {
+      var csEl = document.getElementById('snapping_id_5') ||
+                 document.querySelector('.top-my-account');
+      if (!csEl) return false;
+
+      function syncCmp() {
+        /* Ищем ссылку на /compare/ внутри блока */
+        var link = csEl.querySelector('a[href*="/compare/"]');
+        if (!link) return;
+        var m = link.textContent.match(/\((\d+)\)/);
+        setBadge(['irh-cmp-cnt', 'irh-cmp-cnt-mob'], m ? parseInt(m[1], 10) : 0);
+      }
+
+      syncCmp(); /* начальная синхронизация */
+      new MutationObserver(syncCmp).observe(csEl, {
+        childList: true, subtree: true, characterData: true
+      });
+      return true;
+    }
+
+    /* Запускаем зеркало; если блок не найден — localStorage как резерв */
+    if (!mirrorCompareBlock()) {
+      var IRH_CMP_LS = 'irh_cmp_count';
+      var _cmpCount = 0;
+      try { _cmpCount = parseInt(localStorage.getItem(IRH_CMP_LS) || '0', 10) || 0; }
+      catch (ex) {}
+      setBadge(['irh-cmp-cnt', 'irh-cmp-cnt-mob'], _cmpCount);
+
+      function setCmpBadge(n) {
+        _cmpCount = n;
+        setBadge(['irh-cmp-cnt', 'irh-cmp-cnt-mob'], n);
+        try { localStorage.setItem(IRH_CMP_LS, n); } catch (ex) {}
+      }
+      var _cmpPendingDisp = '';
+      jQ(document).ajaxSend(function (e, xhr, s) {
+        var src = (s.url || '') + '&' + (typeof s.data === 'string' ? s.data : '');
+        var mm = src.match(/(?:^|[?&])dispatch=([^&\s]+)/);
+        _cmpPendingDisp = mm ? decodeURIComponent(mm[1]) : '';
+      });
+      jQ(document).ajaxComplete(function (e, xhr) {
+        var disp = _cmpPendingDisp;
+        if (!disp) return;
+        if (disp === 'product_features.add_product') setCmpBadge(_cmpCount + 1);
+        else if (disp === 'product_features.delete_product') setCmpBadge(Math.max(0, _cmpCount - 1));
+        else if (disp === 'product_features.clean_compare_list') setCmpBadge(0);
+      });
+    }
+  }
+
+  /* Запускаем инициализацию счётчиков и скрываем CS-Cart блок поиска */
+  /* ── Геолокация ── */
+  function initGeoLocation() {
+
+    /* Синхронизируем название города из нативного блока (если присутствует) */
+    function syncCity() {
+      var cityEl = document.querySelector('[data-ca-geo-map-location-element="location"]');
+      if (!cityEl) return;
+      var name = cityEl.textContent.trim();
+      if (!name) return;
+      document.querySelectorAll('.irh-loc-city').forEach(function (el) {
+        el.textContent = name;
+      });
+    }
+    syncCity();
+    var geoBlock = document.querySelector('.ty-geo-maps__geolocation');
+    if (geoBlock) {
+      new MutationObserver(syncCity).observe(geoBlock, {
+        childList: true, subtree: true, characterData: true
+      });
+    }
+
+    /* После открытия диалога — помечаем его классом irh-geo-dialog
+       (чтобы наши стили не затрагивали другие модалки темы),
+       затем вставляем поле поиска города над картой. */
+    if (typeof jQuery === 'undefined') return;
+    jQuery(document).on('dialogopen', function (e) {
+      var dlg = jQuery(e.target);
+      /* Проверяем что это геолокационный диалог */
+      if (!dlg.find('.ty-geo-maps__geolocation__location-selector').length) return;
+
+      /* Помечаем диалог и оверлей специфичными классами */
+      dlg.closest('.ui-dialog').addClass('irh-geo-dialog');
+      jQuery('.ui-widget-overlay').addClass('irh-geo-overlay');
+
+      if (dlg.find('#irh-geo-search-wrap').length) return; /* уже добавлено */
+
+      var searchWrap = jQuery(
+        '<div id="irh-geo-search-wrap" style="' +
+          'padding:14px 16px 0;' +
+          'background:#fff;' +
+          'display:flex;gap:8px;align-items:center' +
+        '">' +
+          '<input id="irh-geo-search-input" type="text" placeholder="Введите город..." ' +
+            'autocomplete="off" autocorrect="off" spellcheck="false" ' +
+            'style="' +
+              'flex:1;height:40px;border:1.5px solid #d2d2d7;border-radius:10px;' +
+              'padding:0 14px;font-size:15px;font-family:inherit;color:#1d1d1f;' +
+              'background:#f5f5f7;outline:none;box-sizing:border-box;' +
+              'transition:border-color .2s' +
+            '">' +
+          '<button id="irh-geo-search-btn" type="button" style="' +
+            'flex-shrink:0;height:40px;padding:0 18px;background:#0071e3;' +
+            'color:#fff;border:none;border-radius:10px;font-size:15px;' +
+            'font-weight:500;cursor:pointer;white-space:nowrap' +
+          '">Найти</button>' +
+        '</div>'
+      );
+
+      /* Вставляем перед картой */
+      dlg.find('.ty-geo-maps__geolocation__location-selector').prepend(searchWrap);
+
+      /* Стиль фокуса */
+      searchWrap.find('#irh-geo-search-input').on('focus', function () {
+        jQuery(this).css('border-color', '#0071e3').css('background', '#fff');
+      }).on('blur', function () {
+        jQuery(this).css('border-color', '#d2d2d7').css('background', '#f5f5f7');
+      });
+
+      /* Поиск: передаём запрос в Яндекс.Карты через ymaps API */
+      function doSearch() {
+        var query = searchWrap.find('#irh-geo-search-input').val().trim();
+        if (!query) return;
+        /* CS-Cart хранит ссылку на карту в data-атрибуте или в глобальном объекте.
+           Пробуем пробросить запрос через ymaps.geocode. */
+        if (typeof ymaps !== 'undefined' && ymaps.geocode) {
+          ymaps.geocode(query, { results: 1 }).then(function (res) {
+            var firstObj = res.geoObjects.get(0);
+            if (!firstObj) return;
+            var coords = firstObj.geometry.getCoordinates();
+            /* Передаём координаты карте CS-Cart через событие или напрямую */
+            var mapContainer = dlg.find('.ty-geo-maps__geolocation__map [class*="map"]')[0] ||
+                               dlg.find('.ty-geo-maps__geolocation__map').find('ymaps').closest('[class]')[0];
+            /* Ищем объект карты через ymaps.Map.storage */
+            if (ymaps.Map && ymaps.Map.storage) {
+              ymaps.Map.storage.each(function (map) {
+                map.setCenter(coords, 12);
+              });
+            }
+          });
+        }
+      }
+
+      searchWrap.find('#irh-geo-search-btn').on('click', doSearch);
+      searchWrap.find('#irh-geo-search-input').on('keydown', function (e) {
+        if (e.key === 'Enter' || e.keyCode === 13) doSearch();
+      });
+    });
+
+    /* При закрытии геолокационного диалога убираем наши классы */
+    jQuery(document).on('dialogclose', function (e) {
+      var dlg = jQuery(e.target);
+      if (!dlg.find('.ty-geo-maps__geolocation__location-selector').length) return;
+      dlg.closest('.ui-dialog').removeClass('irh-geo-dialog');
+      jQuery('.ui-widget-overlay').removeClass('irh-geo-overlay');
+    });
+  }
+
+  function onReady() {
+    initCounters();
+    hideCsSearch(); /* скрываем стандартный блок поиска CS-Cart из макета */
+    initGeoLocation();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', onReady);
+  } else {
+    onReady();
+  }
+
+}());
+</script>

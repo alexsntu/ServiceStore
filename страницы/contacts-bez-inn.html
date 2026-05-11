@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты — ServiceStor</title>
+    <style>
+/* --- Apple Store Contacts Page (Fixed Buttons) --- */
+.contacts-wrapper {
+    background-color: #f5f5f7;
+    position: relative;
+    z-index: 1;
+    padding: 60px 0 80px 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1d1d1f;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+}
+/* Фон на всю ширину */
+.contacts-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    background-color: #f5f5f7;
+    z-index: -1;
+}
+.contacts-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+/* Заголовок */
+.contacts-page-header {
+    margin-bottom: 50px;
+    text-align: center;
+}
+.contacts-page-header h1 {
+    font-size: 48px;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 0 0 15px 0;
+}
+.contacts-page-header p {
+    font-size: 24px;
+    color: #6e6e73;
+    font-weight: 400;
+    margin: 0;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* Сетка контента */
+.contacts-layout {
+    display: grid;
+    grid-template-columns: 4.5fr 5.5fr; 
+    gap: 30px;
+    align-items: start;
+}
+/* Карточка */
+.info-card {
+    background-color: #fff;
+    border-radius: 28px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+.info-card:last-child { margin-bottom: 0; }
+/* Инфо группы */
+.info-group {
+    margin-bottom: 25px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #f5f5f7;
+}
+.info-group:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.info-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #86868b;
+    margin-bottom: 12px; /* Чуть больше отступ до контента */
+    letter-spacing: 0.05em;
+    display: block;
+}
+.info-value-big {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1d1d1f;
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    display: block;
+}
+.info-value-big:hover { color: #0071e3; }
+.info-value-text {
+    font-size: 19px;
+    line-height: 1.5;
+    color: #1d1d1f;
+}
+/* === НОВЫЕ СТИЛИ ДЛЯ КНОПОК СВЯЗИ === */
+.social-buttons {
+    display: grid; /* Используем Grid для ровных кнопок */
+    grid-template-columns: 1fr 1fr; /* 2 колонки на ПК */
+    gap: 12px;
+    margin-top: 10px;
+    width: 100%;
+}
+/* Почту сделаем на всю ширину (отдельно внизу, если нужно, или в сетке) */
+.social-btn-full {
+    grid-column: 1 / -1; /* Растянуть на всю ширину */
+}
+.social-btn {
+    display: flex; /* Flex чтобы центрировать иконку и текст */
+    align-items: center;
+    justify-content: center;
+    height: 52px; /* Фиксированная высота, чтобы были "пухлыми" */
+    padding: 0 20px;
+    border-radius: 14px;
+    background-color: #f2f2f7; /* Светло-серый фон кнопки */
+    color: #1d1d1f;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none !important; /* Убираем подчеркивание */
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+    width: 100%; /* Заполняем ячейку грида */
+}
+.social-btn:hover {
+    background-color: #e5e5ea;
+    transform: scale(1.02);
+}
+.social-btn svg {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+/* Кнопки навигации (Карты) */
+.nav-buttons-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+.nav-map-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 52px;
+    border-radius: 14px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5; /* Рамка для белой кнопки */
+    color: #1d1d1f;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+.nav-map-btn:hover {
+    background-color: #f5f5f7;
+    border-color: #d2d2d7;
+}
+.nav-map-btn svg { width: 22px; height: 22px; margin-right: 10px; fill: currentColor; }
+/* Карта */
+.contact-map-wrapper {
+    height: 450px;
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #e5e5e5;
+}
+.map-frame { width: 100%; height: 100%; border: none; }
+/* Схема проезда */
+.scheme-block { margin-top: 30px; }
+.scheme-img { width: 100%; height: auto; border-radius: 18px; display: block; border: 1px solid #eee; }
+/* Инструкции */
+.instruction-item {
+    margin-bottom: 25px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #f5f5f7;
+}
+.instruction-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.instruction-title {
+    font-size: 20px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center;
+}
+.instruction-icon { width: 28px; height: 28px; margin-right: 10px; color: #0071e3; }
+.instruction-icon svg { width: 100%; height: 100%; fill: currentColor; }
+.instruction-text { font-size: 16px; line-height: 1.5; color: #424245; }
+/* Реквизиты */
+.req-list { display: flex; flex-direction: column; gap: 10px; }
+.req-item {
+    font-size: 14px; line-height: 1.4; display: flex; justify-content: space-between;
+    padding-bottom: 10px; border-bottom: 1px solid #f5f5f7;
+}
+.req-item:last-child { border-bottom: none; }
+.req-item strong { color: #86868b; font-weight: 600; }
+.req-item span { text-align: right; font-weight: 500; }
+/* АДАПТИВНОСТЬ */
+@media (max-width: 767px) {
+    .contacts-wrapper { padding: 40px 0; }
+    .contacts-inner { padding: 0 20px; }
+    
+    .contacts-page-header h1 { font-size: 32px; }
+    .contacts-page-header p { font-size: 19px; }
+    
+    .contacts-layout { grid-template-columns: 1fr; gap: 20px; }
+    .left-column { order: 2; }
+    .right-column { order: 1; }
+    
+    .info-card { padding: 30px 20px; }
+    .info-value-big { font-size: 26px; }
+    
+    /* КНОПКИ НА МОБИЛЬНОМ */
+    .social-buttons { 
+        grid-template-columns: 1fr; /* Одна колонка (друг под другом) */
+        gap: 10px;
+    }
+    .social-btn { height: 50px; } /* Удобная высота для пальца */
+    
+    .req-item { flex-direction: column; gap: 4px; }
+    .req-item span { text-align: left; }
+    .contact-map-wrapper { height: 300px; }
+}
+    </style>
+</head>
+<body>
+<div class="contacts-wrapper">
+    <div class="contacts-inner">
+        
+        <div class="contacts-page-header">
+            <h1>Контакты</h1>
+            <p>Мы находимся в самом центре Москвы рядом с гостиницей Пекин.</p>
+        </div>
+        <div class="contacts-layout">
+            
+            <!-- ЛЕВАЯ КОЛОНКА -->
+            <div class="left-column">
+                
+                <!-- Блок Контактов -->
+                <div class="info-card">
+                    <div class="info-group">
+                        <span class="info-label">Телефон</span>
+                        <a href="tel:+74995770296" class="info-value-big">8 (499) 577-02-96</a>
+                        <div class="info-value-text" style="font-size: 15px; color: #86868b; margin-top: 5px;">многоканальный</div>
+                    </div>
+                    <div class="info-group">
+                        <span class="info-label">Адрес офиса</span>
+                        <div class="info-value-text">
+                            Москва, ул. Большая Садовая, д. 5, подъезд 2, эт. 1А, оф. А24
+                        </div>
+                    </div>
+                    <div class="info-group">
+                        <span class="info-label">Время работы</span>
+                        <div class="info-value-text">
+                            10:00 - 20:00 (без перерывов и выходных)
+                        </div>
+                    </div>
+                    
+                    <div class="info-group">
+                        <span class="info-label">Свяжитесь с нами</span>
+                        <div class="social-buttons">
+                            <!-- Telegram -->
+                            <a href="https://t.me/+79037222151" target="_blank" class="social-btn">
+                                <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18 1.897-.962 6.502-1.359 8.627-.168.9-.5 1.201-.82 1.23-.697.064-1.226-.461-1.901-.903-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635.099-.002.321.023.465.141.119.098.152.228.166.33.016.096.015.193.006.326z" fill="#0088cc"></path></svg>
+                                Telegram
+                            </a>
+                            <!-- WhatsApp -->
+                            <a href="https://wa.me/+79037222151" target="_blank" class="social-btn">
+                                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.532 0 1.518 1.115 2.983 1.263 3.182.15.199 2.197 3.327 5.308 4.663 1.078.46 1.918.498 2.547.427.697-.078 1.758-.718 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" fill="#25D366"></path></svg>
+                                WhatsApp
+                            </a>
+                            <!-- Email -->
+                            <a href="mailto:store@irepair.ru" class="social-btn social-btn-full">
+                                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="#1d1d1f"></path></svg>
+                                store@irepair.ru
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Блок Инструкция -->
+                <div class="info-card">
+                    <div class="instruction-item">
+                        <div class="instruction-title">
+                            <div class="instruction-icon">
+                                <svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.2L6 8.3V13h2V9.6l1.8-.7z" fill="currentColor"></path></svg>
+                            </div>
+                            Пешком
+                        </div>
+                        <div class="instruction-text">
+                            3 минуты от станции «Маяковская». Выход в город №4. Пересеките Триумфальную площадь слева, на ближайшем светофоре перейдите дорогу к зданию гостиницы «Пекин». Пройдите 180 метров.
+                        </div>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-title">
+                            <div class="instruction-icon">
+                                <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5-1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z" fill="currentColor"></path></svg>
+                            </div>
+                            На машине
+                        </div>
+                        <div class="instruction-text">
+                            Парковочное место необходимо заранее согласовать по телефону. Съезд с Садового кольца в арку.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ПРАВАЯ КОЛОНКА -->
+            <div class="right-column">
+                
+                <!-- Кнопки навигации -->
+                <div class="nav-buttons-grid">
+                    <a href="https://yandex.ru/maps/org/irepair/1116056937/?ll=37.628379,55.635130&rtext=~55.768329,37.593354&rtt=auto&ruri=~ymapsbm1://geo?data=IgoNmF8WQhXFEl9C&z=9" target="_blank" class="nav-map-btn">
+                        <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z" fill="currentColor"></path></svg>
+                        Яндекс Карты
+                    </a>
+                    <a href="https://www.google.com/maps/dir//%D0%91%D0%BE%D0%BB%D1%8C%D1%88%D0%B0%D1%8F+%D0%A1%D0%B0%D0%B4%D0%BE%D0%B2%D0%B0%D1%8F+%D1%83%D0%BB%D0%B8%D1%86%D0%B0,+5,+%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0/@55.7383074,37.5891651,10.01z/data=!4m9!4m8!1m0!1m5!1m1!1s0x46b54a3961b0aae3:0x71c06e88a4c930d7!2m2!1d37.59323!2d55.7683778!3e0" target="_blank" class="nav-map-btn">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"></path></svg>
+                        Google Maps
+                    </a>
+                </div>
+                <!-- Интерактивная карта -->
+                <div class="contact-map-wrapper">
+                    <iframe src="https://yandex.ru/map-widget/v1/?z=17&ol=biz&oid=1116056937" class="map-frame"></iframe>
+                </div>
+                <!-- Схема проезда (Картинка) -->
+                <div class="info-card scheme-block" style="padding: 20px;">
+                    <div class="info-label" style="margin-bottom: 15px; padding-left: 10px;">Схема проезда</div>
+                    <img src="https://irepair-store.ru/images/page/6653c49640b78330304cc711_scheme3.png" alt="Схема проезда" class="scheme-img">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

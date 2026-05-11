@@ -1,0 +1,201 @@
+<!--
+  Плитки: макс. ширина 530px; ПК — 2 в ряд; мобилка — столбик.
+  Для CS-Cart: скопируйте от <style> до закрывающего </div> блока .irepair-store-promo.
+-->
+<style>
+.irepair-store-promo {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1d1d1f;
+    background: #fff;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+.irepair-store-promo *,
+.irepair-store-promo *::before,
+.irepair-store-promo *::after {
+    box-sizing: border-box;
+}
+.irepair-store-promo__inner {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+}
+.irepair-store-promo__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    justify-items: center;
+    gap: 15px;
+    width: 100%;
+}
+@media (min-width: 769px) {
+    .irepair-store-promo__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        justify-content: stretch;
+        justify-items: stretch;
+        align-items: start;
+    }
+}
+.irepair-store-promo__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: none;
+    min-height: 0;
+    background: #f5f5f7;
+    border-radius: 18px;
+    padding: 32px 22px 20px;
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+}
+@media (min-width: 769px) {
+    .irepair-store-promo__card {
+        justify-self: stretch;
+        width: 100%;
+        height: 510px;
+    }
+}
+.irepair-store-promo__card:hover {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.07);
+}
+.irepair-store-promo__card:focus-visible {
+    outline: 2px solid #0071e3;
+    outline-offset: 3px;
+}
+.irepair-store-promo__title {
+    font-size: clamp(24px, 2.6vw, 32px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0 0 12px;
+    color: #1d1d1f;
+    flex-shrink: 0;
+}
+.irepair-store-promo__text {
+    font-size: 13px;
+    line-height: 1.45;
+    font-weight: 400;
+    color: #1d1d1f;
+    margin: 0 0 20px;
+    max-width: 100%;
+    width: 100%;
+    flex-shrink: 0;
+}
+.irepair-store-promo__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    width: 100px;
+    height: 40px;
+    padding: 0 12px;
+    background: #000;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+.irepair-store-promo__card:hover .irepair-store-promo__btn {
+    background: #333;
+}
+.irepair-store-promo__img-wrap {
+    flex: 1 1 auto;
+    flex-shrink: 0;
+    margin-top: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    line-height: 0;
+}
+.irepair-store-promo__card--airtag .irepair-store-promo__img-wrap {
+    margin-top: 40px;
+}
+.irepair-store-promo__img {
+    display: block;
+    width: 100%;
+    max-width: 450px;
+    /* не max-height: % — у flex-родителя без явной высоты картинка схлопывалась */
+    max-height: 280px;
+    height: auto;
+    vertical-align: bottom;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+}
+@media (max-width: 768px) {
+    .irepair-store-promo .irepair-store-promo__card {
+        height: 460px !important;
+        padding-top: 12px !important;
+    }
+    .irepair-store-promo .irepair-store-promo__title {
+        font-size: 22px !important;
+        line-height: 1.1 !important;
+    }
+    .irepair-store-promo .irepair-store-promo__img-wrap {
+        flex: 0 1 auto;
+        min-height: 160px;
+        margin-top: 24px;
+    }
+    .irepair-store-promo .irepair-store-promo__img {
+        max-height: 280px !important;
+    }
+}
+@media (max-width: 640px) {
+    .irepair-store-promo {
+        margin-top: 16px;
+    }
+}
+</style>
+
+<div class="irepair-store-promo" lang="ru">
+    <div class="irepair-store-promo__inner">
+        <div class="irepair-store-promo__grid">
+            <a class="irepair-store-promo__card" href="https://irepair-store.ru/aksessuary/">
+                <h2 class="irepair-store-promo__title">Аксессуары для iPhone</h2>
+                <p class="irepair-store-promo__text">
+                    Яркая коллекция аксессуаров для легкого подключения и быстрой беспроводной зарядки. Бесконечное множество вариантов комбинирования, которые подойдут к любому стилю.
+                </p>
+                <span class="irepair-store-promo__btn">Купить →</span>
+                <div class="irepair-store-promo__img-wrap">
+                    <img
+                        class="irepair-store-promo__img"
+                        src="https://irepair-store.ru/images/Store%20menu/acs.webp"
+                        alt="Аксессуары для iPhone"
+                        width="450"
+                        height="300"
+                        loading="lazy"
+                        decoding="async"
+                    />
+                </div>
+            </a>
+            <a class="irepair-store-promo__card irepair-store-promo__card--airtag" href="https://irepair-store.ru/aksessuary/airtag/">
+                <h2 class="irepair-store-promo__title">AirTag</h2>
+                <p class="irepair-store-promo__text">
+                    Прикрепите один трекер AirTag к ключам, а другой — к рюкзаку. И теперь их видно на карте в приложении «Локатор». Там же можно посмотреть, где находятся ваши устройства Apple, а также ваши друзья и семья.
+                </p>
+                <span class="irepair-store-promo__btn">Купить →</span>
+                <div class="irepair-store-promo__img-wrap">
+                    <img
+                        class="irepair-store-promo__img"
+                        src="https://irepair-store.ru/images/Store%20menu/tags.webp"
+                        alt="AirTag"
+                        width="450"
+                        height="300"
+                        loading="lazy"
+                        decoding="async"
+                    />
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

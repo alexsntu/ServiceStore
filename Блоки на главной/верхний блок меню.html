@@ -1,0 +1,298 @@
+<style>
+/* --- Apple Store Navigation (Final Compact Height) --- */
+
+.apple-nav-wrapper {
+    background-color: #f5f5f7; 
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    padding: 40px calc(50vw - 50% + 40px) 10px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    box-sizing: border-box;
+    border-radius: 0;
+}
+
+/* Внутренний контейнер */
+.nav-inner-content {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Заголовок */
+.apple-nav-header {
+    margin-bottom: 50px; 
+}
+.apple-nav-header h2 {
+    font-size: 28px;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #1d1d1f;
+    margin: 0;
+    text-align: left !important;
+}
+.apple-nav-header h2 span {
+    color: #6e6e73;
+}
+
+/* Контейнер скролла */
+.nav-scroll-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Сетка меню */
+.apple-nav-grid {
+    display: flex;
+    justify-content: flex-start;
+    gap: 30px; 
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-behavior: smooth;
+    width: 100%;
+    padding-bottom: 20px; /* Оставляем место для тени/скролла */
+    align-items: flex-start;
+    padding-left: 5px; 
+    padding-right: 5px;
+}
+.apple-nav-grid::-webkit-scrollbar { display: none; }
+
+/* Элемент навигации */
+.apple-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none !important;
+    cursor: pointer;
+    background: transparent;
+    transition: transform 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Контейнер картинки */
+.nav-item-image {
+    width: 163px; 
+    height: 124px;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    padding: 0;
+}
+
+.nav-item-image img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+/* Текст */
+.nav-item-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #1d1d1f;
+    text-align: center;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+}
+
+/* Hover */
+.apple-nav-item:hover { transform: scale(1.05); }
+.apple-nav-item:hover .nav-item-title { color: #0071e3; text-decoration: underline; }
+
+/* --- СТРЕЛКИ --- */
+.nav-arrow {
+    position: absolute;
+    top: 50px; 
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.95); 
+    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 100;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.nav-arrow svg {
+    width: 14px;
+    height: 14px;
+    fill: #1d1d1f;
+}
+
+.nav-arrow:hover {
+    background-color: #ffffff;
+    transform: scale(1.1);
+}
+
+.nav-arrow-left { left: 0; }
+.nav-arrow-right { right: 0; }
+.nav-arrow.visible { opacity: 1; pointer-events: auto; }
+
+/* === АДАПТИВНОСТЬ === */
+@media (max-width: 767px) {
+    .apple-nav-wrapper {
+        padding: 30px calc(50vw - 50% + 20px) 10px;
+    }
+    
+    .nav-inner-content {
+        padding: 0; 
+    }
+    
+    .apple-nav-header {
+        margin-bottom: 30px; 
+    }
+    .apple-nav-header h2 { font-size: 24px; } 
+    
+    .apple-nav-grid {
+        padding-left: 20px; 
+        padding-right: 20px; 
+        gap: 20px; 
+    }
+    
+    .nav-item-image {
+        width: 120px;
+        height: 94px;
+        margin-bottom: 8px;
+    }
+    .apple-nav-item { min-width: 120px; }
+    
+    .nav-item-title { font-size: 14px; }
+    
+    .nav-arrow { 
+        display: flex !important;
+        width: 36px; height: 36px;
+        top: 36px; 
+        background-color: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    
+    .nav-arrow-left { left: 10px; }  
+    .nav-arrow-right { right: 10px; }
+}
+</style>
+
+<div class="apple-nav-wrapper">
+    <div class="nav-inner-content">
+        <div class="apple-nav-header">
+            <h2>Магазин. <span style="color: #6e6e73;">Лучший способ купить то, что вы любите.</span></h2>
+        </div>
+
+        <div class="nav-scroll-container">
+            <!-- Левая стрелка -->
+            <button class="nav-arrow nav-arrow-left" id="navBtnPrev">
+                <svg viewBox="0 0 16 16"><path d="M11.7,14.3l-6.6-6.6l6.6-6.6l1.1,1.1L7.2,7.7l5.6,5.5L11.7,14.3z"/></svg>
+            </button>
+
+            <div class="apple-nav-grid" id="navGrid">
+                <!-- 1. iPhone -->
+                <a href="/shop-iphone/" class="apple-nav-item">
+                    <div class="nav-item-image">
+                        <img src="https://irepair-store.ru/images/Foto%20menu/store-card-13-iphone-nav.png" alt="iPhone">
+                    </div>
+                    <span class="nav-item-title">iPhone</span>
+                </a>
+
+                <!-- 2. Mac -->
+                <a href="/shop-mac/" class="apple-nav-item">
+                    <div class="nav-item-image">
+                        <img src="https://irepair-store.ru/images/Foto%20menu/store-card-mac-nav.png" alt="Mac">
+                    </div>
+                    <span class="nav-item-title">Mac</span>
+                </a>
+
+                <!-- 3. iPad -->
+                <a href="https://irepair-store.ru/ipad/" class="apple-nav-item">
+                    <div class="nav-item-image">
+                        <img src="https://irepair-store.ru/images/Foto%20menu/store-card-13-ipad-nav.png" alt="iPad">
+                    </div>
+                    <span class="nav-item-title">iPad</span>
+                </a>
+
+                <!-- 4. Apple Watch -->
+                <a href="https://irepair-store.ru/apple-watch/" class="apple-nav-item">
+                    <div class="nav-item-image">
+                        <img src="https://irepair-store.ru/images/Foto%20menu/store-card-13-watch-nav.png" alt="Apple Watch">
+                    </div>
+                    <span class="nav-item-title">Apple Watch</span>
+                </a>
+
+                <!-- 5. AirPods -->
+                <a href="https://irepair-store.ru/airpods/" class="apple-nav-item">
+                    <div class="nav-item-image">
+                        <img src="https://irepair-store.ru/images/Foto%20menu/store-card-13-airpods-nav.png" alt="AirPods">
+                    </div>
+                    <span class="nav-item-title">AirPods</span>
+                </a>
+
+                <!-- 6. Аксессуары -->
+                <a href="https://irepair-store.ru/aksessuary/" class="apple-nav-item">
+                    <div class="nav-item-image">
+                        <img src="https://irepair-store.ru/images/Foto%20menu/store-card-13-accessories-nav.png" alt="Аксессуары">
+                    </div>
+                    <span class="nav-item-title">Аксессуары</span>
+                </a>
+            </div>
+
+            <!-- Правая стрелка -->
+            <button class="nav-arrow nav-arrow-right" id="navBtnNext">
+                <svg viewBox="0 0 16 16"><path d="M4.3,14.3l6.6-6.6L4.3,1.1l-1.1,1.1l5.6,5.5L3.2,13.2L4.3,14.3z"/></svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const navGrid = document.getElementById('navGrid');
+    const btnPrev = document.getElementById('navBtnPrev');
+    const btnNext = document.getElementById('navBtnNext');
+
+    if (!navGrid) return;
+
+    function checkNavScroll() {
+        if (navGrid.scrollLeft > 10) {
+            btnPrev.classList.add('visible');
+        } else {
+            btnPrev.classList.remove('visible');
+        }
+
+        if (Math.ceil(navGrid.scrollLeft) >= (navGrid.scrollWidth - navGrid.clientWidth - 10)) {
+            btnNext.classList.remove('visible');
+        } else {
+            if (navGrid.scrollWidth > navGrid.clientWidth) {
+                btnNext.classList.add('visible');
+            } else {
+                btnNext.classList.remove('visible');
+            }
+        }
+    }
+
+    if (btnNext) {
+        btnNext.addEventListener('click', function() {
+            navGrid.scrollBy({ left: 150, behavior: 'smooth' });
+        });
+    }
+
+    if (btnPrev) {
+        btnPrev.addEventListener('click', function() {
+            navGrid.scrollBy({ left: -150, behavior: 'smooth' });
+        });
+    }
+
+    navGrid.addEventListener('scroll', checkNavScroll);
+    window.addEventListener('resize', checkNavScroll);
+    setTimeout(checkNavScroll, 100);
+});
+</script>

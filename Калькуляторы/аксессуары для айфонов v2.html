@@ -1,0 +1,244 @@
+<!--
+  Плитки: макс. ширина 530px; ПК — 2 в ряд; мобилка — столбик.
+  v2: кнопки «Купить» выровнены по одной горизонтали на ПК (CSS Subgrid).
+  Для CS-Cart: скопируйте от <style> до закрывающего </div> блока .irepair-store-promo.
+-->
+<style>
+.irepair-store-promo {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1d1d1f;
+    background: #fff;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+.irepair-store-promo *,
+.irepair-store-promo *::before,
+.irepair-store-promo *::after {
+    box-sizing: border-box;
+}
+.irepair-store-promo__inner {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+}
+
+/* ==============================
+   БАЗОВЫЕ СТИЛИ (мобилка + общее)
+   ============================== */
+.irepair-store-promo__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    width: 100%;
+}
+
+.irepair-store-promo__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: none;
+    min-height: 0;
+    background: #f5f5f7;
+    border-radius: 18px;
+    padding: 32px 22px 20px;
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+}
+
+.irepair-store-promo__card:hover {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.07);
+}
+.irepair-store-promo__card:focus-visible {
+    outline: 2px solid #0071e3;
+    outline-offset: 3px;
+}
+
+.irepair-store-promo__title {
+    font-size: clamp(24px, 2.6vw, 32px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0 0 12px;
+    color: #1d1d1f;
+    flex-shrink: 0;
+}
+.irepair-store-promo__text {
+    font-size: 13px;
+    line-height: 1.45;
+    font-weight: 400;
+    color: #1d1d1f;
+    margin: 0 0 20px;
+    max-width: 100%;
+    width: 100%;
+    flex-shrink: 0;
+}
+.irepair-store-promo__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    width: 100px;
+    height: 40px;
+    padding: 0 12px;
+    background: #000;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+.irepair-store-promo__card:hover .irepair-store-promo__btn {
+    background: #333;
+}
+.irepair-store-promo__img-wrap {
+    flex: 1 1 auto;
+    flex-shrink: 0;
+    margin-top: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    line-height: 0;
+}
+.irepair-store-promo__img {
+    display: block;
+    width: 100%;
+    max-width: 450px;
+    max-height: 280px;
+    height: auto;
+    vertical-align: bottom;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* ==============================
+   ДЕСКТОП: выравнивание кнопок через CSS Subgrid
+   Каждая карточка растягивается на 4 строки родителя.
+   Строки: [заголовок] [текст] [кнопка] [картинка].
+   Высота каждой строки = max(обе карточки) → кнопки на одной высоте.
+   ============================== */
+@media (min-width: 769px) {
+    .irepair-store-promo__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        /* 4 явные строки, синхронизированные между колонками */
+        grid-template-rows: repeat(4, auto);
+        column-gap: 15px;
+        row-gap: 0;
+        justify-content: stretch;
+        justify-items: stretch;
+    }
+
+    .irepair-store-promo__card {
+        /* Каждая карточка занимает все 4 строки в своей колонке */
+        grid-row: 1 / span 4;
+        /* Переключаем с flex на subgrid, чтобы дети легли в строки родителя */
+        display: grid;
+        grid-template-rows: subgrid;
+        /* Центрируем контент по горизонтали */
+        justify-items: center;
+        /* Дети прижаты к верху своей строки */
+        align-items: start;
+        /* Высота определяется строками subgrid, фиксированную убираем */
+        height: auto;
+    }
+
+    /* Каждый дочерний элемент прижат к верху строки */
+    .irepair-store-promo__title,
+    .irepair-store-promo__text,
+    .irepair-store-promo__btn,
+    .irepair-store-promo__img-wrap {
+        align-self: start;
+        width: 100%;
+    }
+
+    /* Кнопка — не тянуть на всю ширину */
+    .irepair-store-promo__btn {
+        width: 100px;
+    }
+
+    /* Картинка растягивается на всю строку по высоте */
+    .irepair-store-promo__img-wrap {
+        align-self: stretch;
+        align-items: flex-end;
+    }
+}
+
+/* ==============================
+   МОБИЛКА — поведение как раньше
+   ============================== */
+@media (max-width: 768px) {
+    .irepair-store-promo .irepair-store-promo__card {
+        height: 460px !important;
+        padding-top: 12px !important;
+    }
+    .irepair-store-promo .irepair-store-promo__title {
+        font-size: 22px !important;
+        line-height: 1.1 !important;
+    }
+    .irepair-store-promo .irepair-store-promo__img-wrap {
+        flex: 0 1 auto;
+        min-height: 160px;
+        margin-top: 24px;
+    }
+    .irepair-store-promo .irepair-store-promo__img {
+        max-height: 280px !important;
+    }
+}
+@media (max-width: 640px) {
+    .irepair-store-promo {
+        margin-top: 16px;
+    }
+}
+</style>
+
+<div class="irepair-store-promo" lang="ru">
+    <div class="irepair-store-promo__inner">
+        <div class="irepair-store-promo__grid">
+            <a class="irepair-store-promo__card" href="https://irepair-store.ru/aksessuary/aksessuary-dlya-iphone/">
+                <h2 class="irepair-store-promo__title">Аксессуары для iPhone</h2>
+                <p class="irepair-store-promo__text">
+                    Яркая коллекция аксессуаров для легкого подключения и быстрой беспроводной зарядки. Бесконечное множество вариантов комбинирования, которые подойдут к любому стилю.
+                </p>
+                <span class="irepair-store-promo__btn">Купить →</span>
+                <div class="irepair-store-promo__img-wrap">
+                    <img
+                        class="irepair-store-promo__img"
+                        src="https://irepair-store.ru/images/Store%20menu/acs.webp"
+                        alt="Аксессуары для iPhone"
+                        width="450"
+                        height="300"
+                        loading="lazy"
+                        decoding="async"
+                    />
+                </div>
+            </a>
+            <a class="irepair-store-promo__card irepair-store-promo__card--airtag" href="https://irepair-store.ru/aksessuary/airtag/">
+                <h2 class="irepair-store-promo__title">AirTag</h2>
+                <p class="irepair-store-promo__text">
+                    Прикрепите один трекер AirTag к ключам, а другой — к рюкзаку. И теперь их видно на карте в приложении «Локатор». Там же можно посмотреть, где находятся ваши устройства Apple, а также ваши друзья и семья.
+                </p>
+                <span class="irepair-store-promo__btn">Купить →</span>
+                <div class="irepair-store-promo__img-wrap">
+                    <img
+                        class="irepair-store-promo__img"
+                        src="https://irepair-store.ru/images/Store%20menu/tags.webp"
+                        alt="AirTag"
+                        width="450"
+                        height="300"
+                        loading="lazy"
+                        decoding="async"
+                    />
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,1567 @@
+<style>
+/* ============================================================
+   iRepair iPhone Calculator — Compact / iRepair-Store Design
+   ============================================================ */
+.mm-block.ir-calc {
+  position: relative; max-width: 1300px; margin: 16px auto;
+  width: min(1300px, calc(100% - 48px));
+  border-radius: 20px;
+  background: #f5f5f7;
+  padding: 22px 0 24px;
+  font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #1d1d1f; -webkit-font-smoothing: antialiased; box-sizing: border-box;
+}
+.mm-block.ir-calc * { box-sizing: border-box; }
+.mm-block.ir-calc h1,.mm-block.ir-calc h2,.mm-block.ir-calc h3 {
+  margin: 0; padding: 0; font-weight: 700; line-height: 1.2; border: 0;
+  font-family: inherit; color: #1d1d1f; background: none; text-transform: none; float: none;
+}
+.mm-block.ir-calc p { margin: 0; padding: 0; }
+.mm-block.ir-calc ul,.mm-block.ir-calc ol { margin: 0; padding: 0; list-style: none; }
+.mm-block.ir-calc img { max-width: 100%; height: auto; border: 0; vertical-align: bottom; box-shadow: none; }
+.mm-block.ir-calc a { text-decoration: none; background: none; }
+.mm-block.ir-calc button { font-family: inherit; box-sizing: border-box; }
+
+/* Container */
+.mm-block.ir-calc .ir-container { max-width: 100%; margin: 0 auto; padding: 0 24px; }
+
+/* ============================================================
+   Header
+   ============================================================ */
+.mm-block.ir-calc .ir-header { text-align: center; margin-bottom: 18px; }
+.mm-block.ir-calc .ir-header h1 { font-size: 34px; letter-spacing: -0.03em; margin-bottom: 4px; }
+.mm-block.ir-calc .ir-header p { font-size: 15px; color: #6e6e73; line-height: 1.5; }
+
+/* ============================================================
+   Model Tabs
+   ============================================================ */
+.mm-block.ir-calc .ir-model-tabs {
+  display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
+  margin-bottom: 20px; padding: 0 12px;
+}
+.mm-block.ir-calc .ir-model-tab {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 13px 18px;
+  border-radius: 12px;
+  border: 1.5px solid #bfc0c6;
+  background: transparent;
+  color: #1d1d1f;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  outline: none;
+  line-height: 1.3;
+  min-height: 44px;
+}
+.mm-block.ir-calc .ir-model-tab:hover { border-color: #0071e3; color: #1d1d1f; }
+.mm-block.ir-calc .ir-model-tab.active {
+  border-color: #0071e3;
+  background: transparent;
+  color: #1d1d1f;
+  box-shadow: inset 0 -2px 0 #0071e3, 0 0 0 3px rgba(0,113,227,0.08);
+}
+
+/* ============================================================
+   Product Card (two-column layout)
+   ============================================================ */
+.mm-block.ir-calc .ir-product-card {
+  display: grid; grid-template-columns: 2fr 1fr; gap: 0;
+  background: transparent; border-radius: 20px;
+  border: 1px solid rgba(0,0,0,0.04);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  overflow: hidden; min-height: 380px;
+}
+
+/* Left: Image */
+.mm-block.ir-calc .ir-image-area {
+  display: flex; align-items: center; justify-content: center;
+  padding: 16px 12px; position: relative; overflow: hidden;
+  border-right: 1px solid rgba(0,0,0,0.03);
+  transition: background 0.4s ease;
+  background: #f6f5f8;
+}
+.mm-block.ir-calc .ir-img-frame {
+  background: transparent; border-radius: 0; padding: 0;
+  box-shadow: none;
+  display: flex; align-items: center; justify-content: center;
+  transition: box-shadow 0.3s ease;
+}
+.mm-block.ir-calc .ir-product-img {
+  max-width: 420px; max-height: 500px; width: 100%; height: auto;
+  object-fit: contain; transition: opacity 0.3s ease; display: block;
+}
+.mm-block.ir-calc .ir-image-placeholder {
+  width: 190px; height: 330px; border-radius: 32px;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.4s ease; position: relative;
+  box-shadow: 8px 16px 40px rgba(0,0,0,0.12), -3px -3px 16px rgba(255,255,255,0.3);
+}
+
+/* Image carousel (multi-photo per color) */
+.mm-block.ir-calc .ir-img-carousel { width: 100%; }
+.mm-block.ir-calc .ir-img-carousel-track {
+  display: flex; gap: 0;
+  overflow-x: auto; overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.mm-block.ir-calc .ir-img-carousel-track::-webkit-scrollbar { display: none; }
+.mm-block.ir-calc .ir-img-carousel-slide {
+  flex: 0 0 100%;
+  display: flex; align-items: center; justify-content: center;
+  scroll-snap-align: start;
+}
+.mm-block.ir-calc .ir-img-carousel-slide img.ir-product-img {
+  max-width: 420px; max-height: 500px;
+  width: 100%; height: auto; object-fit: contain;
+}
+.mm-block.ir-calc .ir-img-carousel-dots {
+  display: flex; gap: 8px; justify-content: center; align-items: center;
+  margin-top: 10px;
+}
+.mm-block.ir-calc .ir-img-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(0,0,0,0.16);
+  transition: all 0.2s ease;
+  border: none; cursor: pointer; padding: 0;
+}
+.mm-block.ir-calc .ir-img-dot.active {
+  background: #0071e3;
+  transform: scale(1.2);
+}
+.mm-block.ir-calc .ir-img-carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.06);
+  background: rgba(255,255,255,0.85);
+  color: #1d1d1f;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s ease;
+}
+.mm-block.ir-calc .ir-img-carousel-nav:hover { background: #fff; border-color: rgba(0,0,0,0.12); }
+.mm-block.ir-calc .ir-img-carousel-nav.prev { left: 18px; }
+.mm-block.ir-calc .ir-img-carousel-nav.next { right: 18px; }
+
+@media (max-width: 640px) {
+  .mm-block.ir-calc .ir-img-carousel-nav {
+    display: flex;
+    width: 28px;
+    height: 28px;
+    border-width: 0.5px;
+    opacity: 0.9;
+  }
+  .mm-block.ir-calc .ir-img-carousel-nav.prev { left: 10px; }
+  .mm-block.ir-calc .ir-img-carousel-nav.next { right: 10px; }
+}
+.mm-block.ir-calc .ir-image-placeholder .ir-phone-screen {
+  position: absolute; top: 12px; left: 9px; right: 9px; bottom: 12px;
+  border-radius: 24px; background: #111; opacity: 0.88;
+  display: flex; align-items: center; justify-content: center;
+}
+.mm-block.ir-calc .ir-image-placeholder .ir-phone-screen span {
+  color: rgba(255,255,255,0.25); font-size: 12px; font-weight: 500;
+  text-align: center; line-height: 1.4; padding: 0 16px;
+}
+.mm-block.ir-calc .ir-image-placeholder .ir-phone-notch {
+  position: absolute; top: 17px; left: 50%; transform: translateX(-50%);
+  width: 76px; height: 24px; border-radius: 12px; background: #111;
+  z-index: 2;
+}
+.mm-block.ir-calc .ir-image-placeholder .ir-phone-camera {
+  position: absolute; top: 26px; right: 24px;
+  width: 50px; height: 50px; border-radius: 14px;
+  background: rgba(0,0,0,0.2); border: 2px solid rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center; gap: 3px;
+  flex-wrap: wrap; padding: 6px;
+}
+.mm-block.ir-calc .ir-image-placeholder .ir-cam-lens {
+  width: 15px; height: 15px; border-radius: 50%;
+  background: rgba(0,0,0,0.4); border: 1.5px solid rgba(255,255,255,0.2);
+}
+
+/* Right: Options */
+.mm-block.ir-calc .ir-options-area {
+  background: #fff;
+  padding: 28px 28px;
+  display: flex; flex-direction: column;
+}
+
+.mm-block.ir-calc .ir-product-title {
+  font-size: 20px; font-weight: 700; letter-spacing: -0.02em;
+  margin-bottom: 16px; line-height: 1.25;
+}
+
+/* Option Groups */
+.mm-block.ir-calc .ir-option-group { margin-bottom: 14px; }
+.mm-block.ir-calc .ir-option-label {
+  display: block; font-size: 11px; font-weight: 600; color: #6e6e73;
+  margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em;
+}
+.mm-block.ir-calc .ir-color-label-value{
+  font-size: 11px;
+  font-weight: 600;
+  color: #1d1d1f;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-left: 6px;
+}
+.mm-block.ir-calc .ir-color-label-row{
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.mm-block.ir-calc .ir-color-label-row .ir-option-label{
+  display: inline-block;
+  margin-bottom: 0;
+}
+.mm-block.ir-calc .ir-option-buttons { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.mm-block.ir-calc .ir-option-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 13px 18px;
+  border-radius: 12px;
+  border: 1.5px solid #bfc0c6;
+  background: transparent;
+  color: #1d1d1f;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  white-space: nowrap;
+  min-height: 44px;
+}
+.mm-block.ir-calc .ir-option-btn:hover { border-color: #0071e3; }
+.mm-block.ir-calc .ir-option-btn.active {
+  border-color: #0071e3;
+  background: transparent;
+  color: #1d1d1f;
+  box-shadow: inset 0 -2px 0 #0071e3, 0 0 0 3px rgba(0,113,227,0.08);
+}
+.mm-block.ir-calc .ir-option-btn.disabled {
+  opacity: 0.35; cursor: not-allowed;
+  border-color: #e0e0e0;
+  background: transparent;
+}
+.mm-block.ir-calc .ir-option-btn.disabled:hover { border-color: #e0e0e0; }
+
+/* Apple-like option cards: 2-up grid (SIM/Storage) */
+.mm-block.ir-calc #irSimButtons,
+.mm-block.ir-calc #irStorageButtons{
+  gap: 8px;
+}
+.mm-block.ir-calc #irSimButtons .ir-option-btn,
+.mm-block.ir-calc #irStorageButtons .ir-option-btn{
+  width: calc(50% - 4px);
+  justify-content: center;
+}
+
+@media (max-width: 800px) {
+  .mm-block.ir-calc #irSimButtons .ir-option-btn,
+  .mm-block.ir-calc #irStorageButtons .ir-option-btn{
+    width: calc(50% - 4px);
+    justify-content: center;
+  }
+}
+
+/* Color Buttons */
+.mm-block.ir-calc .ir-color-buttons { display: flex; flex-wrap: wrap; gap: 10px; }
+.mm-block.ir-calc .ir-color-btn {
+  width: 40px; height: 40px;
+  padding: 0; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1.5px solid #d2d2d7; background: #fff;
+  cursor: pointer; transition: all 0.2s ease; outline: none;
+}
+.mm-block.ir-calc .ir-color-btn:hover { border-color: #0071e3; }
+.mm-block.ir-calc .ir-color-btn.active {
+  border-color: #0071e3;
+  border-width: 2px;
+  box-shadow: 0 0 0 2px rgba(0,113,227,0.35), 0 0 0 5px rgba(0,113,227,0.14);
+}
+.mm-block.ir-calc .ir-color-btn.disabled { opacity: 0.35; cursor: not-allowed; border-color: #e0e0e0; }
+.mm-block.ir-calc .ir-color-dot {
+  width: 100%; height: 100%; border-radius: 50%;
+  border: 0;
+  box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.18);
+}
+
+/* Price */
+.mm-block.ir-calc .ir-price-block { margin: auto 0 0; padding-top: 14px; }
+.mm-block.ir-calc .ir-price {
+  font-size: 26px; font-weight: 700; letter-spacing: -0.02em;
+  color: #1d1d1f; margin-bottom: 12px; line-height: 1;
+}
+.mm-block.ir-calc .ir-price-unavailable {
+  font-size: 16px; color: #6e6e73; font-weight: 500;
+}
+
+/* Action Button */
+.mm-block.ir-calc .ir-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.mm-block.ir-calc .ir-btn-order {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px 28px; border-radius: 12px; font-size: 15px; font-weight: 600;
+  background: #0071e3; color: #fff;
+  border: none; cursor: pointer; transition: all 0.25s ease;
+  white-space: nowrap; width: 100%;
+}
+.mm-block.ir-calc .ir-btn-order:hover { background: #0077ed; }
+.mm-block.ir-calc .ir-btn-order:disabled { background: #d2d2d7; color: #86868b; cursor: not-allowed; }
+.mm-block.ir-calc .ir-btn-order svg { width: 18px; height: 18px; }
+
+/* Disclaimer */
+.mm-block.ir-calc .ir-disclaimer {
+  font-size: 12px;
+  color: #6e6e73;
+  margin-top: 12px;
+  line-height: 1.45;
+  padding: 10px 14px;
+  background: #f5f5f7;
+  border-radius: 10px;
+}
+.mm-block.ir-calc .ir-notice {
+  font-size: 12px; color: #6e6e73; margin-top: 12px; line-height: 1.45;
+  padding: 10px 14px; background: #f5f5f7; border-radius: 10px;
+  border-left: 3px solid #d2d2d7;
+}
+
+/* RuStore: plain text (no highlight) */
+.mm-block.ir-calc .ir-rustor{
+  font-size: 11px;
+  color: #6e6e73;
+  margin-top: 10px;
+  line-height: 1.45;
+  padding: 0;
+  background: transparent;
+  border-left: none;
+  border-radius: 0;
+}
+
+/* ============================================================
+   Modal
+   ============================================================ */
+.mm-block.ir-calc .ir-modal-overlay {
+  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.48); backdrop-filter: blur(10px);
+  z-index: 10000; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.mm-block.ir-calc .ir-modal-overlay.active { display: flex; }
+.mm-block.ir-calc .ir-modal {
+  background: #fff; border-radius: 20px; padding: 28px 24px;
+  max-width: 420px; width: 100%; position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+  animation: irModalIn 0.3s ease;
+}
+@keyframes irModalIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.mm-block.ir-calc .ir-modal-close {
+  position: absolute; top: 12px; right: 12px; width: 32px; height: 32px;
+  border-radius: 50%; border: none; background: #f5f5f7; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; color: #6e6e73; transition: background 0.2s;
+}
+.mm-block.ir-calc .ir-modal-close:hover { background: #e8e8ed; }
+.mm-block.ir-calc .ir-modal h3 {
+  font-size: 20px; margin-bottom: 4px; letter-spacing: -0.01em;
+}
+.mm-block.ir-calc .ir-modal .ir-modal-config {
+  font-size: 13px; color: #424245; margin-bottom: 20px; line-height: 1.5;
+  padding: 10px 14px; background: #f5f5f7; border-radius: 10px;
+}
+.mm-block.ir-calc .ir-form-group { margin-bottom: 12px; }
+.mm-block.ir-calc .ir-form-label {
+  display: block; font-size: 12px; font-weight: 600; color: #6e6e73;
+  margin-bottom: 4px;
+}
+.mm-block.ir-calc .ir-form-input {
+  width: 100%; padding: 10px 14px; border-radius: 10px;
+  border: 1.5px solid #d2d2d7; font-size: 14px; font-family: inherit;
+  outline: none; transition: border-color 0.2s; background: #fff;
+}
+.mm-block.ir-calc .ir-form-input:focus { border-color: #0071e3; }
+.mm-block.ir-calc .ir-form-input::placeholder { color: #86868b; }
+.mm-block.ir-calc .ir-form-input[readonly] {
+  background: #f5f5f7; color: #424245; cursor: default; border-color: #e8e8ed;
+}
+.mm-block.ir-calc .ir-captcha { margin-top: 4px; margin-bottom: 6px; }
+.mm-block.ir-calc .ir-captcha-label {
+  font-size: 13px; font-weight: 600; color: #1d1d1f; margin-bottom: 8px;
+  display: flex; align-items: center; gap: 6px;
+}
+.mm-block.ir-calc .ir-captcha-label svg { width: 16px; height: 16px; color: #6e6e73; flex-shrink: 0; }
+.mm-block.ir-calc .ir-captcha-options { display: flex; gap: 8px; }
+.mm-block.ir-calc .ir-captcha-btn {
+  flex: 1; padding: 10px 0; border-radius: 10px; border: 1.5px solid #d2d2d7;
+  background: #fff; font-size: 16px; font-weight: 600; font-family: inherit;
+  color: #1d1d1f; cursor: pointer; transition: all 0.2s ease; text-align: center;
+}
+.mm-block.ir-calc .ir-captcha-btn:hover { border-color: #86868b; }
+.mm-block.ir-calc .ir-captcha-btn.selected {
+  border-color: #0071e3; background: #0071e3; color: #fff;
+}
+.mm-block.ir-calc .ir-captcha-btn.wrong {
+  border-color: #ff3b30; background: #fff0f0; color: #ff3b30;
+  animation: irShake 0.4s ease;
+}
+@keyframes irShake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-4px); }
+  40%, 80% { transform: translateX(4px); }
+}
+.mm-block.ir-calc .ir-form-submit {
+  width: 100%; padding: 12px; border-radius: 12px; border: none;
+  background: #0071e3; color: #fff;
+  font-size: 15px; font-weight: 600; cursor: pointer;
+  transition: all 0.25s ease; margin-top: 6px;
+}
+.mm-block.ir-calc .ir-form-submit:hover { background: #0077ed; }
+.mm-block.ir-calc .ir-form-submit:disabled { opacity: 0.5; cursor: not-allowed; background: #0071e3; }
+.mm-block.ir-calc .ir-form-privacy {
+  font-size: 11px; color: #86868b; text-align: center; margin-top: 10px; line-height: 1.4;
+}
+.mm-block.ir-calc .ir-form-privacy a { color: #0071e3; }
+.mm-block.ir-calc .ir-modal-success {
+  text-align: center; padding: 16px 0;
+}
+.mm-block.ir-calc .ir-modal-success .ir-success-icon {
+  width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 12px;
+  background: #0071e3;
+  display: flex; align-items: center; justify-content: center;
+}
+.mm-block.ir-calc .ir-modal-success .ir-success-icon svg { width: 28px; height: 28px; color: #fff; }
+.mm-block.ir-calc .ir-modal-success h3 { margin-bottom: 6px; }
+.mm-block.ir-calc .ir-modal-success p { color: #424245; font-size: 14px; line-height: 1.5; }
+
+/* Catalog Banner */
+.mm-block.ir-calc .ir-catalog-banner {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; padding: 14px 24px; border-radius: 14px;
+  background: #1d1d1f; color: #fff; font-size: 15px; font-weight: 600;
+  text-decoration: none; transition: all 0.25s ease;
+  letter-spacing: -0.01em;
+}
+.mm-block.ir-calc .ir-catalog-banner:hover { background: #0071e3; }
+.mm-block.ir-calc .ir-catalog-banner svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 800px) {
+  .mm-block.ir-calc .ir-product-card {
+    grid-template-columns: 1fr; gap: 0;
+  }
+  .mm-block.ir-calc .ir-image-area {
+    border-right: none; border-bottom: 1px solid rgba(0,0,0,0.04);
+    padding: 18px 14px; min-height: 196px;
+  }
+  .mm-block.ir-calc .ir-img-frame { padding: 0; border-radius: 0; background: transparent; box-shadow: none; }
+  .mm-block.ir-calc .ir-product-img { max-width: 168px; max-height: 224px; }
+  .mm-block.ir-calc .ir-image-placeholder { width: 160px; height: 270px; border-radius: 26px; }
+  .mm-block.ir-calc .ir-image-placeholder .ir-phone-screen { border-radius: 20px; top: 10px; left: 8px; right: 8px; bottom: 10px; }
+  .mm-block.ir-calc .ir-image-placeholder .ir-phone-notch { width: 62px; height: 20px; top: 14px; }
+  .mm-block.ir-calc .ir-image-placeholder .ir-phone-camera { width: 42px; height: 42px; top: 20px; right: 18px; border-radius: 11px; padding: 5px; }
+  .mm-block.ir-calc .ir-image-placeholder .ir-cam-lens { width: 13px; height: 13px; }
+  .mm-block.ir-calc .ir-options-area { padding: 20px; }
+}
+@media (max-width: 640px) {
+  .mm-block.ir-calc { border-radius: 0; width: 100%; margin: 0 auto; padding: 14px 0 16px; }
+  .mm-block.ir-calc .ir-container { padding: 0 8px; }
+  .mm-block.ir-calc .ir-header { margin-bottom: 12px; }
+  .mm-block.ir-calc .ir-header h1 { font-size: 28px; }
+  .mm-block.ir-calc .ir-header p { font-size: 13px; }
+  .mm-block.ir-calc .ir-model-tabs { gap: 6px; padding: 0 6px; margin-bottom: 14px; justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .mm-block.ir-calc .ir-model-tabs::-webkit-scrollbar { display: none; }
+  .mm-block.ir-calc .ir-model-tab { padding: 13px 18px; font-size: 14px; flex-shrink: 0; min-height: 44px; }
+  .mm-block.ir-calc .ir-product-card { border-radius: 14px; }
+  .mm-block.ir-calc .ir-image-area { padding: 14px 8px; min-height: 168px; }
+  .mm-block.ir-calc .ir-img-frame { padding: 0; border-radius: 0; background: transparent; box-shadow: none; }
+  .mm-block.ir-calc .ir-product-img { max-width: 154px; max-height: 210px; }
+  .mm-block.ir-calc .ir-image-placeholder { width: 130px; height: 220px; border-radius: 22px; }
+  .mm-block.ir-calc .ir-image-placeholder .ir-phone-screen { border-radius: 16px; }
+  .mm-block.ir-calc .ir-options-area { padding: 14px 12px; }
+  .mm-block.ir-calc .ir-product-title { font-size: 18px; margin-bottom: 12px; }
+  .mm-block.ir-calc .ir-option-group { margin-bottom: 12px; }
+  .mm-block.ir-calc .ir-price { font-size: 22px; }
+  .mm-block.ir-calc .ir-actions { flex-direction: column; }
+  .mm-block.ir-calc .ir-btn-order { width: 100%; min-width: unset; justify-content: center; }
+  .mm-block.ir-calc .ir-modal { padding: 22px 16px; border-radius: 16px; margin: 10px; }
+}
+
+/* Guard override */
+.mm-block.ir-calc {
+  max-width: 1300px !important;
+  width: min(1300px, calc(100% - 48px)) !important;
+  margin: 16px auto !important;
+  box-sizing: border-box !important;
+}
+@media (max-width: 640px) {
+  .mm-block.ir-calc {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-left: calc(-50vw + 50%) !important;
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    border-radius: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .mm-block.ir-calc .ir-container {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+}
+</style>
+
+<div class="mm-block ir-calc" id="iphone-calculator">
+  <div class="ir-container">
+
+    <!-- Header -->
+    <div class="ir-header">
+      <h1>iPhone</h1>
+      <p>Изысканные технологии в каждой детали.</p>
+    </div>
+
+    <!-- Model Tabs -->
+    <div class="ir-model-tabs" id="irModelTabs"></div>
+
+    <!-- Product Card -->
+    <div class="ir-product-card">
+      <!-- Image Area -->
+      <div class="ir-image-area" id="irImageArea"></div>
+
+      <!-- Options Area -->
+      <div class="ir-options-area">
+        <h2 class="ir-product-title" id="irProductTitle"></h2>
+
+        <!-- SIM Type -->
+        <div class="ir-option-group" id="irSimGroup">
+          <span class="ir-option-label">Тип подключения</span>
+          <div class="ir-option-buttons" id="irSimButtons"></div>
+        </div>
+
+        <!-- Storage -->
+        <div class="ir-option-group">
+          <span class="ir-option-label">Объём памяти</span>
+          <div class="ir-option-buttons" id="irStorageButtons"></div>
+        </div>
+
+        <!-- Color -->
+        <div class="ir-option-group">
+          <div class="ir-color-label-row">
+            <span class="ir-option-label">Цвет</span>
+            <span class="ir-color-label-value" id="irColorLabelValue"></span>
+          </div>
+          <div class="ir-color-buttons" id="irColorButtons"></div>
+        </div>
+
+        <!-- Price & Actions -->
+        <div class="ir-price-block">
+          <div class="ir-price" id="irPrice"></div>
+          <div class="ir-price-loader" id="irPriceLoader">Загрузка актуальных цен…</div>
+          <div class="ir-actions">
+            <button class="ir-btn-order" id="irBtnOrder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              Оформить заказ
+            </button>
+          </div>
+          <p class="ir-disclaimer">Цены актуальны на момент публикации и могут измениться. Уточняйте наличие у менеджера.</p>
+          <p class="ir-rustor">Товар имеет недостаток в виде невозможности предустановки RuStore.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Request Modal -->
+  <div class="ir-modal-overlay" id="irModalOverlay">
+    <div class="ir-modal">
+      <button class="ir-modal-close" id="irModalClose">&times;</button>
+
+      <!-- Form View -->
+      <div id="irModalForm">
+        <h3>Оформление заказа</h3>
+        <form id="irRequestForm">
+          <input type="hidden" name="page_id" value="55">
+          <input type="hidden" name="dispatch" value="pages.send_form">
+          <input type="hidden" name="form_values[22]" id="irFieldModel">
+          <input type="hidden" name="form_values[23]" id="irFieldStorage">
+          <input type="hidden" name="form_values[24]" id="irFieldColor">
+          <input type="hidden" name="form_values[25]" id="irFieldSim">
+          <input type="hidden" name="form_values[26]" id="irFieldPrice">
+
+          <div class="ir-form-group">
+            <label class="ir-form-label">Выбранная модель</label>
+            <input class="ir-form-input" type="text" id="irDisplayModel" readonly>
+          </div>
+          <div class="ir-form-group">
+            <label class="ir-form-label">Конфигурация</label>
+            <input class="ir-form-input" type="text" id="irDisplayConfig" readonly>
+          </div>
+          <div class="ir-form-group">
+            <label class="ir-form-label">Цена</label>
+            <input class="ir-form-input" type="text" id="irDisplayPrice" readonly>
+          </div>
+
+          <div style="height:1px;background:#e5e5e5;margin:20px 0;"></div>
+
+          <div class="ir-form-group">
+            <label class="ir-form-label" for="irFormName">Ваше ФИО *</label>
+            <input class="ir-form-input" type="text" id="irFormName" name="form_values[31]" placeholder="Иванов Иван Иванович" required>
+          </div>
+          <div class="ir-form-group">
+            <label class="ir-form-label" for="irFormPhone">Ваш номер телефона *</label>
+            <input class="ir-form-input" type="tel" id="irFormPhone" name="form_values[32]" placeholder="+7 (___) ___-__-__" required>
+          </div>
+
+          <div class="ir-captcha" id="irCaptcha">
+            <div class="ir-captcha-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span id="irCaptchaQuestion"></span>
+            </div>
+            <div class="ir-captcha-options" id="irCaptchaOptions"></div>
+          </div>
+
+          <button type="submit" class="ir-form-submit" id="irFormSubmit" disabled>Отправить заявку</button>
+        </form>
+        <p class="ir-form-privacy">Нажимая на кнопку, вы даёте согласие на обработку <a href="https://irepair-store.ru/files/policy.pdf" target="_blank">персональных данных</a></p>
+      </div>
+
+      <!-- Success View -->
+      <div id="irModalSuccess" class="ir-modal-success" style="display:none">
+        <div class="ir-success-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3>Заявка принята!</h3>
+        <p>В ближайшее время мы свяжемся с вами для подтверждения вашего заказа.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Catalog Banner -->
+  <div class="ir-container" style="padding-top:24px;">
+    <a href="https://irepair-store.ru/iphone/" class="ir-catalog-banner">
+      Смотреть все модели iPhone в каталоге
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  /* ============================================================
+     DATA — All iPhone models, options and prices
+     ============================================================ */
+  var MODELS = [
+    {
+      id: 'iphone-17-pro-max',
+      name: 'iPhone 17 Pro Max',
+      storage: ['256 ГБ', '512 ГБ', '1 ТБ', '2 ТБ'],
+      sim: ['nano-SIM и eSIM', 'eSIM'],
+      colors: [
+        { id: 'cosmic-orange', name: 'Cosmic Orange', hex: '#D4702A', hexLight: '#F5CBA7' },
+        { id: 'deep-blue',     name: 'Deep Blue',     hex: '#2E4374', hexLight: '#A8C0E0' },
+        { id: 'silver',        name: 'Silver',        hex: '#C8C8C8', hexLight: '#EDEDED' }
+      ],
+      urlBase: 'https://irepair-store.ru/iphone/iphone-17-pro-max/apple-iphone-17-pro-max',
+      simSlugs:     { 'nano-SIM и eSIM': 'nano-simesim', 'eSIM': 'esimesim' },
+      storageSlugs: { '256 ГБ': '256gb', '512 ГБ': '512gb', '1 ТБ': '1024gb', '2 ТБ': '2048gb' },
+      colorSlugs:   { 'cosmic-orange': 'oranzhevyy-cosmic-orange', 'deep-blue': 'temno-siniy-deep-blue', 'silver': 'serebristyy-silver' },
+      prices: {
+        '256 ГБ|nano-SIM и eSIM|cosmic-orange': 119990,
+        '256 ГБ|eSIM|cosmic-orange':             108990,
+        '256 ГБ|nano-SIM и eSIM|deep-blue':      118990,
+        '256 ГБ|eSIM|deep-blue':                 109990,
+        '256 ГБ|nano-SIM и eSIM|silver':         120990,
+        '256 ГБ|eSIM|silver':                    112990,
+        '512 ГБ|nano-SIM и eSIM|cosmic-orange':  137990,
+        '512 ГБ|eSIM|cosmic-orange':             126990,
+        '512 ГБ|nano-SIM и eSIM|deep-blue':      138990,
+        '512 ГБ|eSIM|deep-blue':                 128990,
+        '512 ГБ|nano-SIM и eSIM|silver':         142990,
+        '512 ГБ|eSIM|silver':                    136990,
+        '1 ТБ|nano-SIM и eSIM|cosmic-orange':    157990,
+        '1 ТБ|eSIM|cosmic-orange':               138990,
+        '1 ТБ|nano-SIM и eSIM|deep-blue':        163990,
+        '1 ТБ|eSIM|deep-blue':                   147990,
+        '1 ТБ|nano-SIM и eSIM|silver':           168990,
+        '1 ТБ|eSIM|silver':                      158990,
+        '2 ТБ|nano-SIM и eSIM|cosmic-orange':    190990,
+        '2 ТБ|eSIM|cosmic-orange':               159990,
+        '2 ТБ|nano-SIM и eSIM|deep-blue':        192990,
+        '2 ТБ|eSIM|deep-blue':                   159990,
+        '2 ТБ|nano-SIM и eSIM|silver':           193990,
+        '2 ТБ|eSIM|silver':                      168990
+      },
+      images: {
+        'cosmic-orange': [
+          'https://irepair-store.ru/images/Store%20menu/iPhone/iPhone17ProMax/iphone-17-pro-max-orang1.jpg',
+          'https://irepair-store.ru/images/Store%20menu/iPhone/iPhone17ProMax/iphone-17-pro-max-orang2.jpg',
+          'https://irepair-store.ru/images/Store%20menu/iPhone/iPhone17ProMax/iphone-17-pro-max-orang3.jpg'
+        ],
+        'silver': [
+          'https://irepair-store.ru/images/Store%20menu/iPhone/iPhone17ProMax/iphone-17-pro-max-silver1.jpg',
+          'https://irepair-store.ru/images/Store%20menu/iPhone/iPhone17ProMax/iphone-17-pro-max-silver2.jpg',
+          'https://irepair-store.ru/images/Store%20menu/iPhone/iPhone17ProMax/iphone-17-pro-max-silver3.jpg'
+        ],
+        'deep-blue': [
+          'https://irepair-store.ru/images/Store%20menu/iPhone/iPhone17ProMax/iphone-17-pro-max-blue1.jpg',
+          'https://irepair-store.ru/images/Store%20menu/iPhone/iPhone17ProMax/iphone-17-pro-max-blue2.jpg',
+          'https://irepair-store.ru/images/Store%20menu/iPhone/iPhone17ProMax/iphone-17-pro-max-blue3.jpg'
+        ]
+      }
+    },
+    {
+      id: 'iphone-17-pro',
+      name: 'iPhone 17 Pro',
+      storage: ['256 ГБ', '512 ГБ', '1 ТБ'],
+      sim: ['nano-SIM и eSIM', 'eSIM'],
+      colors: [
+        { id: 'cosmic-orange', name: 'Cosmic Orange', hex: '#D4702A', hexLight: '#F5CBA7' },
+        { id: 'deep-blue',     name: 'Deep Blue',     hex: '#2E4374', hexLight: '#A8C0E0' },
+        { id: 'silver',        name: 'Silver',        hex: '#C8C8C8', hexLight: '#EDEDED' }
+      ],
+      urlBase: 'https://irepair-store.ru/iphone/iphone-17-pro/apple-iphone-17-pro',
+      simSlugs:     { 'nano-SIM и eSIM': 'nano-simesim', 'eSIM': 'esimesim' },
+      storageSlugs: { '256 ГБ': '256gb', '512 ГБ': '512gb', '1 ТБ': '1024gb' },
+      colorSlugs:   { 'cosmic-orange': 'oranzhevyy-cosmic-orange', 'deep-blue': 'temno-siniy-deep-blue', 'silver': 'serebristyy-silver' },
+      prices: {
+        '256 ГБ|nano-SIM и eSIM|cosmic-orange': 108990,
+        '256 ГБ|eSIM|cosmic-orange':             98990,
+        '256 ГБ|nano-SIM и eSIM|deep-blue':      112990,
+        '256 ГБ|eSIM|deep-blue':                  98990,
+        '256 ГБ|nano-SIM и eSIM|silver':         110990,
+        '512 ГБ|nano-SIM и eSIM|cosmic-orange':  126990,
+        '512 ГБ|eSIM|cosmic-orange':             114990,
+        '512 ГБ|nano-SIM и eSIM|deep-blue':      128990,
+        '512 ГБ|eSIM|deep-blue':                 119990,
+        '512 ГБ|nano-SIM и eSIM|silver':         129990,
+        '1 ТБ|nano-SIM и eSIM|cosmic-orange':    142990,
+        '1 ТБ|eSIM|cosmic-orange':               132990,
+        '1 ТБ|nano-SIM и eSIM|deep-blue':        146990,
+        '1 ТБ|eSIM|deep-blue':                   138990,
+        '1 ТБ|nano-SIM и eSIM|silver':           148990
+      },
+      images: {
+        'cosmic-orange': 'https://irepair-store.ru/images/thumbnails/400/400/detailed/9/9_dvc8-8y.jpg',
+        'deep-blue':     'https://irepair-store.ru/images/thumbnails/400/400/detailed/9/1_6t95-jk.jpg',
+        'silver':        'https://irepair-store.ru/images/thumbnails/400/400/detailed/9/5_g24m-mu.jpg'
+      }
+    },
+    {
+      id: 'iphone-air',
+      name: 'iPhone Air',
+      storage: ['256 ГБ', '512 ГБ', '1 ТБ'],
+      sim: ['eSIM'],
+      colors: [
+        { id: 'cloud-white', name: 'Cloud White', hex: '#F0EDE5', hexLight: '#FAF8F5' },
+        { id: 'light-gold',  name: 'Light Gold',  hex: '#D4B883', hexLight: '#F0E4CC' },
+        { id: 'sky-blue',    name: 'Sky Blue',    hex: '#6CB4EE', hexLight: '#C8E2F8' },
+        { id: 'space-black', name: 'Space Black', hex: '#2C2C2C', hexLight: '#666666' }
+      ],
+      urlBase: 'https://irepair-store.ru/iphone/iphone-air/apple-iphone-air',
+      simSlugs:     { 'eSIM': 'esimesim' },
+      storageSlugs: { '256 ГБ': '256gb', '512 ГБ': '512gb', '1 ТБ': '1024gb' },
+      colorSlugs:   { 'cloud-white': 'belyy-cloud-white', 'light-gold': 'zolotoy-light-gold', 'sky-blue': 'goluboy-sky-blue', 'space-black': 'chernyy-space-black' },
+      prices: {
+        '256 ГБ|eSIM|cloud-white':  74990,
+        '256 ГБ|eSIM|light-gold':   74990,
+        '256 ГБ|eSIM|sky-blue':     74990,
+        '256 ГБ|eSIM|space-black':  75990,
+        '512 ГБ|eSIM|cloud-white':  99990,
+        '512 ГБ|eSIM|light-gold':   93990,
+        '512 ГБ|eSIM|sky-blue':     93990,
+        '512 ГБ|eSIM|space-black':  99990,
+        '1 ТБ|eSIM|cloud-white':   108990,
+        '1 ТБ|eSIM|light-gold':    106990,
+        '1 ТБ|eSIM|sky-blue':      112990,
+        '1 ТБ|eSIM|space-black':   112990
+      },
+      images: {
+        'cloud-white': 'https://irepair-store.ru/images/thumbnails/400/400/detailed/9/1_nuka-gg.jpg',
+        'light-gold':  'https://irepair-store.ru/images/thumbnails/400/400/detailed/9/13_wpd3-al.jpg',
+        'sky-blue':    'https://irepair-store.ru/images/thumbnails/400/400/detailed/9/9_bidp-90.jpg',
+        'space-black': 'https://irepair-store.ru/images/thumbnails/400/400/detailed/9/5_cc1y-2w.jpg'
+      }
+    },
+    {
+      id: 'iphone-17',
+      name: 'iPhone 17',
+      storage: ['256 ГБ', '512 ГБ'],
+      sim: ['nano-SIM и eSIM', 'eSIM'],
+      colors: [
+        { id: 'black',     name: 'Black',     hex: '#2C2C2C', hexLight: '#666666' },
+        { id: 'lavender',  name: 'Lavender',  hex: '#B8A9D4', hexLight: '#DDD4EC' },
+        { id: 'mist-blue', name: 'Mist Blue', hex: '#7BA7BC', hexLight: '#C8DDE8' },
+        { id: 'sage',      name: 'Sage',      hex: '#8FA384', hexLight: '#C8D8C0' },
+        { id: 'white',     name: 'White',     hex: '#F0EDE5', hexLight: '#FAF8F5' }
+      ],
+      urlBase: 'https://irepair-store.ru/iphone/iphone-17/apple-iphone-17',
+      simSlugs:     { 'nano-SIM и eSIM': 'nano-simesim', 'eSIM': 'esimesim' },
+      storageSlugs: { '256 ГБ': '256gb', '512 ГБ': '512gb' },
+      colorSlugs:   { 'black': 'chernyy-black', 'lavender': 'lavandovyy-lavender', 'mist-blue': 'goluboy-mist-blue', 'sage': 'zelenyy-sage', 'white': 'belyy-white' },
+      prices: {
+        '256 ГБ|nano-SIM и eSIM|black':     73990,
+        '256 ГБ|eSIM|black':                69990,
+        '256 ГБ|nano-SIM и eSIM|lavender':  73990,
+        '256 ГБ|eSIM|lavender':             69990,
+        '256 ГБ|nano-SIM и eSIM|mist-blue': 73990,
+        '256 ГБ|eSIM|mist-blue':            69990,
+        '256 ГБ|nano-SIM и eSIM|sage':      73990,
+        '256 ГБ|eSIM|sage':                 69990,
+        '256 ГБ|nano-SIM и eSIM|white':     73990,
+        '256 ГБ|eSIM|white':                69990,
+        '512 ГБ|nano-SIM и eSIM|black':     90990,
+        '512 ГБ|eSIM|black':                88990,
+        '512 ГБ|nano-SIM и eSIM|lavender':  90990,
+        '512 ГБ|nano-SIM и eSIM|mist-blue': 90990,
+        '512 ГБ|eSIM|mist-blue':            88990,
+        '512 ГБ|nano-SIM и eSIM|sage':      90990,
+        '512 ГБ|eSIM|sage':                 88990,
+        '512 ГБ|nano-SIM и eSIM|white':     90990,
+        '512 ГБ|eSIM|white':                88990
+      },
+      images: {
+        'black':     'https://irepair-store.ru/images/thumbnails/400/400/detailed/9/17_nov4-ut_jpg.webp',
+        'lavender':  'https://irepair-store.ru/images/thumbnails/400/400/detailed/9/1_i85t-he.jpg',
+        'mist-blue': 'https://irepair-store.ru/images/thumbnails/400/400/detailed/9/13_buvu-ev.jpg',
+        'sage':      'https://irepair-store.ru/images/thumbnails/400/400/detailed/9/9_2y1m-p1.jpg',
+        'white':     'https://irepair-store.ru/images/thumbnails/400/400/detailed/9/5_mkgp-hy.jpg'
+      }
+    },
+    {
+      id: 'iphone-16-plus',
+      name: 'iPhone 16 Plus',
+      storage: ['128 ГБ', '256 ГБ'],
+      sim: ['nano-SIM и eSIM'],
+      colors: [
+        { id: 'black',       name: 'Black',       hex: '#2C2C2C', hexLight: '#666666' },
+        { id: 'pink',        name: 'Pink',        hex: '#F4C2C2', hexLight: '#FDE8E8' },
+        { id: 'teal',        name: 'Teal',        hex: '#5ABFAD', hexLight: '#C2E8E0' },
+        { id: 'ultramarine', name: 'Ultramarine', hex: '#3D5BA9', hexLight: '#B0C4DE' },
+        { id: 'white',       name: 'White',       hex: '#F0EDE5', hexLight: '#FAF8F5' }
+      ],
+      urlBase: 'https://irepair-store.ru/iphone/iphone-16-plus/apple-iphone-16-plus',
+      simSlugs:     { 'nano-SIM и eSIM': 'nano-simesim' },
+      storageSlugs: { '128 ГБ': '128gb', '256 ГБ': '256gb' },
+      colorSlugs:   { 'black': 'chernyy-black', 'pink': 'rozovyy-pink', 'teal': 'biryuzovyy-teal', 'ultramarine': 'ultramarin-ultramarine', 'white': 'belyy-white' },
+      prices: {
+        '128 ГБ|nano-SIM и eSIM|black':       64990,
+        '128 ГБ|nano-SIM и eSIM|pink':        65990,
+        '128 ГБ|nano-SIM и eSIM|teal':        64990,
+        '128 ГБ|nano-SIM и eSIM|ultramarine': 63990,
+        '128 ГБ|nano-SIM и eSIM|white':       63990,
+        '256 ГБ|nano-SIM и eSIM|black':       75990,
+        '256 ГБ|nano-SIM и eSIM|pink':        75990,
+        '256 ГБ|nano-SIM и eSIM|teal':        75990,
+        '256 ГБ|nano-SIM и eSIM|ultramarine': 75990,
+        '256 ГБ|nano-SIM и eSIM|white':       75990
+      },
+      images: {
+        'black':       'https://irepair-store.ru/images/thumbnails/400/400/detailed/9/1_ii3u-85.jpg',
+        'pink':        'https://irepair-store.ru/images/thumbnails/400/400/detailed/9/6_u6h5-3o.jpg',
+        'teal':        'https://irepair-store.ru/images/thumbnails/400/400/detailed/9/12_ogo4-3i.jpg',
+        'ultramarine': 'https://irepair-store.ru/images/thumbnails/400/400/detailed/9/17_6pue-rj.jpg',
+        'white':       'https://irepair-store.ru/images/thumbnails/400/400/detailed/9/22.jpg'
+      }
+    },
+    {
+      id: 'iphone-16',
+      name: 'iPhone 16',
+      storage: ['128 ГБ', '256 ГБ'],
+      sim: ['nano-SIM и eSIM'],
+      colors: [
+        { id: 'black',       name: 'Black',       hex: '#2C2C2C', hexLight: '#666666' },
+        { id: 'pink',        name: 'Pink',        hex: '#F4C2C2', hexLight: '#FDE8E8' },
+        { id: 'teal',        name: 'Teal',        hex: '#5ABFAD', hexLight: '#C2E8E0' },
+        { id: 'ultramarine', name: 'Ultramarine', hex: '#3D5BA9', hexLight: '#B0C4DE' },
+        { id: 'white',       name: 'White',       hex: '#F0EDE5', hexLight: '#FAF8F5' }
+      ],
+      urlBase: 'https://irepair-store.ru/iphone/iphone-16/apple-iphone-16',
+      simSlugs:     { 'nano-SIM и eSIM': 'nano-simesim' },
+      storageSlugs: { '128 ГБ': '128gb', '256 ГБ': '256gb' },
+      colorSlugs:   { 'black': 'chernyy-black', 'pink': 'rozovyy-pink', 'teal': 'biryuzovyy-teal', 'ultramarine': 'ultramarin-ultramarine', 'white': 'belyy-white' },
+      prices: {
+        '128 ГБ|nano-SIM и eSIM|black':       58990,
+        '128 ГБ|nano-SIM и eSIM|pink':        58990,
+        '128 ГБ|nano-SIM и eSIM|teal':        58990,
+        '128 ГБ|nano-SIM и eSIM|ultramarine': 58990,
+        '128 ГБ|nano-SIM и eSIM|white':       58990,
+        '256 ГБ|nano-SIM и eSIM|black':       66990,
+        '256 ГБ|nano-SIM и eSIM|pink':        66990,
+        '256 ГБ|nano-SIM и eSIM|teal':        66990,
+        '256 ГБ|nano-SIM и eSIM|ultramarine': 66990,
+        '256 ГБ|nano-SIM и eSIM|white':       66990
+      },
+      images: {
+        'black':       'https://irepair-store.ru/images/thumbnails/400/400/detailed/9/1_s3bz-gs.jpg',
+        'pink':        'https://irepair-store.ru/images/thumbnails/400/400/detailed/9/7_pnpb-x1.jpg',
+        'teal':        'https://irepair-store.ru/images/thumbnails/400/400/detailed/9/12_fxi9-ca.jpg',
+        'ultramarine': 'https://irepair-store.ru/images/thumbnails/400/400/detailed/9/17_gx1y-55.jpg',
+        'white':       'https://irepair-store.ru/images/thumbnails/400/400/detailed/9/22_3su4-ji.jpg'
+      }
+    },
+    {
+      id: 'iphone-16e',
+      name: 'iPhone 16e',
+      storage: ['128 ГБ', '256 ГБ', '512 ГБ'],
+      sim: ['nano-SIM и eSIM'],
+      colors: [
+        { id: 'black', name: 'Black', hex: '#2C2C2C', hexLight: '#666666' },
+        { id: 'white', name: 'White', hex: '#F0EDE5', hexLight: '#FAF8F5' }
+      ],
+      urlBase: 'https://irepair-store.ru/iphone/iphone-16e/apple-iphone-16e',
+      simSlugs:     { 'nano-SIM и eSIM': 'nano-simesim' },
+      storageSlugs: { '128 ГБ': '128gb', '256 ГБ': '256gb', '512 ГБ': '512gb' },
+      colorSlugs:   { 'black': 'chernyy-black', 'white': 'belyy-white' },
+      prices: {
+        '128 ГБ|nano-SIM и eSIM|black': 47990,
+        '128 ГБ|nano-SIM и eSIM|white': 44990,
+        '256 ГБ|nano-SIM и eSIM|black': 57990,
+        '256 ГБ|nano-SIM и eSIM|white': 57990,
+        '512 ГБ|nano-SIM и eSIM|black': 69990,
+        '512 ГБ|nano-SIM и eSIM|white': 62990
+      },
+      images: {
+        'black': 'https://irepair-store.ru/images/thumbnails/400/400/detailed/9/10_f3sd-ft.jpg',
+        'white': 'https://irepair-store.ru/images/thumbnails/400/400/detailed/9/17_evbh-2z.jpg'
+      }
+    }
+  ];
+
+  /* ============================================================
+     STATE
+     ============================================================ */
+  var state = {
+    modelIndex: 0,
+    storage: null,
+    sim: null,
+    colorId: null
+  };
+
+  /* ============================================================
+     DOM references
+     ============================================================ */
+  var $tabs       = document.getElementById('irModelTabs');
+  var $imageArea  = document.getElementById('irImageArea');
+  var $title      = document.getElementById('irProductTitle');
+  var $simGroup   = document.getElementById('irSimGroup');
+  var $simBtns    = document.getElementById('irSimButtons');
+  var $storageBtns= document.getElementById('irStorageButtons');
+  var $colorBtns  = document.getElementById('irColorButtons');
+  var $price        = document.getElementById('irPrice');
+  var $btnOrder     = document.getElementById('irBtnOrder');
+  var $overlay      = document.getElementById('irModalOverlay');
+  var $modalClose   = document.getElementById('irModalClose');
+  var $modalForm    = document.getElementById('irModalForm');
+  var $modalSuccess = document.getElementById('irModalSuccess');
+  var $form         = document.getElementById('irRequestForm');
+
+  /* ============================================================
+     HELPERS
+     ============================================================ */
+  function currentModel() { return MODELS[state.modelIndex]; }
+
+  function variantKey(storage, sim, colorId) {
+    return storage + '|' + sim + '|' + colorId;
+  }
+
+  function getPrice() {
+    var m = currentModel();
+    var key = variantKey(state.storage, state.sim, state.colorId);
+    return m.prices[key] || null;
+  }
+
+  function getProductUrl() {
+    var m = currentModel();
+    var simSlug = m.simSlugs[state.sim];
+    var storageSlug = m.storageSlugs[state.storage];
+    var colorSlug = m.colorSlugs[state.colorId];
+    if (!simSlug || !storageSlug || !colorSlug) return null;
+    return m.urlBase + '-' + simSlug + '-' + storageSlug + '-' + colorSlug + '/';
+  }
+
+  function formatPrice(p) {
+    return p.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' руб.';
+  }
+
+  function getColorObj(colorId) {
+    return currentModel().colors.find(function(c) { return c.id === colorId; });
+  }
+
+  function hasVariant(storage, sim, colorId) {
+    var m = currentModel();
+    return m.prices.hasOwnProperty(variantKey(storage, sim, colorId));
+  }
+
+  function getConfigText() {
+    var m = currentModel();
+    var color = getColorObj(state.colorId);
+    var parts = ['Apple ' + m.name, state.storage, color ? color.name : '', state.sim];
+    return parts.filter(Boolean).join(' · ');
+  }
+
+  /* ============================================================
+     RENDER FUNCTIONS
+     ============================================================ */
+  function renderTabs() {
+    $tabs.innerHTML = '';
+    MODELS.forEach(function(m, i) {
+      var btn = document.createElement('button');
+      btn.className = 'ir-model-tab' + (i === state.modelIndex ? ' active' : '');
+      btn.textContent = m.name;
+      btn.addEventListener('click', function() { selectModel(i); });
+      $tabs.appendChild(btn);
+    });
+  }
+
+  function renderSimButtons() {
+    var m = currentModel();
+    $simGroup.style.display = '';
+    $simBtns.innerHTML = '';
+    if (m.sim.length <= 1) {
+      state.sim = m.sim[0];
+      var btn = document.createElement('button');
+      btn.className = 'ir-option-btn active';
+      btn.textContent = m.sim[0];
+      btn.style.cursor = 'default';
+      $simBtns.appendChild(btn);
+      return;
+    }
+    m.sim.forEach(function(s) {
+      var btn = document.createElement('button');
+      btn.className = 'ir-option-btn' + (s === state.sim ? ' active' : '');
+      btn.textContent = s;
+      btn.addEventListener('click', function() { selectSim(s); });
+      $simBtns.appendChild(btn);
+    });
+  }
+
+  function renderStorageButtons() {
+    var m = currentModel();
+    $storageBtns.innerHTML = '';
+    m.storage.forEach(function(s) {
+      var available = m.colors.some(function(c) {
+        return m.sim.some(function(sim) {
+          return hasVariant(s, sim, c.id);
+        });
+      });
+      var btn = document.createElement('button');
+      btn.className = 'ir-option-btn' + (s === state.storage ? ' active' : '') + (!available ? ' disabled' : '');
+      btn.textContent = s;
+      if (available) {
+        btn.addEventListener('click', function() { selectStorage(s); });
+      }
+      $storageBtns.appendChild(btn);
+    });
+  }
+
+  function renderColorButtons() {
+    var m = currentModel();
+    $colorBtns.innerHTML = '';
+    m.colors.forEach(function(c) {
+      var available = m.sim.some(function(sim) {
+        return hasVariant(state.storage, sim, c.id);
+      });
+      var btn = document.createElement('button');
+      btn.className = 'ir-color-btn' + (c.id === state.colorId ? ' active' : '') + (!available ? ' disabled' : '');
+      btn.type = 'button';
+      var dotStyle = 'background:' + c.hex + ';';
+      if (c.hex === '#F0EDE5' || c.hex === '#C8C8C8' || c.hex === '#EDEDED') {
+        dotStyle += 'box-shadow: inset 0 0 0 1.5px rgba(0,0,0,0.14);';
+      } else {
+        dotStyle += 'box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.22);';
+      }
+      btn.title = c.name;
+      btn.setAttribute('aria-label', 'Цвет: ' + c.name);
+      btn.innerHTML = '<span class="ir-color-dot" style="' + dotStyle + '"></span>';
+      if (available) {
+        btn.addEventListener('click', function() { selectColor(c.id); });
+      }
+      $colorBtns.appendChild(btn);
+    });
+
+    // Update the option label ("Цвет - <название>")
+    var labelValue = document.getElementById('irColorLabelValue');
+    if (labelValue) {
+      var colorObj = getColorObj(state.colorId);
+      labelValue.textContent = colorObj ? ' - ' + colorObj.name : '';
+    }
+  }
+
+  function renderImage() {
+    var color = getColorObj(state.colorId);
+    var m = currentModel();
+    var imgVal = m.images[state.colorId];
+    var images = [];
+    if (imgVal) {
+      images = Array.isArray(imgVal) ? imgVal : [imgVal];
+    }
+
+    // Uniform background behind the white frame (Apple-like)
+    $imageArea.style.background = '#f6f5f8';
+
+    if (images && images.length > 0) {
+      var alt = m.name + (color ? ' ' + color.name : '');
+      var realCount = images.length;
+      var slidesForTrack = images;
+      if (realCount > 1) {
+        // Looping: clone last at start and first at end
+        slidesForTrack = [images[realCount - 1]].concat(images).concat([images[0]]);
+      }
+
+      var slidesHTML = slidesForTrack.map(function(url) {
+        return '' +
+          '<div class="ir-img-carousel-slide">' +
+            '<img class="ir-product-img" src="' + url + '" alt="' + alt + '" loading="lazy">' +
+          '</div>';
+      }).join('');
+
+      var dotsHTML = images.map(function(_, idx) {
+        return '<button type="button" class="ir-img-dot' + (idx === 0 ? ' active' : '') + '" aria-label="Фото ' + (idx + 1) + '"></button>';
+      }).join('');
+
+      $imageArea.innerHTML =
+        '<div class="ir-img-frame">' +
+          '<div class="ir-img-carousel">' +
+            '<div class="ir-img-carousel-track" id="irImgTrack">' +
+              slidesHTML +
+            '</div>' +
+            (images.length > 1 ? '<div class="ir-img-carousel-dots" id="irImgDots">' + dotsHTML + '</div>' : '') +
+          '</div>' +
+        '</div>' +
+        (images.length > 1
+          ? '<button type="button" class="ir-img-carousel-nav prev" id="irImgPrev" aria-label="Предыдущее фото">‹</button>' +
+            '<button type="button" class="ir-img-carousel-nav next" id="irImgNext" aria-label="Следующее фото">›</button>'
+          : '');
+
+      var $track = $imageArea.querySelector('#irImgTrack');
+      var $dots  = $imageArea.querySelectorAll('#irImgDots .ir-img-dot');
+      var $prev  = $imageArea.querySelector('#irImgPrev');
+      var $next  = $imageArea.querySelector('#irImgNext');
+
+      function setIndex(i) {
+        var idx = Math.max(0, Math.min(images.length - 1, i));
+        if ($dots && $dots.length) {
+          $dots.forEach(function(d, di) { if (di === idx) d.classList.add('active'); else d.classList.remove('active'); });
+        }
+      }
+
+      if ($track) {
+        var w = function() { return $track.clientWidth || 1; };
+        var getLoopIndex = function() { return Math.round($track.scrollLeft / w()); }; // 0..realCount+1
+        var getRealIndex = function(loopIdx) {
+          if (realCount <= 1) return 0;
+          // loopIdx=1 => real 0; loopIdx=realCount+1 => real 0 (after wrap)
+          return ((loopIdx - 1) % realCount + realCount) % realCount;
+        };
+
+        var scrollTimeout = null;
+        var lastReal = 0;
+
+        function syncByScroll(forceDots) {
+          var loopIdx = getLoopIndex();
+          var realIdx = getRealIndex(loopIdx);
+          if (forceDots || realIdx !== lastReal) {
+            lastReal = realIdx;
+            setIndex(realIdx);
+          }
+          return loopIdx;
+        }
+
+        function handleSnap() {
+          if (realCount <= 1) return;
+          var loopIdx = syncByScroll(false);
+          // When at clones: jump without animation back to the real slide
+          if (loopIdx === 0) {
+            $track.scrollLeft = w() * realCount; // last real slide
+            setIndex(realCount - 1);
+          } else if (loopIdx === realCount + 1) {
+            $track.scrollLeft = w() * 1; // first real slide
+            setIndex(0);
+          }
+        }
+
+        var raf = null;
+        $track.addEventListener('scroll', function() {
+          if (raf) cancelAnimationFrame(raf);
+          raf = requestAnimationFrame(function() {
+            syncByScroll(false);
+          });
+          if (scrollTimeout) clearTimeout(scrollTimeout);
+          scrollTimeout = setTimeout(handleSnap, 120);
+        });
+
+        // Initial position: first real slide (index 1 in the looped track)
+        if (realCount > 1) {
+          $track.scrollLeft = w() * 1;
+          setIndex(0);
+        } else {
+          setIndex(0);
+        }
+
+        if (realCount > 1 && $prev && $next) {
+          $prev.addEventListener('click', function() {
+            var currentReal = getRealIndex(getLoopIndex());
+            var nextReal = (currentReal - 1 + realCount) % realCount;
+            $track.scrollTo({ left: (nextReal + 1) * w(), behavior: 'smooth' });
+            setIndex(nextReal);
+          });
+          $next.addEventListener('click', function() {
+            var currentReal = getRealIndex(getLoopIndex());
+            var nextReal = (currentReal + 1) % realCount;
+            $track.scrollTo({ left: (nextReal + 1) * w(), behavior: 'smooth' });
+            setIndex(nextReal);
+          });
+        }
+
+        if (realCount > 1 && $dots && $dots.length) {
+          $dots.forEach(function(dot, idx) {
+            dot.addEventListener('click', function() {
+              $track.scrollTo({ left: (idx + 1) * w(), behavior: 'smooth' });
+              setIndex(idx);
+            });
+          });
+        }
+      }
+
+      return;
+    }
+    var isProMax = m.id === 'iphone-17-pro-max';
+    var isPro = m.id === 'iphone-17-pro';
+    var cameraHTML = '';
+    if (isProMax || isPro) {
+      cameraHTML = '<div class="ir-phone-camera"><span class="ir-cam-lens"></span><span class="ir-cam-lens"></span><span class="ir-cam-lens"></span></div>';
+    } else {
+      cameraHTML = '<div class="ir-phone-camera" style="width:40px;height:40px;border-radius:50%;padding:0;"><span class="ir-cam-lens" style="width:22px;height:22px;"></span></div>';
+    }
+    $imageArea.style.background = '#f6f5f8';
+    $imageArea.innerHTML =
+      '<div class="ir-image-placeholder" style="background:linear-gradient(160deg,' + color.hex + ',' + adjustColor(color.hex, -15) + ')">' +
+        '<div class="ir-phone-notch"></div>' +
+        cameraHTML +
+        '<div class="ir-phone-screen"><span>' + m.name + '<br>' + color.name + '</span></div>' +
+      '</div>';
+  }
+
+  function adjustColor(hex, amount) {
+    hex = hex.replace('#', '');
+    var r = Math.max(0, Math.min(255, parseInt(hex.substring(0,2), 16) + amount));
+    var g = Math.max(0, Math.min(255, parseInt(hex.substring(2,4), 16) + amount));
+    var b = Math.max(0, Math.min(255, parseInt(hex.substring(4,6), 16) + amount));
+    return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+  }
+
+  function renderPrice() {
+    var price = getPrice();
+    if (price) {
+      $price.innerHTML = '<span>' + formatPrice(price) + '</span>';
+      $price.className = 'ir-price';
+      $btnOrder.disabled = false;
+    } else {
+      $price.innerHTML = '<span class="ir-price-unavailable">Нет в наличии</span>';
+      $price.className = 'ir-price';
+      $btnOrder.disabled = true;
+    }
+  }
+
+  function renderTitle() {
+    var m = currentModel();
+    var color = getColorObj(state.colorId);
+    $title.textContent = 'Apple ' + m.name + ' ' + state.storage + ' ' + (color ? color.name : '');
+  }
+
+  function renderAll() {
+    renderTabs();
+    renderSimButtons();
+    renderStorageButtons();
+    renderColorButtons();
+    renderImage();
+    renderTitle();
+    renderPrice();
+  }
+
+  /* ============================================================
+     SELECTION HANDLERS
+     ============================================================ */
+  function selectModel(index) {
+    state.modelIndex = index;
+    var m = currentModel();
+    state.storage = m.storage[0];
+    state.sim = m.sim[0];
+    state.colorId = m.colors[0].id;
+    if (!getPrice()) {
+      findFirstAvailable();
+    }
+    renderAll();
+  }
+
+  function selectSim(sim) {
+    var prevColorId = state.colorId;
+    state.sim = sim;
+    if (!getPrice()) {
+      var m = currentModel();
+      for (var i = 0; i < m.colors.length; i++) {
+        if (hasVariant(state.storage, state.sim, m.colors[i].id)) {
+          state.colorId = m.colors[i].id;
+          break;
+        }
+      }
+    }
+    renderSimButtons();
+    renderColorButtons();
+    if (state.colorId !== prevColorId) renderImage();
+    renderTitle();
+    renderPrice();
+  }
+
+  function selectStorage(storage) {
+    var prevColorId = state.colorId;
+    state.storage = storage;
+    if (!getPrice()) {
+      var m = currentModel();
+      var found = false;
+      for (var i = 0; i < m.sim.length && !found; i++) {
+        for (var j = 0; j < m.colors.length && !found; j++) {
+          if (hasVariant(state.storage, m.sim[i], m.colors[j].id)) {
+            state.sim = m.sim[i];
+            state.colorId = m.colors[j].id;
+            found = true;
+          }
+        }
+      }
+    }
+    renderSimButtons();
+    renderStorageButtons();
+    renderColorButtons();
+    if (state.colorId !== prevColorId) renderImage();
+    renderTitle();
+    renderPrice();
+  }
+
+  function selectColor(colorId) {
+    state.colorId = colorId;
+    if (!hasVariant(state.storage, state.sim, state.colorId)) {
+      var m = currentModel();
+      for (var i = 0; i < m.sim.length; i++) {
+        if (hasVariant(state.storage, m.sim[i], state.colorId)) {
+          state.sim = m.sim[i];
+          break;
+        }
+      }
+    }
+    renderSimButtons();
+    renderColorButtons();
+    renderImage();
+    renderTitle();
+    renderPrice();
+  }
+
+  function findFirstAvailable() {
+    var m = currentModel();
+    for (var s = 0; s < m.storage.length; s++) {
+      for (var i = 0; i < m.sim.length; i++) {
+        for (var c = 0; c < m.colors.length; c++) {
+          if (hasVariant(m.storage[s], m.sim[i], m.colors[c].id)) {
+            state.storage = m.storage[s];
+            state.sim = m.sim[i];
+            state.colorId = m.colors[c].id;
+            return;
+          }
+        }
+      }
+    }
+  }
+
+  /* ============================================================
+     CAPTCHA
+     ============================================================ */
+  var captchaAnswer = null;
+  var captchaSolved = false;
+
+  function generateCaptcha() {
+    captchaSolved = false;
+    document.getElementById('irFormSubmit').disabled = true;
+
+    var a = Math.floor(Math.random() * 10) + 1;
+    var b = Math.floor(Math.random() * 10) + 1;
+    captchaAnswer = a + b;
+
+    document.getElementById('irCaptchaQuestion').textContent =
+      'Сколько будет ' + a + ' + ' + b + '?';
+
+    var options = [captchaAnswer];
+    while (options.length < 3) {
+      var fake = captchaAnswer + Math.floor(Math.random() * 7) - 3;
+      if (fake !== captchaAnswer && fake > 0 && options.indexOf(fake) === -1) {
+        options.push(fake);
+      }
+    }
+    options.sort(function() { return Math.random() - 0.5; });
+
+    var container = document.getElementById('irCaptchaOptions');
+    container.innerHTML = '';
+    options.forEach(function(num) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'ir-captcha-btn';
+      btn.textContent = num;
+      btn.addEventListener('click', function() {
+        var allBtns = container.querySelectorAll('.ir-captcha-btn');
+        if (num === captchaAnswer) {
+          captchaSolved = true;
+          allBtns.forEach(function(b) { b.classList.remove('selected', 'wrong'); });
+          btn.classList.add('selected');
+          document.getElementById('irFormSubmit').disabled = false;
+        } else {
+          btn.classList.add('wrong');
+          setTimeout(function() { btn.classList.remove('wrong'); }, 500);
+        }
+      });
+      container.appendChild(btn);
+    });
+  }
+
+  /* ============================================================
+     ORDER MODAL
+     ============================================================ */
+  function openModal() {
+    var m = currentModel();
+    var color = getColorObj(state.colorId);
+    var price = getPrice();
+    var modelName = 'Apple ' + m.name;
+    var configParts = [state.storage, color ? color.name : '', state.sim].filter(Boolean).join(', ');
+
+    document.getElementById('irFieldModel').value   = modelName;
+    document.getElementById('irFieldStorage').value  = state.storage;
+    document.getElementById('irFieldColor').value    = color ? color.name : '';
+    document.getElementById('irFieldSim').value      = state.sim;
+    document.getElementById('irFieldPrice').value    = price ? formatPrice(price) : '';
+
+    document.getElementById('irDisplayModel').value  = modelName;
+    document.getElementById('irDisplayConfig').value = configParts;
+    document.getElementById('irDisplayPrice').value  = price ? formatPrice(price) : 'Нет в наличии';
+
+    $modalForm.style.display = '';
+    $modalSuccess.style.display = 'none';
+    generateCaptcha();
+    $overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    $overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  $btnOrder.addEventListener('click', openModal);
+  $modalClose.addEventListener('click', closeModal);
+  $overlay.addEventListener('click', function(e) {
+    if (e.target === $overlay) closeModal();
+  });
+
+  $form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var vals = {
+      model:   document.getElementById('irFieldModel').value,
+      storage: document.getElementById('irFieldStorage').value,
+      color:   document.getElementById('irFieldColor').value,
+      sim:     document.getElementById('irFieldSim').value,
+      price:   document.getElementById('irFieldPrice').value,
+      name:    document.getElementById('irFormName').value,
+      phone:   document.getElementById('irFormPhone').value
+    };
+
+    var secHash = '';
+    if (typeof Tygh !== 'undefined' && Tygh.security_hash) {
+      secHash = Tygh.security_hash;
+    } else {
+      var existing = document.querySelector('input[name="security_hash"]');
+      if (existing) secHash = existing.value;
+    }
+
+    var iframe = document.createElement('iframe');
+    iframe.name = 'irSubmit_' + Date.now();
+    iframe.style.cssText = 'position:absolute;width:0;height:0;border:0;';
+    document.body.appendChild(iframe);
+
+    var cleanForm = document.createElement('form');
+    cleanForm.method = 'POST';
+    cleanForm.action = window.location.origin + '/';
+    cleanForm.target = iframe.name;
+    cleanForm.style.display = 'none';
+
+    var fields = {
+      'dispatch':         'pages.send_form',
+      'page_id':          '55',
+      'security_hash':    secHash,
+      'form_values[22]':  vals.model,
+      'form_values[23]':  vals.storage,
+      'form_values[24]':  vals.color,
+      'form_values[25]':  vals.sim,
+      'form_values[26]':  vals.price,
+      'form_values[31]':  vals.name,
+      'form_values[32]':  vals.phone
+    };
+
+    for (var key in fields) {
+      var inp = document.createElement('input');
+      inp.type = 'hidden';
+      inp.name = key;
+      inp.value = fields[key];
+      cleanForm.appendChild(inp);
+    }
+
+    document.body.appendChild(cleanForm);
+    cleanForm.submit();
+
+    setTimeout(function() {
+      if (cleanForm.parentNode) cleanForm.parentNode.removeChild(cleanForm);
+      if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+    }, 15000);
+
+    $modalForm.style.display = 'none';
+    $modalSuccess.style.display = '';
+    $form.reset();
+  });
+
+  /* ============================================================
+     PHONE MASK for input
+     ============================================================ */
+  var $phone = document.getElementById('irFormPhone');
+  $phone.addEventListener('input', function() {
+    var val = this.value.replace(/\D/g, '');
+    if (val.length === 0) { this.value = ''; return; }
+    if (val[0] === '8') val = '7' + val.slice(1);
+    if (val[0] !== '7') val = '7' + val;
+    var formatted = '+7';
+    if (val.length > 1) formatted += ' (' + val.slice(1, 4);
+    if (val.length > 4) formatted += ') ' + val.slice(4, 7);
+    if (val.length > 7) formatted += '-' + val.slice(7, 9);
+    if (val.length > 9) formatted += '-' + val.slice(9, 11);
+    this.value = formatted;
+  });
+
+  /* ============================================================
+     INIT
+     ============================================================ */
+  selectModel(0);
+
+})();
+</script>
+
+

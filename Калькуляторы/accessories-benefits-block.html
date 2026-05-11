@@ -1,0 +1,207 @@
+<style>
+    .irepair-acc-benefits {
+        --acc-text: #1d1d1f;
+        --acc-muted: #6e6e73;
+        --acc-border: #d2d2d7;
+        --acc-gap: 28px;
+        --acc-title-size: 25px;
+        --acc-subtitle-size: 18px;
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, "Segoe UI", Roboto, Arial, sans-serif !important;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color: var(--acc-text);
+        width: 100%;
+        margin: 0 auto;
+        padding: 42px 0 28px;
+    }
+
+    .irepair-acc-benefits,
+    .irepair-acc-benefits * {
+        font-family: inherit !important;
+        box-sizing: border-box;
+    }
+
+    .irepair-acc-benefits__inner {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .irepair-acc-benefits__catalog {
+        display: flex;
+        justify-content: center;
+        margin: 14px 0 60px;
+    }
+
+    .irepair-acc-benefits__catalog-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 13px 26px;
+        border-radius: 12px;
+        background: #0071e3;
+        border: none;
+        color: #fff !important;
+        text-decoration: none;
+        font-size: 15px;
+        line-height: 1;
+        font-weight: 600;
+        letter-spacing: 0;
+        cursor: pointer;
+        transition: all 0.25s ease;
+    }
+
+    .irepair-acc-benefits__catalog-btn:hover {
+        background: #0077ed;
+        color: #fff !important;
+        text-decoration: none;
+    }
+
+    .irepair-acc-benefits__catalog-btn:focus-visible {
+        outline: 2px solid #2997ff;
+        outline-offset: 2px;
+    }
+
+    .irepair-acc-benefits__top {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--acc-gap);
+        margin-bottom: 46px;
+    }
+
+    .irepair-acc-benefits__item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        min-width: 0;
+    }
+
+    .irepair-acc-benefits__icon {
+        flex: 0 0 24px;
+        width: 24px;
+        height: 24px;
+        color: #000;
+    }
+
+    h3.irepair-acc-benefits__item-title {
+        margin: 0 0 4px;
+        font-size: 18px !important;
+        line-height: 1.12;
+        font-weight: 600 !important;
+        letter-spacing: -0.02em;
+    }
+
+    .irepair-acc-benefits__item-text {
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.45;
+        color: var(--acc-muted);
+        max-width: 360px;
+    }
+
+    .irepair-acc-benefits__heading {
+        text-align: center;
+    }
+
+    .irepair-acc-benefits__title {
+        margin: 0;
+        font-size: var(--acc-title-size) !important;
+        line-height: 1.06;
+        font-weight: 600;
+        letter-spacing: -0.03em;
+    }
+
+    .irepair-acc-benefits__subtitle {
+        margin: 8px 0 0;
+        font-size: var(--acc-subtitle-size) !important;
+        line-height: 1.15;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        color: var(--acc-text);
+    }
+
+    @media (max-width: 900px) {
+        .irepair-acc-benefits {
+            padding: 30px 0 24px;
+        }
+
+        .irepair-acc-benefits__catalog-btn {
+            min-height: 44px;
+            padding: 11px 22px;
+            font-size: 15px;
+        }
+
+        h3.irepair-acc-benefits__item-title {
+            font-size: 15px !important;
+        }
+
+        .irepair-acc-benefits__top {
+            grid-template-columns: 1fr;
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .irepair-acc-benefits__item {
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--acc-border);
+        }
+
+        .irepair-acc-benefits__item:last-child {
+            padding-bottom: 0;
+            border-bottom: 0;
+        }
+
+        .irepair-acc-benefits__subtitle {
+            margin-top: 6px;
+        }
+    }
+</style>
+
+<section class="irepair-acc-benefits" aria-labelledby="irepair-acc-benefits-title">
+    <div class="irepair-acc-benefits__inner">
+        <div class="irepair-acc-benefits__top">
+            <div class="irepair-acc-benefits__item">
+                <svg class="irepair-acc-benefits__icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="7.8" r="3.1" fill="none" stroke="currentColor" stroke-width="1.7"/>
+                    <path d="M5.5 19.2c.7-3.2 3.4-5.2 6.5-5.2s5.8 2 6.5 5.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <div>
+                    <h3 class="irepair-acc-benefits__item-title">Личный эксперт</h3>
+                    <p class="irepair-acc-benefits__item-text">Решаем все вопросы — от подбора до сложного ремонта и настройки.</p>
+                </div>
+            </div>
+
+            <div class="irepair-acc-benefits__item">
+                <svg class="irepair-acc-benefits__icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 3.2 5 6v5.7c0 4.3 3 8.3 7 9.3 4-1 7-5 7-9.3V6L12 3.2Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                    <path d="m8.9 12.2 2.1 2.1 4.4-4.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <div>
+                    <h3 class="irepair-acc-benefits__item-title">Гарантия Apple</h3>
+                    <p class="irepair-acc-benefits__item-text">Собственный сервис и сотрудничество с авторизованными центрами Apple за рубежом. Вы получаете предсказуемый результат без рисков.</p>
+                </div>
+            </div>
+
+            <div class="irepair-acc-benefits__item">
+                <svg class="irepair-acc-benefits__icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="3.8" y="5.2" width="16.4" height="12.4" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.7"/>
+                    <path d="M8 12h8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                    <circle cx="8" cy="9.3" r="0.7" fill="currentColor"/>
+                </svg>
+                <div>
+                    <h3 class="irepair-acc-benefits__item-title">Программа привилегий</h3>
+                    <p class="irepair-acc-benefits__item-text">Начисляем бонусы за покупки — используйте их как оплату следующих заказов.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="irepair-acc-benefits__catalog">
+            <a class="irepair-acc-benefits__catalog-btn" href="https://irepair-store.ru/iphone/">Каталог iPhone</a>
+        </div>
+
+        <div class="irepair-acc-benefits__heading">
+            <h2 id="irepair-acc-benefits-title" class="irepair-acc-benefits__title">Приобретайте вместе с iPhone</h2>
+            <p class="irepair-acc-benefits__subtitle">Незаменимые вещи.</p>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,476 @@
+<style>
+/* --- Apple Store "Accessories" Block (Final Version: Font 17px Mobile) --- */
+
+.access-wrapper {
+    background-color: #f5f5f7;
+    width: 100%;
+    /* Отступ сверху 0, снизу 40px */
+    padding: 0 0 40px 0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* Внутренний контейнер */
+.access-inner-content {
+    width: 100%;
+    padding-left: 40px; 
+    padding-right: 40px;
+    box-sizing: border-box;
+}
+
+/* Заголовок */
+.access-header {
+    margin-bottom: 28px;
+    padding-left: 5px;
+}
+.access-header h2 {
+    font-size: 28px;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #1d1d1f;
+    margin: 0;
+}
+.access-header h2 span {
+    color: #6e6e73;
+}
+
+/* Контейнер скролла */
+.access-scroll-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Лента карточек */
+.access-grid {
+    display: flex;
+    justify-content: flex-start;
+    gap: 24px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-behavior: smooth;
+    width: 100%;
+    
+    /* Отступы на ПК */
+    padding-top: 20px;
+    padding-bottom: 60px;
+    padding-left: 5px; 
+    padding-right: 5px;
+    
+    scroll-snap-type: x mandatory;
+    position: relative;
+    z-index: 1;
+}
+.access-grid::-webkit-scrollbar { display: none; }
+
+/* --- КАРТОЧКА БАЗОВАЯ --- */
+.access-card {
+    display: block;
+    position: relative;
+    text-decoration: none !important;
+    height: 500px;
+    border-radius: 28px;
+    background: #fff; 
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+    -webkit-tap-highlight-color: transparent;
+    scroll-snap-align: start;
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* Размеры на ПК */
+.access-card.promo-type {
+    flex: 0 0 400px; width: 400px; max-width: 90vw;
+}
+.access-card.product-type {
+    flex: 0 0 315px; width: 315px; max-width: 90vw;
+}
+
+/* Свечение */
+.access-card::before {
+    content: "";
+    position: absolute;
+    top: 10px; left: 10px; right: 10px; bottom: 10px;
+    border-radius: 32px;
+    background: linear-gradient(135deg, #FF9A9E 0%, #FECFEF 99%, #FECFEF 100%);
+    background-size: 200% 200%;
+    filter: blur(25px);
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    transform: scale(0.9);
+}
+.access-card:hover::before { opacity: 0.7; transform: scale(1.05); animation: gradientMove 3s ease infinite; }
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Hover эффект */
+.access-card:hover { transform: scale(1.02); z-index: 100; }
+.access-card:hover .access-card-mask { box-shadow: none; }
+
+/* Маска */
+.access-card-mask {
+    position: relative;
+    width: 100%; height: 100%;
+    border-radius: 28px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    transition: box-shadow 0.4s ease;
+    z-index: 2;
+}
+
+/* --- КОНТЕНТ: ПРОМО (Картинка фон, текст сверху) --- */
+.promo-type .access-card-mask {
+    display: block; 
+}
+.promo-type .access-card-bg {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
+}
+.promo-type .access-card-bg img {
+    width: 100%; height: 100%; 
+    object-fit: cover; 
+    object-position: bottom center;
+    display: block;
+}
+.promo-type .access-card-content {
+    position: absolute; top: 0; left: 0; width: 100%; 
+    padding: 30px; box-sizing: border-box; 
+    z-index: 2;
+}
+
+/* --- КОНТЕНТ: ТОВАР (Картинка сверху, текст снизу) --- */
+.product-type .access-card-mask {
+    display: flex; flex-direction: column;
+}
+.product-type .access-card-bg {
+    width: 100%; height: 340px; /* Высота картинки на ПК */
+    display: flex; align-items: center; justify-content: center;
+    padding: 40px; box-sizing: border-box;
+}
+.product-type .access-card-bg img {
+    width: 100%; height: 100%; object-fit: contain; display: block;
+    transition: transform 0.4s ease;
+}
+.product-type .access-card-content {
+    width: 100%; height: 160px; 
+    padding: 0 30px 30px 30px; box-sizing: border-box;
+    display: flex; align-items: flex-start;
+    background-color: #fff; position: relative; z-index: 2;
+}
+.product-type:hover .access-card-bg img { transform: scale(1.08); }
+
+/* Типографика */
+.access-title-large {
+    font-size: 28px; font-weight: 700; color: #1d1d1f; line-height: 1.1; margin: 0 0 10px 0;
+}
+.access-desc-large {
+    font-size: 17px; color: #1d1d1f; font-weight: 400; line-height: 1.4;
+}
+
+/* Заголовок товаров (ПК: 17px) */
+.access-title-item {
+    font-size: 17px; 
+    font-weight: 600; color: #1d1d1f; line-height: 1.4; margin: 0;
+}
+
+/* Стрелки (Белые) */
+.access-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%) translateY(-20px);
+    width: 44px; height: 44px; border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.95); 
+    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 200;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: all 0.3s ease;
+}
+.access-arrow svg { width: 14px; height: 14px; fill: #1d1d1f; }
+.access-arrow:hover { background-color: #fff; transform: translateY(-50%) translateY(-20px) scale(1.1); }
+.access-arrow-left { left: 0; }
+.access-arrow-right { right: 0; }
+.access-arrow.visible { opacity: 1; pointer-events: auto; }
+
+/* === АДАПТИВНОСТЬ === */
+@media (max-width: 767px) {
+    /* 1. Блок на всю ширину */
+    .access-wrapper {
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        margin-left: -50vw;
+        padding: 30px 0 40px 0;
+        background-color: #f5f5f7;
+    }
+    
+    .access-inner-content { padding: 0; }
+    
+    /* 2. Заголовок с отступом */
+    .access-header {
+        padding-left: 24px; 
+        padding-right: 24px;
+        margin-bottom: 20px;
+    }
+    .access-header h2 { font-size: 24px; }
+    
+    /* 3. Настройка сетки и отступов скролла */
+    .access-grid { 
+        padding-top: 10px;
+        /* Начальный отступ 24px */
+        padding-left: 24px; 
+        padding-right: 24px; 
+        gap: 15px;
+        scroll-padding-left: 24px;
+    }
+    
+    /* 4. Размеры на мобильном (Уменьшенные) */
+    .access-card.promo-type,
+    .access-card.product-type { 
+        flex: 0 0 280px; 
+        width: 280px; 
+        height: 420px; 
+        margin: 0;
+    }
+    
+    /* ТИПОГРАФИКА МОБ */
+    .access-title-large { font-size: 21px; margin-bottom: 5px; }
+    .access-desc-large { font-size: 15px; line-height: 1.3; }
+    
+    /* ИЗМЕНЕНО: Шрифт для товаров на мобильном - 17px */
+    .access-title-item { font-size: 17px !important; }
+    
+    /* Корректировка пропорций товара на моб */
+    .product-type .access-card-bg { height: 280px; padding: 25px; }
+    .product-type .access-card-content { height: 140px; padding: 0 25px 25px 25px; }
+    
+    /* Корректировка промо на моб */
+    .promo-type .access-card-content { padding: 25px; }
+    
+    .access-card:hover { transform: none; }
+    .access-card:hover::before { opacity: 0; }
+    
+    /* Стрелки */
+    .access-arrow { 
+        display: flex !important; 
+        width: 36px; height: 36px;
+        background-color: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .access-arrow-left { left: 10px; }
+    .access-arrow-right { right: 10px; }
+}
+</style>
+
+<div class="access-wrapper">
+    <div class="access-inner-content">
+        <div class="access-header">
+            <h2>Аксессуары. <span style="color: #6e6e73;">Идеальное дополнение к вашим устройствам.</span></h2>
+        </div>
+
+        <div class="access-scroll-container">
+            
+            <button class="access-arrow access-arrow-left" id="accessBtnPrev">
+                <svg viewBox="0 0 16 16"><path d="M11.7,14.3l-6.6-6.6l6.6-6.6l1.1,1.1L7.2,7.7l5.6,5.5L11.7,14.3z"/></svg>
+            </button>
+
+            <div class="access-grid" id="accessGrid">
+                
+                <!-- 1. ПРОМО -->
+                <a href="https://irepair-store.ru/aksessuary/" class="access-card promo-type" itemscope itemtype="https://schema.org/Product">
+                    <div class="access-card-mask">
+                        <div class="access-card-bg">
+                            <img src="https://irepair-store.ru/images/Foto%20menu/store-card-40-accessories-202601.jpg" alt="Аксессуары" itemprop="image">
+                        </div>
+                        <div class="access-card-content">
+                            <h3 class="access-title-large" itemprop="name">Аксессуары</h3>
+                            <div class="access-desc-large" itemprop="description">Аксессуары, которые вы любите. В новом сочетании цветов и фактур.</div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 2. ТОВАР -->
+                <a href="https://irepair-store.ru/iphone/aksessuary-dlya-iphone/chehly/" class="access-card product-type" itemscope itemtype="https://schema.org/Product">
+                    <div class="access-card-mask">
+                        <div class="access-card-bg">
+                            <img src="https://irepair-store.ru/images/Foto%20menu/MGFE4.jpg" alt="Чехлы для iPhone 17 Pro Max" itemprop="image">
+                        </div>
+                        <div class="access-card-content">
+                            <h3 class="access-title-item" itemprop="name">Чехлы для iPhone 17 Pro Max</h3>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 3. ТОВАР -->
+                <a href="https://irepair-store.ru/iphone/aksessuary-dlya-iphone/chehly/" class="access-card product-type" itemscope itemtype="https://schema.org/Product">
+                    <div class="access-card-mask">
+                        <div class="access-card-bg">
+                            <img src="https://irepair-store.ru/images/Foto%20menu/MGFT4.jpg" alt="Чехлы для iPhone 17 Pro" itemprop="image">
+                        </div>
+                        <div class="access-card-content">
+                            <h3 class="access-title-item" itemprop="name">Чехлы для iPhone 17 Pro</h3>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 4. ТОВАР -->
+                <a href="https://irepair-store.ru/apple-watch/aksessuary-dlya-apple-watch/remeshki-dlya-apple-watch/" class="access-card product-type" itemscope itemtype="https://schema.org/Product">
+                    <div class="access-card-mask">
+                        <div class="access-card-bg">
+                            <img src="https://irepair-store.ru/images/Foto%20menu/MHUK4ref.jpg" alt="Ремешки для Apple Watch" itemprop="image">
+                        </div>
+                        <div class="access-card-content">
+                            <h3 class="access-title-item" itemprop="name">Ремешки для Apple Watch</h3>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 5. ТОВАР -->
+                <a href="https://irepair-store.ru/aksessuary/airtag/" class="access-card product-type" itemscope itemtype="https://schema.org/Product">
+                    <div class="access-card-mask">
+                        <div class="access-card-bg">
+                            <img src="https://irepair-store.ru/images/Foto%20menu/airtag-1pack-select-202601.jpg" alt="AirTag" itemprop="image">
+                        </div>
+                        <div class="access-card-content">
+                            <h3 class="access-title-item" itemprop="name">AirTag</h3>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 6. ТОВАР -->
+                <a href="https://irepair-store.ru/ipad/aksessuary-dlya-ipad/" class="access-card product-type" itemscope itemtype="https://schema.org/Product">
+                    <div class="access-card-mask">
+                        <div class="access-card-bg">
+                            <img src="https://irepair-store.ru/images/Foto%20menu/MGYY4.jpg" alt="Аксессуары для iPad" itemprop="image">
+                        </div>
+                        <div class="access-card-content">
+                            <h3 class="access-title-item" itemprop="name">Аксессуары для iPad</h3>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 7. ТОВАР -->
+                <a href="https://irepair-store.ru/iphone/aksessuary-dlya-iphone/chehly/" class="access-card product-type" itemscope itemtype="https://schema.org/Product">
+                    <div class="access-card-mask">
+                        <div class="access-card-bg">
+                            <img src="https://irepair-store.ru/images/Foto%20menu/MH024.jpg" alt="Чехлы для iPhone Air" itemprop="image">
+                        </div>
+                        <div class="access-card-content">
+                            <h3 class="access-title-item" itemprop="name">Чехлы для iPhone Air</h3>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 8. ТОВАР -->
+                <a href="https://irepair-store.ru/iphone/aksessuary-dlya-iphone/portativnye-akkumulyatory/" class="access-card product-type" itemscope itemtype="https://schema.org/Product">
+                    <div class="access-card-mask">
+                        <div class="access-card-bg">
+                            <img src="https://irepair-store.ru/images/Foto%20menu/MGPG4.jpg" alt="Портативные аккумуляторы" itemprop="image">
+                        </div>
+                        <div class="access-card-content">
+                            <h3 class="access-title-item" itemprop="name">Портативные аккумуляторы</h3>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 9. ТОВАР -->
+                <a href="https://irepair-store.ru/iphone/aksessuary-dlya-iphone/kabelya-dlya-zaryadki/" class="access-card product-type" itemscope itemtype="https://schema.org/Product">
+                    <div class="access-card-mask">
+                        <div class="access-card-bg">
+                            <img src="https://irepair-store.ru/images/Foto%20menu/MGD74.jpg" alt="Кабеля для зарядки" itemprop="image">
+                        </div>
+                        <div class="access-card-content">
+                            <h3 class="access-title-item" itemprop="name">Кабеля для зарядки</h3>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 10. ТОВАР -->
+                <a href="https://irepair-store.ru/iphone/aksessuary-dlya-iphone/adaptery-pitaniya/" class="access-card product-type" itemscope itemtype="https://schema.org/Product">
+                    <div class="access-card-mask">
+                        <div class="access-card-bg">
+                            <img src="https://irepair-store.ru/images/Foto%20menu/MGKN4.jpg" alt="Адаптеры питания" itemprop="image">
+                        </div>
+                        <div class="access-card-content">
+                            <h3 class="access-title-item" itemprop="name">Адаптеры питания</h3>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 11. ТОВАР -->
+                <a href="https://irepair-store.ru/iphone/aksessuary-dlya-iphone/chehly/" class="access-card product-type" itemscope itemtype="https://schema.org/Product">
+                    <div class="access-card-mask">
+                        <div class="access-card-bg">
+                            <img src="https://irepair-store.ru/images/Foto%20menu/MGFT4.jpg" alt="Чехлы для iPhone 17 Pro" itemprop="image">
+                        </div>
+                        <div class="access-card-content">
+                            <h3 class="access-title-item" itemprop="name">Чехлы для iPhone 17 Pro</h3>
+                        </div>
+                    </div>
+                </a>
+                
+            </div>
+
+            <button class="access-arrow access-arrow-right" id="accessBtnNext">
+                <svg viewBox="0 0 16 16"><path d="M4.3,14.3l6.6-6.6L4.3,1.1l-1.1,1.1l5.6,5.5L3.2,13.2L4.3,14.3z"/></svg>
+            </button>
+            
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const grid = document.getElementById('accessGrid');
+    const prev = document.getElementById('accessBtnPrev');
+    const next = document.getElementById('accessBtnNext');
+
+    if (!grid) return;
+
+    function checkAccessScroll() {
+        const isStart = grid.scrollLeft <= 20;
+        const isEnd = Math.ceil(grid.scrollLeft) >= (grid.scrollWidth - grid.clientWidth - 20);
+
+        if (isStart) {
+            prev.classList.remove('visible');
+        } else {
+            prev.classList.add('visible');
+        }
+
+        if (isEnd) {
+            next.classList.remove('visible');
+        } else {
+            next.classList.add('visible');
+        }
+    }
+
+    function getScrollStep() {
+        const productCard = grid.querySelector('.product-type');
+        return productCard ? productCard.offsetWidth + 24 : 339;
+    }
+
+    if (next) {
+        next.addEventListener('click', function() {
+            grid.scrollBy({ left: getScrollStep(), behavior: 'smooth' });
+        });
+    }
+
+    if (prev) {
+        prev.addEventListener('click', function() {
+            grid.scrollBy({ left: -getScrollStep(), behavior: 'smooth' });
+        });
+    }
+
+    grid.addEventListener('scroll', checkAccessScroll);
+    window.addEventListener('resize', checkAccessScroll);
+    setTimeout(checkAccessScroll, 100);
+});
+</script>

@@ -1,0 +1,470 @@
+<style>
+/* --- Apple Store "The Latest" Block (Gray Background Fix) --- */
+
+.latest-wrapper {
+    /* ВЕРНУЛИ СЕРЫЙ ФОН */
+    background-color: #f5f5f7; 
+    
+    width: 100%;
+    /* Отступ сверху 30px, снизу 40px */
+    padding: 30px 0 40px 0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* Внутренний контейнер */
+.latest-inner-content {
+    width: 100%;
+    padding-left: 40px; 
+    padding-right: 40px;
+    box-sizing: border-box;
+}
+
+/* Заголовок */
+.latest-header {
+    margin-bottom: 28px;
+    padding-left: 5px;
+}
+.latest-header h2 {
+    font-size: 28px;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #1d1d1f;
+    margin: 0;
+}
+.latest-header h2 span {
+    color: #6e6e73;
+}
+
+/* Контейнер скролла */
+.latest-scroll-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* --- ГРАДИЕНТЫ (Подстроены под серый фон #f5f5f7) --- */
+.latest-fade-left,
+.latest-fade-right {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    z-index: 5;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.latest-fade-left {
+    left: -10px;
+    /* Градиент от серого к прозрачному */
+    background: linear-gradient(to right, #f5f5f7 30%, rgba(245, 245, 247, 0) 100%);
+    opacity: 0;
+}
+
+.latest-fade-right {
+    right: -10px;
+    /* Градиент от серого к прозрачному */
+    background: linear-gradient(to left, #f5f5f7 30%, rgba(245, 245, 247, 0) 100%);
+}
+.latest-fade-right.hidden { opacity: 0; }
+
+
+/* Лента карточек */
+.latest-grid {
+    display: flex;
+    justify-content: flex-start;
+    gap: 24px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-behavior: smooth;
+    width: 100%;
+    
+    /* Отступы на ПК */
+    padding-top: 20px;
+    padding-bottom: 60px;
+    padding-left: 5px; 
+    padding-right: 5px;
+    
+    scroll-snap-type: x mandatory;
+    position: relative;
+    z-index: 1;
+}
+.latest-grid::-webkit-scrollbar { display: none; }
+
+/* --- КАРТОЧКА --- */
+.latest-card {
+    display: block;
+    position: relative;
+    text-decoration: none !important;
+    
+    /* ПК: 400px */
+    flex: 0 0 400px; 
+    width: 400px;
+    
+    height: 500px;
+    border-radius: 28px;
+    background: transparent; 
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+    -webkit-tap-highlight-color: transparent;
+    
+    scroll-snap-align: start;
+    z-index: 1;
+}
+
+/* Свечение */
+.latest-card::before {
+    content: "";
+    position: absolute;
+    top: 10px; left: 10px; right: 10px; bottom: 10px;
+    border-radius: 32px;
+    background: linear-gradient(135deg, #00C6FB 0%, #005BEA 40%, #DD2476 100%);
+    background-size: 200% 200%;
+    filter: blur(25px);
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    transform: scale(0.9);
+}
+.latest-card:hover::before { opacity: 0.7; transform: scale(1.05); animation: gradientMove 3s ease infinite; }
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Hover эффект */
+.latest-card:hover { transform: scale(1.02); z-index: 100; }
+.latest-card:hover .latest-card-mask { box-shadow: none; }
+.latest-card:hover .latest-card-bg { transform: scale(1.03); }
+
+/* Маска */
+.latest-card-mask {
+    position: relative;
+    width: 100%; height: 100%;
+    border-radius: 28px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    transition: box-shadow 0.4s ease;
+    z-index: 2;
+}
+
+/* Картинка */
+.latest-card-bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 1;
+    transition: transform 0.5s ease;
+}
+.latest-card-bg img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+}
+
+/* Контент */
+.latest-card-content {
+    position: relative; z-index: 2; padding: 30px; width: 100%; box-sizing: border-box;
+}
+
+/* Типографика */
+.latest-card-desc-label {
+    font-size: 12px; font-weight: 600; text-transform: uppercase;
+    margin-bottom: 8px; letter-spacing: 0.05em; opacity: 0.8; display: block;
+}
+.latest-card-title {
+    font-size: 28px; font-weight: 700; line-height: 1.1; margin: 0 0 8px 0; letter-spacing: -0.01em;
+}
+.latest-card-description {
+    font-size: 17px; font-weight: 400; line-height: 1.4;
+}
+
+/* Цвета */
+.text-dark .latest-card-title, .text-dark .latest-card-description { color: #1d1d1f; }
+.text-dark .latest-card-desc-label { color: #6e6e73; }
+.text-white .latest-card-title, .text-white .latest-card-description { color: #ffffff; }
+.text-white .latest-card-desc-label { color: rgba(255, 255, 255, 0.8); }
+
+/* Стрелки */
+.latest-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) translateY(-20px);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.95); 
+    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 200;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: all 0.3s ease;
+}
+.latest-arrow svg { width: 14px; height: 14px; fill: #1d1d1f; }
+.latest-arrow:hover { background-color: #fff; transform: translateY(-50%) translateY(-20px) scale(1.1); }
+.latest-arrow-left { left: 0; }
+.latest-arrow-right { right: 0; }
+.latest-arrow.visible { opacity: 1; pointer-events: auto; }
+
+/* === АДАПТИВНОСТЬ === */
+@media (max-width: 767px) {
+    /* 1. Блок на всю ширину (Breakout) */
+    .latest-wrapper {
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        margin-left: -50vw;
+        padding: 30px 0 40px 0;
+        background-color: #f5f5f7;
+    }
+    
+    .latest-inner-content { padding: 0; }
+    
+    /* 2. Заголовок с отступом 24px */
+    .latest-header {
+        padding-left: 24px; 
+        padding-right: 24px;
+        margin-bottom: 20px;
+    }
+    .latest-header h2 { font-size: 24px; }
+    
+    /* 3. НАСТРОЙКА СЕТКИ ДЛЯ МОБИЛЬНЫХ */
+    .latest-grid { 
+        padding-top: 10px;
+        padding-left: 24px; 
+        padding-right: 24px; 
+        gap: 15px;
+        scroll-padding-left: 24px;
+    }
+    
+    /* 4. РАЗМЕРЫ НА МОБИЛЬНОМ */
+    .latest-card { 
+        flex: 0 0 280px; 
+        width: 280px; 
+        height: 420px; 
+        margin: 0;
+    }
+    .latest-card-title { font-size: 21px; }
+    
+    .latest-card:hover { transform: none; }
+    .latest-card:hover::before { opacity: 0; }
+    
+    /* Стрелки */
+    .latest-arrow { 
+        display: flex !important; 
+        width: 36px; height: 36px;
+        background-color: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .latest-arrow-left { left: 10px; }
+    .latest-arrow-right { right: 10px; }
+    
+    /* Градиенты на мобильном (тоже подгоняем под серый фон) */
+    .latest-fade-left, .latest-fade-right { width: 30px; }
+}
+</style>
+
+<div class="latest-wrapper">
+    <div class="latest-inner-content">
+        <div class="latest-header">
+            <h2>Последнее. <span style="color: #6e6e73;">Посмотрите, что нового есть прямо сейчас.</span></h2>
+        </div>
+
+        <div class="latest-scroll-container">
+            <!-- Затемнение слева -->
+            <div class="latest-fade-left" id="fadeLeft"></div>
+            
+            <button class="latest-arrow latest-arrow-left" id="latestBtnPrev">
+                <svg viewBox="0 0 16 16"><path d="M11.7,14.3l-6.6-6.6l6.6-6.6l1.1,1.1L7.2,7.7l5.6,5.5L11.7,14.3z"/></svg>
+            </button>
+
+            <div class="latest-grid" id="latestGrid">
+                
+                <!-- 1. iPhone 17 Pro -->
+                <a href="https://irepair-store.ru/iphone/iphone-17-pro/" class="latest-card text-white" itemscope itemtype="https://schema.org/Product">
+                    <div class="latest-card-mask">
+                        <div class="latest-card-bg">
+                            <img src="https://irepair-store.ru/images/Foto%20menu/store-card-40-iphone-17-pro-202509.jpg" alt="iPhone 17 Pro" itemprop="image">
+                        </div>
+                        <div class="latest-card-content">
+                            <span class="latest-card-desc-label">НОВИНКА</span>
+                            <h3 class="latest-card-title" itemprop="name">iPhone 17 Pro</h3>
+                            <div class="latest-card-description" itemprop="description">Абсолютный профессионал.</div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 2. MacBook Pro -->
+                <a href="https://irepair-store.ru/mac/macbook-pro/" class="latest-card text-white" itemscope itemtype="https://schema.org/Product">
+                    <div class="latest-card-mask">
+                        <div class="latest-card-bg">
+                            <img src="https://irepair-store.ru/images/Foto%20menu/store-card-40-macbook-pro-202510.jpg" alt="MacBook Pro" itemprop="image">
+                        </div>
+                        <div class="latest-card-content">
+                            <h3 class="latest-card-title" itemprop="name">MacBook Pro</h3>
+                            <div class="latest-card-description" itemprop="description">Заряженный на М5.</div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 3. Apple Watch S11 -->
+                <a href="https://irepair-store.ru/apple-watch/apple-watch-series-11/" class="latest-card text-dark" itemscope itemtype="https://schema.org/Product">
+                    <div class="latest-card-mask">
+                        <div class="latest-card-bg">
+                            <img src="https://irepair-store.ru/images/Foto%20menu/store-card-40-watch-s11-202509.jpg" alt="Apple Watch Series 11" itemprop="image">
+                        </div>
+                        <div class="latest-card-content">
+                            <h3 class="latest-card-title" itemprop="name">Apple Watch S11</h3>
+                            <div class="latest-card-description" itemprop="description">Лучший способ следить за своим здоровьем.</div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 4. iPad Pro -->
+                <a href="https://irepair-store.ru/ipad/ipad-pro/" class="latest-card text-white" itemscope itemtype="https://schema.org/Product">
+                    <div class="latest-card-mask">
+                        <div class="latest-card-bg">
+                            <img src="https://irepair-store.ru/images/Foto%20menu/store-card-40-ipad-pro-202510.jpg" alt="iPad Pro" itemprop="image">
+                        </div>
+                        <div class="latest-card-content">
+                            <h3 class="latest-card-title" itemprop="name">iPad Pro</h3>
+                            <div class="latest-card-description" itemprop="description">Просто пушкааа.</div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 5. iPhone 17 -->
+                <a href="https://irepair-store.ru/iphone/iphone-17/" class="latest-card text-dark" itemscope itemtype="https://schema.org/Product">
+                    <div class="latest-card-mask">
+                        <div class="latest-card-bg">
+                            <img src="https://irepair-store.ru/images/Foto%20menu/store-card-40-iphone-17-202509.jpg" alt="iPhone 17" itemprop="image">
+                        </div>
+                        <div class="latest-card-content">
+                            <h3 class="latest-card-title" itemprop="name">iPhone 17</h3>
+                            <div class="latest-card-description" itemprop="description">Магия цвета.</div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 6. MacBook Air -->
+                <a href="https://irepair-store.ru/mac/macbook-air/" class="latest-card text-dark" itemscope itemtype="https://schema.org/Product">
+                    <div class="latest-card-mask">
+                        <div class="latest-card-bg">
+                            <img src="https://irepair-store.ru/images/Foto%20menu/store-card-40-macbook-air-202503.jpg" alt="MacBook Air" itemprop="image">
+                        </div>
+                        <div class="latest-card-content">
+                            <h3 class="latest-card-title" itemprop="name">MacBook Air</h3>
+                            <div class="latest-card-description" itemprop="description">Скорость легкости.</div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 7. iPhone Air -->
+                <a href="https://irepair-store.ru/iphone/iphone-air/" class="latest-card text-dark" itemscope itemtype="https://schema.org/Product">
+                    <div class="latest-card-mask">
+                        <div class="latest-card-bg">
+                            <img src="https://irepair-store.ru/images/Foto%20menu/store-card-40-iphone-air-202509.jpg" alt="iPhone Air" itemprop="image">
+                        </div>
+                        <div class="latest-card-content">
+                            <h3 class="latest-card-title" itemprop="name">iPhone Air</h3>
+                            <div class="latest-card-description" itemprop="description">Самый тонкий iPhone на свете.</div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 8. Apple Watch Ultra 3 -->
+                <a href="https://irepair-store.ru/apple-watch/apple-watch-ultra-3/" class="latest-card text-white" itemscope itemtype="https://schema.org/Product">
+                    <div class="latest-card-mask">
+                        <div class="latest-card-bg">
+                            <img src="https://irepair-store.ru/images/Foto%20menu/store-card-40-watch-ultra-202509.jpg" alt="Apple Watch Ultra 3" itemprop="image">
+                        </div>
+                        <div class="latest-card-content">
+                            <h3 class="latest-card-title" itemprop="name">Apple Watch Ultra 3</h3>
+                            <div class="latest-card-description" itemprop="description">Личный зверь.</div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 9. Apple Watch SE 3 -->
+                <a href="https://irepair-store.ru/apple-watch/apple-watch-se-3/" class="latest-card text-dark" itemscope itemtype="https://schema.org/Product">
+                    <div class="latest-card-mask">
+                        <div class="latest-card-bg">
+                            <img src="https://irepair-store.ru/images/Foto%20menu/store-card-40-watch-se-202509.jpg" alt="Apple Watch SE 3" itemprop="image">
+                        </div>
+                        <div class="latest-card-content">
+                            <h3 class="latest-card-title" itemprop="name">Apple Watch SE</h3>
+                            <div class="latest-card-description" itemprop="description">Ходи. Говори. Следи. Люби.</div>
+                        </div>
+                    </div>
+                </a>
+                
+            </div>
+
+            <button class="latest-arrow latest-arrow-right" id="latestBtnNext">
+                <svg viewBox="0 0 16 16"><path d="M4.3,14.3l6.6-6.6L4.3,1.1l-1.1,1.1l5.6,5.5L3.2,13.2L4.3,14.3z"/></svg>
+            </button>
+            
+            <!-- Затемнение справа -->
+            <div class="latest-fade-right" id="fadeRight"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const grid = document.getElementById('latestGrid');
+    const prev = document.getElementById('latestBtnPrev');
+    const next = document.getElementById('latestBtnNext');
+    const fadeLeft = document.getElementById('fadeLeft');
+    const fadeRight = document.getElementById('fadeRight');
+
+    if (!grid) return;
+
+    function checkLatestScroll() {
+        const isStart = grid.scrollLeft <= 20;
+        const isEnd = Math.ceil(grid.scrollLeft) >= (grid.scrollWidth - grid.clientWidth - 20);
+
+        if (isStart) {
+            prev.classList.remove('visible');
+            fadeLeft.style.opacity = '0';
+        } else {
+            prev.classList.add('visible');
+            fadeLeft.style.opacity = '1';
+        }
+
+        if (isEnd) {
+            next.classList.remove('visible');
+            fadeRight.classList.add('hidden');
+        } else {
+            next.classList.add('visible');
+            fadeRight.classList.remove('hidden');
+        }
+    }
+
+    function getScrollStep() {
+        const card = grid.querySelector('.latest-card');
+        return card ? card.offsetWidth + 24 : 400;
+    }
+
+    if (next) {
+        next.addEventListener('click', function() {
+            grid.scrollBy({ left: getScrollStep(), behavior: 'smooth' });
+        });
+    }
+
+    if (prev) {
+        prev.addEventListener('click', function() {
+            grid.scrollBy({ left: -getScrollStep(), behavior: 'smooth' });
+        });
+    }
+
+    grid.addEventListener('scroll', checkLatestScroll);
+    window.addEventListener('resize', checkLatestScroll);
+    setTimeout(checkLatestScroll, 100);
+});
+</script>
