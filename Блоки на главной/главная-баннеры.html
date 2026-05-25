@@ -1,0 +1,381 @@
+<style>
+/* ============================================================
+   iRepair Store — Hero Banners (Apple-style) v4
+   !important на всех критических стилях → CS-Cart не перебивает
+   object-fit:cover — баннеры фиксированной высоты, центрирование
+   ============================================================ */
+
+#irb {
+  font-family: "SF Pro Display","SF Pro Text",-apple-system,BlinkMacSystemFont,
+               "Helvetica Neue",Arial,sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  background: #fff !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+#irb *, #irb *::before, #irb *::after {
+  box-sizing: border-box !important;
+}
+
+#irb a {
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   БАННЕР — CSS Grid overlap (image + overlay в одной ячейке)
+───────────────────────────────────────────────────────────── */
+#irb .irb-slide {
+  display: grid !important;
+  width: 100% !important;
+  overflow: hidden !important;
+  cursor: pointer !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Изображение: фиксированная высота + object-fit:cover для центрирования и обрезки */
+#irb .irb-slide > picture {
+  grid-area: 1 / 1 !important;
+  display: block !important;
+  width: 100% !important;
+  line-height: 0 !important;
+}
+
+#irb .irb-slide > picture > img {
+  display: block !important;
+  width: 100% !important;
+  height: 500px !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  max-width: none !important;
+  max-height: none !important;
+}
+
+/* Сдвоенные баннеры (Watch/AirPods) */
+#irb .irb-duo .irb-slide > picture > img {
+  height: 370px !important;
+}
+
+/* Оверлей в той же grid-ячейке → поверх изображения */
+#irb .irb-overlay {
+  grid-area: 1 / 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  z-index: 2 !important;
+  pointer-events: none !important;
+}
+
+#irb .irb-overlay--top    { justify-content: flex-start !important; padding-top: 50px !important; }
+#irb .irb-overlay--center { justify-content: center !important; }
+#irb .irb-overlay--bottom { justify-content: flex-end !important; padding-bottom: 50px !important; }
+
+/* ─────────────────────────────────────────────────────────────
+   ТЕКСТ
+   Заголовок: ~90px при 1512px (6vw × 15.12 = 90.7px)
+   Подзаголовок: ~28px при 1512px (1.85vw × 15.12 = 28px)
+───────────────────────────────────────────────────────────── */
+#irb .irb-text {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  pointer-events: auto !important;
+  padding: 0 20px !important;
+}
+
+#irb .irb-title {
+  font-family: "SF Pro Display","SF Pro Text",-apple-system,BlinkMacSystemFont,
+               "Helvetica Neue",Arial,sans-serif !important;
+  font-size: clamp(24px, 2.8vw, 42px) !important;
+  font-weight: 600 !important;
+  line-height: 1.04 !important;
+  letter-spacing: -0.03em !important;
+  margin: 0 0 8px 0 !important;
+  padding: 0 !important;
+}
+
+#irb .irb-sub {
+  font-family: inherit !important;
+  font-size: clamp(14px, 1.15vw, 18px) !important;
+  font-weight: 400 !important;
+  line-height: 1.3 !important;
+  letter-spacing: -0.01em !important;
+  margin: 0 0 22px 0 !important;
+  padding: 0 !important;
+  max-width: 580px !important;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   КНОПКИ — Apple-style pill buttons
+   Заливная синяя: "Подробнее"  |  Обводная: "Купить"
+   Размер как на apple.com: 17px, padding 15px 30px
+───────────────────────────────────────────────────────────── */
+#irb .irb-cta {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 16px !important;
+  flex-wrap: wrap !important;
+}
+
+#irb .irb-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-family: inherit !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+  letter-spacing: -0.022em !important;
+  text-decoration: none !important;
+  border-radius: 980px !important;
+  padding: 11px 22px !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  transition: opacity .15s ease !important;
+  border-style: solid !important;
+  border-width: 1.5px !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
+
+#irb .irb-btn:hover { opacity: .75 !important; }
+
+/* Заливная синяя */
+#irb .irb-btn--primary {
+  background-color: #0071e3 !important;
+  color: #fff !important;
+  border-color: #0071e3 !important;
+}
+
+/* Обводная */
+#irb .irb-btn--secondary {
+  background-color: transparent !important;
+  color: #0071e3 !important;
+  border-color: #0071e3 !important;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   ТЕМЫ
+───────────────────────────────────────────────────────────── */
+
+/* Светлый баннер */
+#irb .irb-slide--light .irb-title { color: #1d1d1f !important; }
+#irb .irb-slide--light .irb-sub   { color: #1d1d1f !important; }
+
+/* Тёмный баннер */
+#irb .irb-slide--dark .irb-title { color: #f5f5f7 !important; }
+#irb .irb-slide--dark .irb-sub   { color: rgba(245,245,247,.9) !important; }
+#irb .irb-slide--dark .irb-btn--primary {
+  background-color: #f5f5f7 !important;
+  color: #1d1d1f !important;
+  border-color: #f5f5f7 !important;
+}
+#irb .irb-slide--dark .irb-btn--secondary {
+  background-color: transparent !important;
+  color: #f5f5f7 !important;
+  border-color: rgba(245,245,247,.65) !important;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   СДВОЕННЫЕ БАННЕРЫ (Watch + AirPods)
+   Меньший заголовок и отступ сверху — чтобы не залезать на контент
+───────────────────────────────────────────────────────────── */
+#irb .irb-duo {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 12px !important;
+  width: 100% !important;
+}
+
+/* Отступ сверху для сдвоенных баннеров */
+#irb .irb-duo .irb-overlay--top {
+  padding-top: 20px !important;
+}
+
+/* Заголовок 32px в сдвоенных баннерах */
+#irb .irb-duo .irb-title {
+  font-size: 32px !important;
+  margin: 0 0 6px 0 !important;
+}
+
+/* Подзаголовок поменьше в сдвоенных баннерах */
+#irb .irb-duo .irb-sub {
+  font-size: 14px !important;
+  margin: 0 0 14px 0 !important;
+}
+
+/* Кнопки компактнее в сдвоенных */
+#irb .irb-duo .irb-btn {
+  font-size: 13px !important;
+  padding: 9px 18px !important;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   МОБИЛЬНАЯ АДАПТАЦИЯ ≤ 767px
+───────────────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  #irb { gap: 8px !important; }
+
+  /* Все баннеры на мобайле: фиксированная высота + cover */
+  #irb .irb-slide > picture > img,
+  #irb .irb-duo .irb-slide > picture > img {
+    height: 425px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+  }
+
+  #irb .irb-overlay--top    { padding-top: 28px !important; }
+  #irb .irb-overlay--bottom { padding-bottom: 28px !important; }
+
+  /* Сброс duo-стилей на мобайле — одинаковый шрифт у всех баннеров */
+  #irb .irb-duo .irb-overlay--top  { padding-top: 28px !important; }
+  #irb .irb-duo .irb-title         { font-size: 28px !important; margin: 0 0 6px 0 !important; }
+  #irb .irb-duo .irb-sub           { font-size: 14px !important; margin: 0 0 16px 0 !important; }
+  #irb .irb-duo .irb-btn           { font-size: 13px !important; padding: 10px 20px !important; }
+
+  /* Единый размер кнопок и шрифта для всех баннеров */
+  #irb .irb-title { font-size: 28px !important; }
+  #irb .irb-sub   { font-size: 14px !important; margin-bottom: 16px !important; }
+  #irb .irb-btn   { font-size: 13px !important; padding: 10px 20px !important; }
+  #irb .irb-cta   { gap: 10px !important; }
+
+  /* Сдвоенные → в столбик на мобайле */
+  #irb .irb-duo { grid-template-columns: 1fr !important; }
+}
+</style>
+
+<div id="irb">
+
+  <!-- ═══════════════════════════════════════
+       1. iPhone — полная ширина
+  ═══════════════════════════════════════ -->
+  <a class="irb-slide irb-slide--light" href="https://irepair-store.ru/shop-iphone/">
+    <picture>
+      <source media="(max-width: 767px)" srcset="https://irepair-store.ru/images/Home%20page%20banner/iphone-m.jpg">
+      <img src="https://irepair-store.ru/images/Home%20page%20banner/iphone-pc.jpg" alt="iPhone">
+    </picture>
+    <div class="irb-overlay irb-overlay--top">
+      <div class="irb-text">
+        <h2 class="irb-title">iPhone</h2>
+        <p class="irb-sub">Сила. Скорость. Интеллект.</p>
+        <div class="irb-cta">
+          <span class="irb-btn irb-btn--primary">Подробнее</span>
+          <span class="irb-btn irb-btn--secondary">Купить</span>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  <!-- ═══════════════════════════════════════
+       2. MacBook Neo — полная ширина
+  ═══════════════════════════════════════ -->
+  <a class="irb-slide irb-slide--light" href="https://irepair-store.ru/shop-mac/">
+    <picture>
+      <source media="(max-width: 767px)" srcset="https://irepair-store.ru/images/Home%20page%20banner/mac-m.jpg">
+      <img src="https://irepair-store.ru/images/Home%20page%20banner/mac-pc.jpg" alt="MacBook Neo">
+    </picture>
+    <div class="irb-overlay irb-overlay--top">
+      <div class="irb-text">
+        <h2 class="irb-title">MacBook</h2>
+        <p class="irb-sub">Лёгкий. Быстрый. Невероятный.</p>
+        <div class="irb-cta">
+          <span class="irb-btn irb-btn--primary">Подробнее</span>
+          <span class="irb-btn irb-btn--secondary">Купить</span>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  <!-- ═══════════════════════════════════════
+       3. iPad — полная ширина
+  ═══════════════════════════════════════ -->
+  <a class="irb-slide irb-slide--light" href="https://irepair-store.ru/shop-ipad/">
+    <picture>
+      <source media="(max-width: 767px)" srcset="https://irepair-store.ru/images/Home%20page%20banner/ipad-m.jpg">
+      <img src="https://irepair-store.ru/images/Home%20page%20banner/ipad-pc.jpg" alt="iPad">
+    </picture>
+    <div class="irb-overlay irb-overlay--top">
+      <div class="irb-text">
+        <h2 class="irb-title">iPad</h2>
+        <p class="irb-sub">Твоя идея. Воплощённая.</p>
+        <div class="irb-cta">
+          <span class="irb-btn irb-btn--primary">Подробнее</span>
+          <span class="irb-btn irb-btn--secondary">Купить</span>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  <!-- ═══════════════════════════════════════
+       4+5. Watch + AirPods
+       ПК: рядом | мобайл: в столбик
+  ═══════════════════════════════════════ -->
+  <div class="irb-duo">
+
+    <a class="irb-slide irb-slide--light" href="https://irepair-store.ru/shop-watch/">
+      <picture>
+        <source media="(max-width: 767px)" srcset="https://irepair-store.ru/images/Home%20page%20banner/watch-m.jpg">
+        <img src="https://irepair-store.ru/images/Home%20page%20banner/watch-pc.jpg" alt="Apple Watch">
+      </picture>
+      <div class="irb-overlay irb-overlay--top">
+        <div class="irb-text">
+          <h2 class="irb-title">Apple Watch</h2>
+          <p class="irb-sub">Всегда с тобой.</p>
+          <div class="irb-cta">
+            <span class="irb-btn irb-btn--primary">Подробнее</span>
+            <span class="irb-btn irb-btn--secondary">Купить</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <a class="irb-slide irb-slide--light" href="https://irepair-store.ru/shop-airpods/">
+      <picture>
+        <source media="(max-width: 767px)" srcset="https://irepair-store.ru/images/Home%20page%20banner/airpods-m.jpg">
+        <img src="https://irepair-store.ru/images/Home%20page%20banner/airpods-pc.jpg" alt="AirPods">
+      </picture>
+      <div class="irb-overlay irb-overlay--top">
+        <div class="irb-text">
+          <h2 class="irb-title">AirPods</h2>
+          <p class="irb-sub">Звук без границ.</p>
+          <div class="irb-cta">
+            <span class="irb-btn irb-btn--primary">Подробнее</span>
+            <span class="irb-btn irb-btn--secondary">Купить</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       6. Trade-in — полная ширина
+  ═══════════════════════════════════════ -->
+  <a class="irb-slide irb-slide--light" href="https://irepair-store.ru/trade-in-vykup-tehniki-apple-v-moskve/">
+    <picture>
+      <source media="(max-width: 767px)" srcset="https://irepair-store.ru/images/Home%20page%20banner/trade-in-pc.jpg">
+      <img src="https://irepair-store.ru/images/Home%20page%20banner/trade-in-pc.jpg" alt="Trade-in">
+    </picture>
+    <div class="irb-overlay irb-overlay--top">
+      <div class="irb-text">
+        <h2 class="irb-title">Trade‑in</h2>
+        <p class="irb-sub">Сдай старое. Сэкономь на новом.</p>
+        <div class="irb-cta">
+          <span class="irb-btn irb-btn--primary">Узнать подробнее</span>
+          <span class="irb-btn irb-btn--secondary">Оценить технику</span>
+        </div>
+      </div>
+    </div>
+  </a>
+
+</div>
