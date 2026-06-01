@@ -61,7 +61,7 @@
 
 /* Сдвоенные баннеры (Watch/AirPods) */
 #irb .irb-duo .irb-slide > picture > img {
-  height: 370px !important;
+  height: 500px !important;
 }
 
 /* Оверлей в той же grid-ячейке → поверх изображения */
@@ -186,6 +186,10 @@
   border-color: rgba(245,245,247,.65) !important;
 }
 
+/* Только белый текст — кнопки остаются как у светлого баннера */
+#irb .irb-slide--dark-text .irb-title { color: #f5f5f7 !important; }
+#irb .irb-slide--dark-text .irb-sub   { color: rgba(245,245,247,.9) !important; }
+
 /* ─────────────────────────────────────────────────────────────
    СДВОЕННЫЕ БАННЕРЫ (Watch + AirPods)
    Меньший заголовок и отступ сверху — чтобы не залезать на контент
@@ -279,10 +283,10 @@
   <!-- ═══════════════════════════════════════
        2. MacBook Neo — полная ширина
   ═══════════════════════════════════════ -->
-  <a class="irb-slide irb-slide--light" href="https://irepair-store.ru/shop-mac/">
+  <a class="irb-slide irb-slide--light irb-slide--dark-text" href="https://irepair-store.ru/shop-mac/">
     <picture>
-      <source media="(max-width: 767px)" srcset="https://irepair-store.ru/images/Home%20page%20banner/mac-m.jpg">
-      <img src="https://irepair-store.ru/images/Home%20page%20banner/mac-pc.jpg" alt="MacBook Neo">
+      <source media="(max-width: 767px)" srcset="https://irepair-store.ru/images/Home%20page%20banner/mac-m1.jpg">
+      <img src="https://irepair-store.ru/images/Home%20page%20banner/mac-pc1.jpg" alt="MacBook Neo">
     </picture>
     <div class="irb-overlay irb-overlay--top">
       <div class="irb-text">

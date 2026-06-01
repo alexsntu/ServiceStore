@@ -1,0 +1,1253 @@
+{literal}
+<style>
+
+.mm-block.ir-calc {
+  position: relative; max-width: 100%;
+  width: 100%;
+  margin: 0 auto 16px;
+  border-radius: 20px;
+  background: #f5f5f7;
+  padding: 14px 0 16px;
+  font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #1d1d1f; -webkit-font-smoothing: antialiased; box-sizing: border-box;
+}
+.mm-block.ir-calc * { box-sizing: border-box; }
+.mm-block.ir-calc h1,.mm-block.ir-calc h2,.mm-block.ir-calc h3 {
+  margin: 0; padding: 0; font-weight: 700; line-height: 1.2; border: 0;
+  font-family: inherit; color: #1d1d1f; background: none; text-transform: none; float: none;
+}
+.mm-block.ir-calc p { margin: 0; padding: 0; }
+.mm-block.ir-calc ul,.mm-block.ir-calc ol { margin: 0; padding: 0; list-style: none; }
+.mm-block.ir-calc img { max-width: 100%; height: auto; border: 0; vertical-align: bottom; box-shadow: none; }
+.mm-block.ir-calc a { text-decoration: none; background: none; }
+.mm-block.ir-calc button { font-family: inherit; box-sizing: border-box; }
+
+.mm-block.ir-calc .ir-container { max-width: 100%; margin: 0 auto; padding: 0 16px; }
+
+.mm-block.ir-calc .ir-header { text-align: center; margin-bottom: 10px; }
+.mm-block.ir-calc .ir-header h1 { font-size: 30px; letter-spacing: -0.03em; margin-bottom: 2px; }
+.mm-block.ir-calc .ir-header p { font-size: 14px; color: #6e6e73; line-height: 1.4; }
+
+.mm-block.ir-calc .ir-model-tabs {
+  display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;
+  margin-bottom: 12px; padding: 0 8px;
+}
+.mm-block.ir-calc .ir-model-tab {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 5px 12px; border-radius: 8px; border: 1px solid #d2d2d7;
+  background: #fff; color: #1d1d1f; font-size: 16px; font-weight: 400;
+  cursor: pointer; transition: all 0.2s ease; white-space: nowrap;
+  outline: none; line-height: 1.3; min-height: 32px;
+}
+.mm-block.ir-calc .ir-model-tab:hover { border-color: #86868b; color: #1d1d1f; }
+.mm-block.ir-calc .ir-model-tab.active { border-color: #0071e3; border-width: 2px; background: #fff; color: #1d1d1f; box-shadow: none; }
+
+.mm-block.ir-calc .ir-product-card {
+  display: grid; grid-template-columns: 55% 45%; gap: 0;
+  background: transparent; border-radius: 20px;
+  border: 1px solid rgba(0,0,0,0.04);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  overflow: hidden; min-height: 0;
+}
+
+.mm-block.ir-calc .ir-image-area {
+  display: flex; align-items: center; justify-content: center;
+  padding: 0; position: relative; overflow: hidden;
+  transition: background 0.4s ease; background: #f6f5f8;
+  max-width: 510px; width: 100%; margin: 0 auto;
+}
+.mm-block.ir-calc .ir-img-frame { background: transparent; border-radius: 0; padding: 0; box-shadow: none; display: flex; align-items: center; justify-content: center; }
+.mm-block.ir-calc .ir-img-carousel-slide .ir-product-img {
+  display: block; width: 100%; height: 100%; max-width: none; max-height: none;
+  object-fit: contain; object-position: center; transition: opacity 0.3s ease; cursor: zoom-in;
+}
+.mm-block.ir-calc .ir-img-carousel { width: 100%; max-width: 510px; margin: 0 auto; display: flex; flex-direction: column; align-items: stretch; }
+.mm-block.ir-calc .ir-img-carousel-track {
+  display: flex; gap: 0; overflow-x: auto; overflow-y: hidden;
+  scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; width: 100%; max-width: 510px; margin: 0 auto;
+  aspect-ratio: 1 / 1; flex-shrink: 0;
+}
+.mm-block.ir-calc .ir-img-carousel-track::-webkit-scrollbar { display: none; }
+.mm-block.ir-calc .ir-img-carousel-slide {
+  flex: 0 0 100%; height: 100%; min-height: 0;
+  display: flex; align-items: center; justify-content: center;
+  scroll-snap-align: start; box-sizing: border-box;
+}
+.mm-block.ir-calc .ir-img-carousel-dots {
+  display: flex; gap: 6px; justify-content: center; align-items: center;
+  margin-top: 6px; min-height: 22px; flex-shrink: 0; box-sizing: border-box;
+}
+.mm-block.ir-calc .ir-img-carousel-dots.is-empty { visibility: hidden; pointer-events: none; }
+.mm-block.ir-calc .ir-img-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: rgba(0,0,0,0.16);
+  transition: all 0.2s ease; border: none; cursor: pointer; padding: 0;
+}
+.mm-block.ir-calc .ir-img-dot.active { background: #0071e3; transform: scale(1.2); }
+.mm-block.ir-calc .ir-img-carousel-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.06); background: rgba(255,255,255,0.85);
+  color: #1d1d1f; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease;
+}
+.mm-block.ir-calc .ir-img-carousel-nav:hover { background: #fff; border-color: rgba(0,0,0,0.12); }
+.mm-block.ir-calc .ir-img-carousel-nav.prev { left: 18px; }
+.mm-block.ir-calc .ir-img-carousel-nav.next { right: 18px; }
+
+.ir-ap-lightbox-overlay {
+  position: fixed; inset: 0; display: none; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.86); z-index: 10000; padding: 24px;
+}
+.ir-ap-lightbox-overlay.active { display: flex; }
+.ir-ap-lightbox-inner { position: relative; width: min(100%, 1100px); height: min(100%, 92vh); display: flex; align-items: center; justify-content: center; }
+.ir-ap-lightbox-img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; transition: transform 0.22s ease, opacity 0.22s ease; will-change: transform, opacity; touch-action: pan-y; }
+.ir-ap-lightbox-close, .ir-ap-lightbox-nav { position: absolute; border: none; border-radius: 999px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1; }
+.ir-ap-lightbox-close { top: 12px; right: 12px; width: 44px; height: 44px; background: rgba(255,255,255,0.18); color: #fff; font-size: 26px; line-height: 1; }
+.ir-ap-lightbox-nav { top: 50%; transform: translateY(-50%); width: 46px; height: 46px; background: rgba(255,255,255,0.2); color: #fff; font-size: 28px; line-height: 1; }
+.ir-ap-lightbox-nav.prev { left: 12px; }
+.ir-ap-lightbox-nav.next { right: 12px; }
+.ir-ap-lightbox-counter { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); padding: 6px 10px; border-radius: 999px; background: rgba(0,0,0,0.45); color: #fff; font-size: 12px; line-height: 1; }
+
+@media (max-width: 640px) {
+  .ir-ap-lightbox-overlay { padding: 10px; }
+  .ir-ap-lightbox-close { top: 8px; right: 8px; width: 40px; height: 40px; }
+  .ir-ap-lightbox-nav { width: 38px; height: 38px; font-size: 24px; }
+  .ir-ap-lightbox-nav.prev { left: 6px; }
+  .ir-ap-lightbox-nav.next { right: 6px; }
+  .mm-block.ir-calc .ir-img-carousel-nav { display: flex; width: 24px; height: 24px; border-width: 0.5px; opacity: 0.9; }
+  .mm-block.ir-calc .ir-img-carousel-nav.prev { left: 6px; }
+  .mm-block.ir-calc .ir-img-carousel-nav.next { right: 6px; }
+}
+
+.mm-block.ir-calc .ir-options-area { background: #fff; padding: 18px 20px; display: flex; flex-direction: column; }
+.mm-block.ir-calc .ir-product-title { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 10px; line-height: 1.25; min-height: calc(1.25em * 2); }
+.mm-block.ir-calc .ir-option-group { margin-bottom: 20px; }
+.mm-block.ir-calc .ir-option-label { display: block; font-size: 12px; font-weight: 400; color: #6e6e73; margin-bottom: 6px; text-transform: none; letter-spacing: 0; }
+.mm-block.ir-calc .ir-color-label-row { display: flex; align-items: baseline; gap: 6px; margin-bottom: 6px; }
+.mm-block.ir-calc .ir-color-label-row .ir-option-label { display: inline-block; margin-bottom: 0; }
+.mm-block.ir-calc .ir-color-label-value { font-size: 12px; font-weight: 400; color: #1d1d1f; text-transform: none; letter-spacing: 0; margin-left: 4px; }
+.mm-block.ir-calc .ir-option-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+.mm-block.ir-calc .ir-option-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 5px 12px; border-radius: 8px; border: 1px solid #d2d2d7;
+  background: #fff; color: #1d1d1f; font-size: 12px; font-weight: 400;
+  cursor: pointer; transition: all 0.2s ease; outline: none;
+  white-space: nowrap; min-height: 32px; min-width: 0;
+}
+.mm-block.ir-calc .ir-option-btn:hover { border-color: #86868b; }
+.mm-block.ir-calc .ir-option-btn.active { border-color: #0071e3; border-width: 2px; background: #fff; color: #1d1d1f; box-shadow: none; }
+.mm-block.ir-calc .ir-option-btn.disabled { opacity: 0.4; cursor: not-allowed; border-color: #e0e0e0; background: #fafafa; color: #86868b; }
+.mm-block.ir-calc .ir-option-btn.disabled:hover { border-color: #e0e0e0; }
+
+.mm-block.ir-calc #apVariantButtons { gap: 8px; flex-wrap: wrap; }
+.mm-block.ir-calc #apVariantButtons .ir-option-btn { width: auto; flex: 0 0 auto; min-width: max-content; justify-content: center; }
+
+@media (max-width: 800px) {
+  .mm-block.ir-calc #apVariantButtons { flex-wrap: wrap; }
+  .mm-block.ir-calc #apVariantButtons .ir-option-btn { width: auto; flex: 0 0 auto; min-width: max-content; justify-content: center; }
+}
+
+.mm-block.ir-calc .ir-color-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+.mm-block.ir-calc .ir-color-btn { width: 36px; height: 36px; padding: 0; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; border: 1.5px solid #d2d2d7; background: #fff; cursor: pointer; transition: all 0.2s ease; outline: none; }
+.mm-block.ir-calc .ir-color-btn:hover { border-color: #1d1d1f; }
+.mm-block.ir-calc .ir-color-btn.active { border-color: #0071e3; border-width: 2px; box-shadow: 0 0 0 2px rgba(0,113,227,0.35), 0 0 0 5px rgba(0,113,227,0.14); }
+.mm-block.ir-calc .ir-color-dot { width: 100%; height: 100%; border-radius: 50%; border: 0; }
+
+.mm-block.ir-calc .ir-price-block { margin: 0; padding-top: 18px; border-top: 1px solid #e5e5e7; }
+.mm-block.ir-calc .ir-read-more { display: inline-block; font-size: 14px; font-weight: 400; color: #0071e3; text-decoration: none; margin-bottom: 10px; line-height: 1.4; transition: color 0.2s ease; }
+.mm-block.ir-calc .ir-read-more:hover { color: #0077ed; text-decoration: underline; }
+.mm-block.ir-calc .ir-price { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; color: #1d1d1f; margin-bottom: 0; line-height: 1; }
+.mm-block.ir-calc .ir-price-unavailable { font-size: 16px; color: #6e6e73; font-weight: 500; }
+.mm-block.ir-calc .ir-price-loader { font-size: 12px; color: #86868b; padding: 4px 0 8px; display: flex; align-items: center; gap: 6px; }
+.mm-block.ir-calc .ir-price-loader::before { content: ''; width: 14px; height: 14px; border: 2px solid #d2d2d7; border-top-color: #0071e3; border-radius: 50%; animation: irSpin 0.8s linear infinite; }
+@keyframes irSpin { to { transform: rotate(360deg); } }
+
+.mm-block.ir-calc .ir-price-row { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.mm-block.ir-calc .ir-price-original { font-size: 16px; font-weight: 400; color: #86868b; text-decoration: line-through; line-height: 1; display: none; }
+.mm-block.ir-calc .ir-cash-row { display: none; align-items: center; gap: 5px; margin-top: 6px; }
+.mm-block.ir-calc .ir-cash-label {
+  font-size: 13px; font-weight: 500; line-height: 1;
+  background: linear-gradient(95deg, #0055d4 0%, #0071e3 45%, #34aadc 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.mm-block.ir-calc .ir-cash-info {
+  width: 17px; height: 17px; border-radius: 50%;
+  border: 1.5px solid #86868b; background: transparent; color: #86868b;
+  font-size: 10px; font-weight: 600; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  flex-shrink: 0; padding: 0; outline: none; font-family: inherit;
+  transition: border-color 0.2s, color 0.2s;
+}
+.mm-block.ir-calc .ir-cash-info:hover { border-color: #0071e3; color: #0071e3; }
+.ir-ap-cash-tooltip {
+  display: none; position: fixed; z-index: 10001;
+  background: #fff; border-radius: 16px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.18), 0 2px 12px rgba(0,0,0,0.08);
+  padding: 16px 18px; max-width: 340px; width: calc(100vw - 48px);
+  font-family: "SF Pro Display","SF Pro Text",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-size: 12.5px; line-height: 1.55; color: #1d1d1f; -webkit-font-smoothing: antialiased;
+}
+.ir-ap-cash-tooltip.active { display: block; }
+.ir-ap-cash-tooltip p { margin: 0; padding: 0; }
+.ir-ap-cash-tooltip p + p { margin-top: 12px; }
+.ir-ap-cash-tooltip strong {
+  font-weight: 600;
+  background: linear-gradient(95deg, #0055d4 0%, #0071e3 45%, #34aadc 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+.mm-block.ir-calc .ir-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-start; margin-top: 15px; }
+.mm-block.ir-calc .ir-btn-order { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 13px 26px; border-radius: 12px; font-size: 15px; font-weight: 600; background: #0071e3; color: #fff; border: none; cursor: pointer; transition: all 0.25s ease; white-space: nowrap; width: 100%; max-width: 300px; }
+.mm-block.ir-calc .ir-btn-order:hover { background: #0077ed; }
+.mm-block.ir-calc .ir-btn-order:disabled { background: #d2d2d7; color: #86868b; cursor: not-allowed; }
+.mm-block.ir-calc .ir-btn-order svg { width: 18px; height: 18px; }
+
+.mm-block.ir-calc .ir-faq { margin-top: 10px; border-top: 1px solid #e5e5e7; }
+.mm-block.ir-calc .ir-faq-item { border-bottom: 1px solid #e5e5e7; }
+.mm-block.ir-calc .ir-faq-btn { width: 100%; border: 0; background: transparent; padding: 12px 0; display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; font-family: inherit; color: #1d1d1f; font-size: 16px; font-weight: 700; text-align: left; }
+.mm-block.ir-calc .ir-faq-btn .ir-faq-icon { font-size: 18px; line-height: 1; color: #1d1d1f; transition: transform 0.2s ease; }
+.mm-block.ir-calc .ir-faq-item.open .ir-faq-btn .ir-faq-icon { transform: rotate(180deg); }
+.mm-block.ir-calc .ir-faq-panel { max-height: 0; overflow: hidden; transition: max-height 0.25s ease; }
+.mm-block.ir-calc .ir-faq-panel-inner { padding: 0 0 12px; font-size: 13px; line-height: 1.5; color: #1d1d1f; }
+
+.mm-block.ir-calc .ir-modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.48); backdrop-filter: blur(10px); z-index: 10000; align-items: center; justify-content: center; padding: 20px; }
+.mm-block.ir-calc .ir-modal-overlay.active { display: flex; }
+.mm-block.ir-calc .ir-modal { background: #fff; border-radius: 20px; padding: 28px 24px; max-width: 420px; width: 100%; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.18); animation: irModalIn 0.3s ease; }
+@keyframes irModalIn { from { opacity: 0; transform: translateY(16px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.mm-block.ir-calc .ir-modal-close { position: absolute; top: 12px; right: 12px; width: 32px; height: 32px; border-radius: 50%; border: none; background: #f5f5f7; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; color: #6e6e73; transition: background 0.2s; }
+.mm-block.ir-calc .ir-modal-close:hover { background: #e8e8ed; }
+.mm-block.ir-calc .ir-modal h3 { font-size: 20px; margin-bottom: 4px; letter-spacing: -0.01em; }
+.mm-block.ir-calc .ir-modal .ir-modal-config { font-size: 13px; color: #424245; margin-bottom: 20px; line-height: 1.5; padding: 10px 14px; background: #f5f5f7; border-radius: 10px; }
+.mm-block.ir-calc .ir-form-group { margin-bottom: 12px; }
+.mm-block.ir-calc .ir-form-label { display: block; font-size: 12px; font-weight: 600; color: #6e6e73; margin-bottom: 4px; }
+.mm-block.ir-calc .ir-form-input { width: 100%; padding: 10px 14px; border-radius: 10px; border: 1.5px solid #d2d2d7; font-size: 14px; font-family: inherit; outline: none; transition: border-color 0.2s; background: #fff; }
+.mm-block.ir-calc .ir-form-input:focus { border-color: #0071e3; }
+.mm-block.ir-calc .ir-form-input::placeholder { color: #86868b; }
+.mm-block.ir-calc .ir-form-input[readonly] { background: #f5f5f7; color: #424245; cursor: default; border-color: #e8e8ed; }
+.mm-block.ir-calc .ir-captcha { margin-top: 4px; margin-bottom: 6px; }
+.mm-block.ir-calc .ir-captcha-label { font-size: 13px; font-weight: 600; color: #1d1d1f; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.mm-block.ir-calc .ir-captcha-label svg { width: 16px; height: 16px; color: #6e6e73; flex-shrink: 0; }
+.mm-block.ir-calc .ir-captcha-options { display: flex; gap: 8px; }
+.mm-block.ir-calc .ir-captcha-btn { flex: 1; padding: 10px 0; border-radius: 10px; border: 1.5px solid #d2d2d7; background: #fff; font-size: 16px; font-weight: 600; font-family: inherit; color: #1d1d1f; cursor: pointer; transition: all 0.2s ease; text-align: center; }
+.mm-block.ir-calc .ir-captcha-btn:hover { border-color: #86868b; }
+.mm-block.ir-calc .ir-captcha-btn.selected { border-color: #0071e3; background: #0071e3; color: #fff; }
+.mm-block.ir-calc .ir-captcha-btn.wrong { border-color: #ff3b30; background: #fff0f0; color: #ff3b30; animation: irShake 0.4s ease; }
+@keyframes irShake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-4px); } 40%, 80% { transform: translateX(4px); } }
+.mm-block.ir-calc .ir-form-submit { width: 100%; padding: 12px; border-radius: 12px; border: none; background: #0071e3; color: #fff; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.25s ease; margin-top: 6px; }
+.mm-block.ir-calc .ir-form-submit:hover { background: #0077ed; }
+.mm-block.ir-calc .ir-form-submit:disabled { opacity: 0.5; cursor: not-allowed; background: #0071e3; }
+.mm-block.ir-calc .ir-form-privacy { font-size: 11px; color: #86868b; text-align: center; margin-top: 10px; line-height: 1.4; }
+.mm-block.ir-calc .ir-form-privacy a { color: #0071e3; }
+.mm-block.ir-calc .ir-modal-success { text-align: center; padding: 16px 0; }
+.mm-block.ir-calc .ir-modal-success .ir-success-icon { width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 12px; background: #0071e3; display: flex; align-items: center; justify-content: center; }
+.mm-block.ir-calc .ir-modal-success .ir-success-icon svg { width: 28px; height: 28px; color: #fff; }
+.mm-block.ir-calc .ir-modal-success h3 { margin-bottom: 6px; }
+.mm-block.ir-calc .ir-modal-success p { color: #424245; font-size: 14px; line-height: 1.5; }
+
+@media (max-width: 800px) {
+  .mm-block.ir-calc .ir-product-card { grid-template-columns: 1fr; gap: 0; }
+  .mm-block.ir-calc .ir-image-area { border-right: none; border-bottom: 1px solid rgba(0,0,0,0.04); padding: 0; min-height: 0; }
+  .mm-block.ir-calc .ir-img-frame { padding: 0; border-radius: 0; background: transparent; box-shadow: none; }
+  .mm-block.ir-calc .ir-img-carousel { max-width: 100%; }
+  .mm-block.ir-calc .ir-img-carousel-track { max-width: 100%; }
+  .mm-block.ir-calc .ir-options-area { padding: 14px 16px; }
+}
+@media (max-width: 640px) {
+  .mm-block.ir-calc { border-radius: 20px; width: 100%; margin: 0 auto; padding: 8px 0 10px; }
+  .mm-block.ir-calc .ir-container { padding: 0 8px; }
+  .mm-block.ir-calc .ir-header { margin-bottom: 6px; }
+  .mm-block.ir-calc .ir-header h1 { font-size: 22px; }
+  .mm-block.ir-calc .ir-header p { font-size: 12px; }
+  .mm-block.ir-calc .ir-model-tabs { gap: 5px; padding: 0 4px; margin-bottom: 20px; justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .mm-block.ir-calc .ir-model-tabs::-webkit-scrollbar { display: none; }
+  .mm-block.ir-calc .ir-model-tab { padding: 5px 10px; font-size: 14px; flex-shrink: 0; min-height: 30px; border-radius: 8px; }
+  .mm-block.ir-calc .ir-product-card { border-radius: 12px; }
+  .mm-block.ir-calc .ir-image-area { padding: 0; min-height: 0; max-height: 240px; height: 240px; align-items: center; }
+  .mm-block.ir-calc .ir-img-frame { padding: 0; border-radius: 0; background: transparent; box-shadow: none; }
+  .mm-block.ir-calc .ir-img-carousel { width: min(100%, 220px); max-width: 220px; }
+  .mm-block.ir-calc .ir-img-carousel-track { width: min(100%, 220px); max-width: 220px; }
+  .mm-block.ir-calc .ir-img-carousel-dots { margin-top: 6px; gap: 5px; width: 100%; justify-content: center; position: relative; left: 0; transform: none; }
+  .mm-block.ir-calc .ir-img-dot { width: 6px; height: 6px; }
+  .mm-block.ir-calc .ir-options-area { padding: 12px 10px 10px; }
+  .mm-block.ir-calc .ir-product-title { font-size: 20px; margin-bottom: 6px; line-height: 1.2; min-height: calc(1.2em * 2); }
+  .mm-block.ir-calc .ir-option-group { margin-bottom: 8px; }
+  .mm-block.ir-calc .ir-option-label { font-size: 12px; margin-bottom: 4px; }
+  .mm-block.ir-calc .ir-color-label-value { font-size: 12px; }
+  .mm-block.ir-calc .ir-option-buttons { gap: 8px; }
+  .mm-block.ir-calc .ir-color-buttons { gap: 6px; }
+  .mm-block.ir-calc .ir-color-btn { width: 28px; height: 28px; }
+  .mm-block.ir-calc .ir-price-block { padding-top: 10px; text-align: center; border-top: 1px solid #e5e5e7; }
+  .mm-block.ir-calc .ir-price { font-size: 22px; margin-bottom: 0; text-align: center; }
+  .mm-block.ir-calc .ir-price-loader { font-size: 10px; padding: 2px 0 4px; text-align: center; }
+  .mm-block.ir-calc .ir-price-row { justify-content: center; }
+  .mm-block.ir-calc .ir-price-original { font-size: 13px; }
+  .mm-block.ir-calc .ir-cash-row { justify-content: center; margin-top: 4px; }
+  .mm-block.ir-calc .ir-cash-label { font-size: 11px; }
+  .mm-block.ir-calc .ir-btn-order { padding: 11px 16px; font-size: 14px; border-radius: 10px; width: 100%; max-width: none; min-width: unset; justify-content: center; }
+  .mm-block.ir-calc .ir-btn-order svg { width: 16px; height: 16px; }
+  .mm-block.ir-calc .ir-faq-btn { padding: 10px 0; font-size: 14px; }
+  .mm-block.ir-calc .ir-faq-panel-inner { font-size: 12px; line-height: 1.45; }
+  .mm-block.ir-calc .ir-actions { flex-direction: column; margin-top: 14px; }
+  .mm-block.ir-calc .ir-modal { padding: 22px 16px; border-radius: 16px; margin: 10px; }
+}
+
+.mm-block.ir-calc { max-width: 100% !important; width: 100% !important; margin: 0 auto 16px !important; box-sizing: border-box !important; }
+@media (max-width: 640px) {
+  .mm-block.ir-calc { width: 100% !important; max-width: 100% !important; margin-left: 0 !important; margin-right: 0 !important; margin-top: 0 !important; margin-bottom: 0 !important; border-radius: 20px !important; padding-left: 0 !important; padding-right: 0 !important; }
+  .mm-block.ir-calc .ir-container { padding-left: 12px !important; padding-right: 12px !important; }
+}
+</style>
+{/literal}
+
+<div class="mm-block ir-calc" id="airpods-calculator">
+  <div class="ir-container">
+
+    <div class="ir-header">
+      <h1>AirPods</h1>
+      <p>Звук в блестящем исполнении.</p>
+    </div>
+
+    <div class="ir-model-tabs" id="apModelTabs"></div>
+
+    <div class="ir-product-card">
+
+      <div class="ir-image-area" id="apImageArea"></div>
+
+      <div class="ir-options-area">
+        <h2 class="ir-product-title" id="apProductTitle"></h2>
+
+        <div class="ir-option-group" id="apVariantGroup" style="display:none;">
+          <span class="ir-option-label">Вариант</span>
+          <div class="ir-option-buttons" id="apVariantButtons"></div>
+        </div>
+
+        <div class="ir-option-group" id="apColorGroup" style="display:none;">
+          <div class="ir-color-label-row">
+            <span class="ir-option-label">Цвет</span>
+            <span class="ir-color-label-value" id="apColorLabelValue"></span>
+          </div>
+          <div class="ir-color-buttons" id="apColorButtons"></div>
+        </div>
+
+        <div class="ir-price-block">
+          <div class="ir-price-row">
+            <div class="ir-price" id="apPrice"></div>
+            <div class="ir-price-original" id="apPriceOriginal"></div>
+          </div>
+          <div class="ir-cash-row" id="apCashRow">
+            <span class="ir-cash-label">Скидка при оплате наличными</span>
+            <button type="button" class="ir-cash-info" id="apCashInfoBtn" aria-label="Подробнее о скидке">?</button>
+          </div>
+          <div class="ir-price-loader" id="apPriceLoader">Загрузка актуальных цен…</div>
+          <div class="ir-actions">
+            <button class="ir-btn-order" id="apBtnOrder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              Оформить заказ
+            </button>
+          </div>
+          <div class="ir-faq" id="apFaqBlock" style="display:none;"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ir-modal-overlay" id="apModalOverlay">
+    <div class="ir-modal">
+      <button class="ir-modal-close" id="apModalClose">&times;</button>
+
+      <div id="apModalForm">
+        <h3>Оформление заказа</h3>
+        <form id="apRequestForm">
+          <input type="hidden" name="page_id" value="59">
+          <input type="hidden" name="dispatch" value="pages.send_form">
+          <input type="hidden" name="form_values[44]" id="apFieldModel">
+          <input type="hidden" name="form_values[45]" id="apFieldVariant">
+          <input type="hidden" name="form_values[46]" id="apFieldColor">
+          <input type="hidden" name="form_values[48]" id="apFieldPrice">
+
+          <div class="ir-form-group">
+            <label class="ir-form-label">Выбранная модель</label>
+            <input class="ir-form-input" type="text" id="apDisplayModel" readonly>
+          </div>
+          <div class="ir-form-group" id="apDisplayConfigGroup" style="display:none;">
+            <label class="ir-form-label" id="apDisplayConfigLabel">Конфигурация</label>
+            <input class="ir-form-input" type="text" id="apDisplayConfig" readonly>
+          </div>
+          <div class="ir-form-group">
+            <label class="ir-form-label">Цена</label>
+            <input class="ir-form-input" type="text" id="apDisplayPrice" readonly>
+          </div>
+
+          <div style="height:1px;background:#e5e5e5;margin:20px 0;"></div>
+
+          <div class="ir-form-group">
+            <label class="ir-form-label" for="apFormName">Ваше ФИО *</label>
+            <input class="ir-form-input" type="text" id="apFormName" name="form_values[53]" placeholder="Иванов Иван Иванович" required>
+          </div>
+          <div class="ir-form-group">
+            <label class="ir-form-label" for="apFormPhone">Ваш номер телефона *</label>
+            <input class="ir-form-input" type="tel" id="apFormPhone" name="form_values[54]" placeholder="+7 (___) ___-__-__" required>
+          </div>
+
+          <div class="ir-captcha" id="apCaptcha">
+            <div class="ir-captcha-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span id="apCaptchaQuestion"></span>
+            </div>
+            <div class="ir-captcha-options" id="apCaptchaOptions"></div>
+          </div>
+
+          <button type="submit" class="ir-form-submit" id="apFormSubmit" disabled>Отправить заявку</button>
+        </form>
+        <p class="ir-form-privacy">Нажимая на кнопку, вы даёте согласие на обработку <a href="https://irepair-store.ru/soglasie-polzovatelya-na-obrabotku-personalnyh-dannyh/">персональных данных</a></p>
+      </div>
+
+      <div id="apModalSuccess" class="ir-modal-success" style="display:none">
+        <div class="ir-success-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3>Заявка принята!</h3>
+        <p>В ближайшее время мы свяжемся с вами для подтверждения вашего заказа.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="ir-ap-cash-tooltip" id="apCashTooltip">
+  <p><strong>Скидка для следующих способов оплаты:</strong> наличный расчёт.</p>
+  <p><strong>Данная скидка не предоставляется:</strong> при оплате картой по терминалу, QR-кодом, при оформлении кредита или при оплате по счёту юр. лицом.</p>
+  <p><strong>Почему так?</strong> Мы стараемся обеспечить для вас не только лучший сервис, но и максимально низкие цены, в связи с этим наша наценка для многих товаров меньше, чем комиссии, которые взимают банки. Поэтому мы ввели дополнительную скидку для способов оплаты, не имеющих комиссии.</p>
+</div>
+
+{literal}
+<script>
+(function() {
+  'use strict';
+
+  var CASH_DISCOUNT = 0.08;
+
+  function getCashPrice(p) {
+    return Math.round(p * (1 - CASH_DISCOUNT));
+  }
+
+  var MODELS = [
+    {
+      id: 'airpods-pro-3',
+      name: 'AirPods Pro 3 (2025)',
+      productName: '\u0411\u0435\u0441\u043f\u0440\u043e\u0432\u043e\u0434\u043d\u044b\u0435 \u043d\u0430\u0443\u0448\u043d\u0438\u043a\u0438 Apple AirPods Pro 3 (2025)',
+      hasVariants: false,
+      hasColors: false,
+      url: 'https://irepair-store.ru/airpods/airpods-pro-3/besprovodnye-naushniki-apple-airpods-pro-3-mfhp4/',
+      categoryUrl: '/airpods/airpods-pro-3/?items_per_page=128',
+      slugMap: {
+        'besprovodnye-naushniki-apple-airpods-pro-3-mfhp4': 'default'
+      },
+      images: [
+        'https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsPro3/AirPods-Pro3-1.webp',
+        'https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsPro3/AirPods-Pro3-2.webp',
+        'https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsPro3/AirPods-Pro3-3.webp'
+      ],
+      faqHtml: 'AirPods Pro 3 \u043e\u0442\u043a\u0440\u044b\u0432\u0430\u044e\u0442 \u043d\u043e\u0432\u044b\u0435 \u0432\u043e\u0437\u043c\u043e\u0436\u043d\u043e\u0441\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0432\u0441\u0435\u0434\u043d\u0435\u0432\u043d\u043e\u0433\u043e \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u043d\u0438\u044f \u0438 \u0442\u0440\u0435\u043d\u0438\u0440\u043e\u0432\u043e\u043a. \u041b\u0443\u0447\u0448\u0435\u0435 \u0430\u043a\u0442\u0438\u0432\u043d\u043e\u0435 \u0448\u0443\u043c\u043e\u043f\u043e\u0434\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u043f\u043e\u043c\u043e\u0433\u0430\u0435\u0442 \u043f\u043e\u043b\u043d\u043e\u0441\u0442\u044c\u044e \u0441\u043e\u0441\u0440\u0435\u0434\u043e\u0442\u043e\u0447\u0438\u0442\u044c\u0441\u044f \u043d\u0430 \u043c\u0443\u0437\u044b\u043a\u0435 \u0438\u043b\u0438 \u0437\u0430\u0434\u0430\u0447\u0430\u0445, \u0430 \u043f\u0440\u043e\u0434\u0432\u0438\u043d\u0443\u0442\u0430\u044f \u0430\u043a\u0443\u0441\u0442\u0438\u0447\u0435\u0441\u043a\u0430\u044f \u0441\u0438\u0441\u0442\u0435\u043c\u0430 \u043e\u0431\u0435\u0441\u043f\u0435\u0447\u0438\u0432\u0430\u0435\u0442 \u0447\u0438\u0441\u0442\u043e\u0435 \u0438 \u0434\u0435\u0442\u0430\u043b\u0438\u0437\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u043e\u0435 \u0437\u0432\u0443\u0447\u0430\u043d\u0438\u0435. \u0412\u0441\u0442\u0440\u043e\u0435\u043d\u043d\u044b\u0439 \u0434\u0430\u0442\u0447\u0438\u043a \u043f\u043e\u0437\u0432\u043e\u043b\u044f\u0435\u0442 \u0438\u0437\u043c\u0435\u0440\u044f\u0442\u044c \u0447\u0430\u0441\u0442\u043e\u0442\u0443 \u0441\u0435\u0440\u0434\u0435\u0447\u043d\u044b\u0445 \u0441\u043e\u043a\u0440\u0430\u0449\u0435\u043d\u0438\u0439 \u0432\u043e \u0432\u0440\u0435\u043c\u044f \u0442\u0440\u0435\u043d\u0438\u0440\u043e\u0432\u043e\u043a, \u0430 \u0444\u0443\u043d\u043a\u0446\u0438\u044f \u0436\u0438\u0432\u043e\u0433\u043e \u043f\u0435\u0440\u0435\u0432\u043e\u0434\u0430 \u0434\u0435\u043b\u0430\u0435\u0442 \u043e\u0431\u0449\u0435\u043d\u0438\u0435 \u043d\u0430 \u0440\u0430\u0437\u043d\u044b\u0445 \u044f\u0437\u044b\u043a\u0430\u0445 \u0443\u0434\u043e\u0431\u043d\u0435\u0435, \u0447\u0435\u043c \u043a\u043e\u0433\u0434\u0430\u2011\u043b\u0438\u0431\u043e. \u0414\u043e 8 \u0447\u0430\u0441\u043e\u0432 \u0440\u0430\u0431\u043e\u0442\u044b \u043e\u0442 \u043e\u0434\u043d\u043e\u0433\u043e \u0437\u0430\u0440\u044f\u0434\u0430 \u0434\u0430\u044e\u0442 \u0431\u043e\u043b\u044c\u0448\u0435 \u0441\u0432\u043e\u0431\u043e\u0434\u044b \u0431\u0435\u0437 \u043f\u043e\u0434\u0437\u0430\u0440\u044f\u0434\u043a\u0438, \u0430 \u043a\u043e\u043c\u043f\u0430\u043a\u0442\u043d\u044b\u0439 \u0444\u0443\u0442\u043b\u044f\u0440 \u0432\u0441\u0435\u0433\u0434\u0430 \u043f\u043e\u0434 \u0440\u0443\u043a\u043e\u0439.',
+      prices: {}, origPrices: {}
+    },
+    {
+      id: 'airpods-4',
+      name: 'Apple AirPods 4 (2024)',
+      productName: '\u0411\u0435\u0441\u043f\u0440\u043e\u0432\u043e\u0434\u043d\u044b\u0435 \u043d\u0430\u0443\u0448\u043d\u0438\u043a\u0438 Apple AirPods 4 (2024)',
+      hasVariants: true,
+      hasColors: false,
+      variants: [
+        {
+          id: 'anc',
+          name: '\u0421 \u0448\u0443\u043c\u043e\u043f\u043e\u0434\u0430\u0432\u043b\u0435\u043d\u0438\u0435\u043c',
+          url: 'https://irepair-store.ru/airpods/airpods-4/besprovodnye-naushniki-apple-airpods-4-anc-shumopodavlenie-a3055-a3056-a3059/',
+          slug: 'besprovodnye-naushniki-apple-airpods-4-anc-shumopodavlenie-a3055-a3056-a3059'
+        },
+        {
+          id: 'no-anc',
+          name: '\u0411\u0435\u0437 \u0448\u0443\u043c\u043e\u043f\u043e\u0434\u0430\u0432\u043b\u0435\u043d\u0438\u044f',
+          url: 'https://irepair-store.ru/airpods/airpods-4/besprovodnye-naushniki-apple-airpods-4-a3050-a3053-a3058/',
+          slug: 'besprovodnye-naushniki-apple-airpods-4-a3050-a3053-a3058'
+        }
+      ],
+      categoryUrl: '/airpods/airpods-4/?items_per_page=128',
+      slugMap: {
+        'besprovodnye-naushniki-apple-airpods-4-anc-shumopodavlenie-a3055-a3056-a3059': 'anc',
+        'besprovodnye-naushniki-apple-airpods-4-a3050-a3053-a3058': 'no-anc'
+      },
+      images: [
+        'https://irepair-store.ru/images/Store%20menu/AirPods/AirPods4/airpod4-1.webp',
+        'https://irepair-store.ru/images/Store%20menu/AirPods/AirPods4/airpod4-2.webp',
+        'https://irepair-store.ru/images/Store%20menu/AirPods/AirPods4/airpod4-3.webp'
+      ],
+      faqHtml: '\u041d\u043e\u0432\u044b\u0439 \u0443\u0440\u043e\u0432\u0435\u043d\u044c \u0437\u0432\u0443\u043a\u0430 \u0438 \u043a\u043e\u043c\u0444\u043e\u0440\u0442\u0430. \u0422\u0435\u043f\u0435\u0440\u044c, \u0431\u043b\u0430\u0433\u043e\u0434\u0430\u0440\u044f \u043f\u0435\u0440\u0435\u0440\u0430\u0431\u043e\u0442\u0430\u043d\u043d\u043e\u0439 \u0444\u043e\u0440\u043c\u0435 \u043d\u0430\u0443\u0448\u043d\u0438\u043a\u043e\u0432, \u043e\u043d\u0438 \u043e\u0431\u0435\u0441\u043f\u0435\u0447\u0438\u0432\u0430\u044e\u0442 \u043d\u0430\u0434\u0435\u0436\u043d\u0443\u044e \u0438 \u0435\u0441\u0442\u0435\u0441\u0442\u0432\u0435\u043d\u043d\u0443\u044e \u043f\u043e\u0441\u0430\u0434\u043a\u0443 \u0443\u0434\u043e\u0431\u043d\u0435\u0435, \u0447\u0435\u043c \u043a\u043e\u0433\u0434\u0430-\u043b\u0438\u0431\u043e. \u041f\u0435\u0440\u0441\u043e\u043d\u0430\u043b\u0438\u0437\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u043e\u0435 \u043f\u0440\u043e\u0441\u0442\u0440\u0430\u043d\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u0435 \u0430\u0443\u0434\u0438\u043e \u0441 \u0434\u0438\u043d\u0430\u043c\u0438\u0447\u0435\u0441\u043a\u0438\u043c \u043e\u0442\u0441\u043b\u0435\u0436\u0438\u0432\u0430\u043d\u0438\u0435\u043c \u043f\u043e\u043b\u043e\u0436\u0435\u043d\u0438\u044f \u0433\u043e\u043b\u043e\u0432\u044b \u0441\u043e\u0437\u0434\u0430\u0435\u0442 \u0442\u0440\u0435\u0445\u043c\u0435\u0440\u043d\u043e\u0435 \u0437\u0432\u0443\u0447\u0430\u043d\u0438\u0435 \u0434\u043b\u044f \u043c\u0443\u0437\u044b\u043a\u0438, \u0442\u0435\u043b\u0435\u043f\u0435\u0440\u0435\u0434\u0430\u0447, \u0444\u0438\u043b\u044c\u043c\u043e\u0432, \u0438\u0433\u0440 \u0438 \u043c\u043d\u043e\u0433\u043e\u0433\u043e \u0434\u0440\u0443\u0433\u043e\u0433\u043e.',
+      prices: {}, origPrices: {}
+    },
+    {
+      id: 'airpods-max-2',
+      name: 'Apple AirPods Max 2 (2026)',
+      productName: '\u0411\u0435\u0441\u043f\u0440\u043e\u0432\u043e\u0434\u043d\u044b\u0435 \u043d\u0430\u0443\u0448\u043d\u0438\u043a\u0438 Apple AirPods Max 2 (2026)',
+      hasVariants: false,
+      hasColors: true,
+      colors: [
+        {
+          id: 'blue', name: 'Blue', hex: '#5B8DB8', hexLight: '#C4DCF0',
+          url: 'https://irepair-store.ru/airpods/airpods-max-2/besprovodnye-naushniki-apple-airpods-max-2-blue-2026/',
+          slug: 'besprovodnye-naushniki-apple-airpods-max-2-blue-2026',
+          images: ['https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/AirPodsMax-blue1.webp','https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/AirPodsMax-blue2.webp','https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/AirPodsMax-blue3.webp']
+        },
+        {
+          id: 'midnight', name: 'Midnight', hex: '#1E2A3A', hexLight: '#5C6878',
+          url: 'https://irepair-store.ru/airpods/airpods-max-2/besprovodnye-naushniki-apple-airpods-max-2-midnight-2026/',
+          slug: 'besprovodnye-naushniki-apple-airpods-max-2-midnight-2026',
+          images: ['https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/airpodsMax-mid1.webp','https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/airpodsMax-mid2.webp','https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/airpodsMax-mid3.webp']
+        },
+        {
+          id: 'starlight', name: 'Starlight', hex: '#E8E0D0', hexLight: '#F5F2EC',
+          url: 'https://irepair-store.ru/airpods/airpods-max-2/besprovodnye-naushniki-apple-airpods-max-2-starlight-2026/',
+          slug: 'besprovodnye-naushniki-apple-airpods-max-2-starlight-2026',
+          images: ['https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/airpodsMax-star1.webp','https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/airpodsMax-star2.webp','https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/airpodsMax-star3.webp']
+        },
+        {
+          id: 'orange', name: 'Orange', hex: '#E8742E', hexLight: '#F5C4A0',
+          url: 'https://irepair-store.ru/airpods/airpods-max-2/besprovodnye-naushniki-apple-airpods-max-2-orange-2026/',
+          slug: 'besprovodnye-naushniki-apple-airpods-max-2-orange-2026',
+          images: ['https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/airpodsMax-orange1.webp','https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/airpodsMax-orange2.webp','https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/airpodsMax-orange3.webp']
+        },
+        {
+          id: 'purple', name: 'Purple', hex: '#9B59B6', hexLight: '#D7BEE4',
+          url: 'https://irepair-store.ru/airpods/airpods-max-2/besprovodnye-naushniki-apple-airpods-max-2-purple-2026/',
+          slug: 'besprovodnye-naushniki-apple-airpods-max-2-purple-2026',
+          images: ['https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/airpodsMax-purple1.webp','https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/airpodsMax-purple2.webp','https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/airpodsMax-purple3.webp']
+        }
+      ],
+      categoryUrl: '/airpods/airpods-max-2/?items_per_page=128',
+      slugMap: {
+        'besprovodnye-naushniki-apple-airpods-max-2-blue-2026':      'blue',
+        'besprovodnye-naushniki-apple-airpods-max-2-midnight-2026':  'midnight',
+        'besprovodnye-naushniki-apple-airpods-max-2-starlight-2026': 'starlight',
+        'besprovodnye-naushniki-apple-airpods-max-2-orange-2026':   'orange',
+        'besprovodnye-naushniki-apple-airpods-max-2-purple-2026':   'purple'
+      },
+      faqHtml: '\u041d\u043e\u0432\u043e\u0435 \u043f\u043e\u043a\u043e\u043b\u0435\u043d\u0438\u0435 \u043f\u043e\u043b\u043d\u043e\u0440\u0430\u0437\u043c\u0435\u0440\u043d\u044b\u0445 \u043d\u0430\u0443\u0448\u043d\u0438\u043a\u043e\u0432 Apple AirPods Max 2 \u2014 \u0437\u0432\u0443\u043a \u0432 \u0431\u043b\u0435\u0441\u0442\u044f\u0449\u0435\u043c \u0438\u0441\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u0438. \u041e\u0431\u043d\u043e\u0432\u043b\u0451\u043d\u043d\u0430\u044f \u0430\u043a\u0443\u0441\u0442\u0438\u0447\u0435\u0441\u043a\u0430\u044f \u0441\u0438\u0441\u0442\u0435\u043c\u0430, \u0430\u043a\u0442\u0438\u0432\u043d\u043e\u0435 \u0448\u0443\u043c\u043e\u043f\u043e\u0434\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0438 \u043f\u0440\u043e\u0441\u0442\u0440\u0430\u043d\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u0435 \u0430\u0443\u0434\u0438\u043e \u0434\u043b\u044f \u043c\u0443\u0437\u044b\u043a\u0438, \u0444\u0438\u043b\u044c\u043c\u043e\u0432 \u0438 \u0437\u0432\u043e\u043d\u043a\u043e\u0432. \u0414\u043e\u0441\u0442\u0443\u043f\u043d\u044b \u043f\u044f\u0442\u044c \u0446\u0432\u0435\u0442\u043e\u0432 \u043a\u043e\u0440\u043f\u0443\u0441\u0430.',
+      prices: {}, origPrices: {}
+    },
+    {
+      id: 'airpods-max',
+      name: 'Apple AirPods Max (2024)',
+      productName: '\u0411\u0435\u0441\u043f\u0440\u043e\u0432\u043e\u0434\u043d\u044b\u0435 \u043d\u0430\u0443\u0448\u043d\u0438\u043a\u0438 Apple AirPods Max (2024)',
+      hasVariants: false,
+      hasColors: true,
+      colors: [
+        {
+          id: 'blue', name: 'Blue', hex: '#5B8DB8', hexLight: '#C4DCF0',
+          url: 'https://irepair-store.ru/airpods/airpods-max/besprovodnye-naushniki-apple-airpods-max-usb-c-goluboy/',
+          slug: 'besprovodnye-naushniki-apple-airpods-max-usb-c-goluboy',
+          images: ['https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/AirPodsMax-blue1.webp','https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/AirPodsMax-blue2.webp','https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/AirPodsMax-blue3.webp']
+        },
+        {
+          id: 'midnight', name: 'Midnight', hex: '#1E2A3A', hexLight: '#5C6878',
+          url: 'https://irepair-store.ru/airpods/airpods-max/besprovodnye-naushniki-apple-airpods-max-usb-c-temnaya-noch/',
+          slug: 'besprovodnye-naushniki-apple-airpods-max-usb-c-temnaya-noch',
+          images: ['https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/airpodsMax-mid1.webp','https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/airpodsMax-mid2.webp','https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/airpodsMax-mid3.webp']
+        },
+        {
+          id: 'starlight', name: 'Starlight', hex: '#E8E0D0', hexLight: '#F5F2EC',
+          url: 'https://irepair-store.ru/airpods/airpods-max/besprovodnye-naushniki-apple-airpods-max-usb-c-siyayuschaya-zvezda/',
+          slug: 'besprovodnye-naushniki-apple-airpods-max-usb-c-siyayuschaya-zvezda',
+          images: ['https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/airpodsMax-star1.webp','https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/airpodsMax-star2.webp','https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/airpodsMax-star3.webp']
+        },
+        {
+          id: 'orange', name: 'Orange', hex: '#E8742E', hexLight: '#F5C4A0',
+          url: 'https://irepair-store.ru/airpods/airpods-max/besprovodnye-naushniki-apple-airpods-max-usb-c-oranzhevyy/',
+          slug: 'besprovodnye-naushniki-apple-airpods-max-usb-c-oranzhevyy',
+          images: ['https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/airpodsMax-orange1.webp','https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/airpodsMax-orange2.webp','https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/airpodsMax-orange3.webp']
+        },
+        {
+          id: 'purple', name: 'Purple', hex: '#9B59B6', hexLight: '#D7BEE4',
+          url: 'https://irepair-store.ru/airpods/airpods-max/besprovodnye-naushniki-apple-airpods-max-usb-c-fioletovyy/',
+          slug: 'besprovodnye-naushniki-apple-airpods-max-usb-c-fioletovyy',
+          images: ['https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/airpodsMax-purple1.webp','https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/airpodsMax-purple2.webp','https://irepair-store.ru/images/Store%20menu/AirPods/AirPodsMax/airpodsMax-purple3.webp']
+        }
+      ],
+      categoryUrl: '/airpods/airpods-max/?items_per_page=128',
+      slugMap: {
+        'besprovodnye-naushniki-apple-airpods-max-usb-c-goluboy':             'blue',
+        'besprovodnye-naushniki-apple-airpods-max-usb-c-temnaya-noch':        'midnight',
+        'besprovodnye-naushniki-apple-airpods-max-usb-c-siyayuschaya-zvezda': 'starlight',
+        'besprovodnye-naushniki-apple-airpods-max-usb-c-oranzhevyy':          'orange',
+        'besprovodnye-naushniki-apple-airpods-max-usb-c-fioletovyy':          'purple'
+      },
+      faqHtml: '\u041e\u0431\u043d\u043e\u0432\u043b\u0435\u043d\u043d\u0430\u044f \u0432\u0435\u0440\u0441\u0438\u044f \u0437\u043d\u0430\u043c\u0435\u043d\u0438\u0442\u044b\u0445 \u043f\u043e\u043b\u043d\u043e\u0440\u0430\u0437\u043c\u0435\u0440\u043d\u044b\u0445 \u043d\u0430\u0443\u0448\u043d\u0438\u043a\u043e\u0432 \u043e\u0442 Apple \u0441 \u043d\u043e\u0432\u044b\u043c\u0438 \u0446\u0432\u0435\u0442\u0430\u043c\u0438 \u0438 \u0440\u0430\u0437\u044a\u0435\u043c\u043e\u043c USB-C. \u0412\u044b\u0441\u043e\u0447\u0430\u0439\u0448\u0435\u0435 \u043a\u0430\u0447\u0435\u0441\u0442\u0432\u043e \u0437\u0432\u0443\u043a\u0430 \u0432 \u043f\u043e\u043b\u043d\u043e\u0439 \u0433\u0430\u0440\u043c\u043e\u043d\u0438\u0438 \u0441 \u0432\u043e\u043b\u0448\u0435\u0431\u043d\u043e\u0439 \u043f\u0440\u043e\u0441\u0442\u043e\u0442\u043e\u0439 AirPods. \u042d\u0442\u043e \u0437\u0432\u0443\u043a \u0432 \u0431\u043b\u0435\u0441\u0442\u044f\u0449\u0435\u043c \u0438\u0441\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u0438.',
+      prices: {}, origPrices: {}
+    }
+  ];
+
+  var state = { modelIndex: 0, variantId: null, colorId: null };
+
+  var $tabs          = document.getElementById('apModelTabs');
+  var $imageArea     = document.getElementById('apImageArea');
+  var $title         = document.getElementById('apProductTitle');
+  var $variantGroup  = document.getElementById('apVariantGroup');
+  var $variantBtns   = document.getElementById('apVariantButtons');
+  var $colorGroup    = document.getElementById('apColorGroup');
+  var $colorBtns     = document.getElementById('apColorButtons');
+  var $price         = document.getElementById('apPrice');
+  var $priceLoader   = document.getElementById('apPriceLoader');
+  var $btnOrder      = document.getElementById('apBtnOrder');
+  var $overlay       = document.getElementById('apModalOverlay');
+  var $modalClose    = document.getElementById('apModalClose');
+  var $modalForm     = document.getElementById('apModalForm');
+  var $modalSuccess  = document.getElementById('apModalSuccess');
+  var $form          = document.getElementById('apRequestForm');
+  var $faqBlock      = document.getElementById('apFaqBlock');
+
+  var lightboxState = { images: [], index: 0, alt: '' };
+  var lightboxTouchStartX = null, lightboxTouchStartY = null, lightboxTouchDX = 0;
+  var lightboxSwipeTracking = false, lightboxAnimating = false;
+
+  var $lightboxOverlay = document.createElement('div');
+  $lightboxOverlay.className = 'ir-ap-lightbox-overlay';
+  $lightboxOverlay.innerHTML =
+    '<div class="ir-ap-lightbox-inner" role="dialog" aria-modal="true">' +
+      '<button type="button" class="ir-ap-lightbox-close" id="apLightboxClose">&times;</button>' +
+      '<button type="button" class="ir-ap-lightbox-nav prev" id="apLightboxPrev">&#8249;</button>' +
+      '<img class="ir-ap-lightbox-img" id="apLightboxImg" alt="">' +
+      '<button type="button" class="ir-ap-lightbox-nav next" id="apLightboxNext">&#8250;</button>' +
+      '<div class="ir-ap-lightbox-counter" id="apLightboxCounter"></div>' +
+    '</div>';
+  document.body.appendChild($lightboxOverlay);
+  var $lightboxImg     = $lightboxOverlay.querySelector('#apLightboxImg');
+  var $lightboxClose   = $lightboxOverlay.querySelector('#apLightboxClose');
+  var $lightboxPrev    = $lightboxOverlay.querySelector('#apLightboxPrev');
+  var $lightboxNext    = $lightboxOverlay.querySelector('#apLightboxNext');
+  var $lightboxCounter = $lightboxOverlay.querySelector('#apLightboxCounter');
+
+  function currentModel() { return MODELS[state.modelIndex]; }
+
+  function getCurrentKey() {
+    var m = currentModel();
+    if (!m.hasVariants && !m.hasColors) return 'default';
+    if (m.hasVariants) return state.variantId;
+    if (m.hasColors) return state.colorId;
+    return 'default';
+  }
+
+  function getPrice() {
+    var m = currentModel();
+    var key = getCurrentKey();
+    return (key && m.prices[key]) ? m.prices[key] : null;
+  }
+
+  function getOrigPrice() {
+    var m = currentModel();
+    var key = getCurrentKey();
+    return (key && m.origPrices && m.origPrices[key]) ? m.origPrices[key] : null;
+  }
+
+  function getProductUrl() {
+    var m = currentModel();
+    if (!m.hasVariants && !m.hasColors) return m.url;
+    if (m.hasVariants) {
+      var v = m.variants.filter(function(v) { return v.id === state.variantId; })[0];
+      return v ? v.url : null;
+    }
+    if (m.hasColors) {
+      var c = m.colors.filter(function(c) { return c.id === state.colorId; })[0];
+      return c ? c.url : null;
+    }
+    return null;
+  }
+
+  function formatPrice(p) {
+    return (Number(String(p).replace(/[^\d]/g, '')) || 0).toLocaleString('ru-RU') + ' \u0440\u0443\u0431.';
+  }
+
+  function getColorObj(colorId) {
+    var m = currentModel();
+    if (!m.hasColors) return null;
+    return m.colors.filter(function(c) { return c.id === colorId; })[0] || null;
+  }
+
+  function getActiveImages() {
+    var m = currentModel();
+    if (m.hasColors) {
+      var c = getColorObj(state.colorId);
+      return c ? c.images : [];
+    }
+    return m.images || [];
+  }
+
+  function renderReadMore() {
+    var el = document.getElementById('apReadMore');
+    if (!el) return;
+    var url = getProductUrl();
+    if (url) { el.href = url; el.style.display = ''; }
+    else { el.style.display = 'none'; }
+  }
+
+  function renderFaq() {
+    if (!$faqBlock) return;
+    var m = currentModel();
+    $faqBlock.style.display = '';
+    $faqBlock.innerHTML =
+      '<div class="ir-faq-item open" data-faq-item>' +
+        '<button type="button" class="ir-faq-btn" data-faq-toggle aria-expanded="true">' +
+          '<span>\u041f\u043e\u0434\u0440\u043e\u0431\u043d\u0435\u0435 \u043e \u0442\u043e\u0432\u0430\u0440\u0435</span>' +
+          '<span class="ir-faq-icon">\u2304</span>' +
+        '</button>' +
+        '<div class="ir-faq-panel" data-faq-panel>' +
+          '<div class="ir-faq-panel-inner">' + m.faqHtml +
+            '<br><a class="ir-read-more" id="apReadMore" href="#" style="margin-top:10px;display:inline-block;margin-bottom:0;">\u0427\u0438\u0442\u0430\u0442\u044c \u043e\u043f\u0438\u0441\u0430\u043d\u0438\u0435</a>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    var panel = $faqBlock.querySelector('[data-faq-panel]');
+    if (panel) panel.style.maxHeight = panel.scrollHeight + 'px';
+    renderReadMore();
+  }
+
+  function updateLightbox() {
+    if (!lightboxState.images.length) return;
+    var count = lightboxState.images.length;
+    var idx = ((lightboxState.index % count) + count) % count;
+    lightboxState.index = idx;
+    $lightboxImg.src = lightboxState.images[idx];
+    $lightboxImg.alt = lightboxState.alt || '\u0424\u043e\u0442\u043e \u0442\u043e\u0432\u0430\u0440\u0430';
+    $lightboxCounter.textContent = (idx + 1) + ' / ' + count;
+    var nd = count > 1 ? '' : 'none';
+    $lightboxPrev.style.display = nd;
+    $lightboxNext.style.display = nd;
+  }
+
+  function openLightbox(images, startIndex, altText) {
+    if (!images || !images.length) return;
+    lightboxState.images = images.slice();
+    lightboxState.index = startIndex || 0;
+    lightboxState.alt = altText || '';
+    updateLightbox();
+    $lightboxImg.style.transition = 'none';
+    $lightboxImg.style.transform = 'translateX(0)';
+    $lightboxImg.style.opacity = '1';
+    $lightboxOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    $lightboxOverlay.classList.remove('active');
+    lightboxTouchStartX = null; lightboxTouchStartY = null; lightboxTouchDX = 0;
+    lightboxSwipeTracking = false; lightboxAnimating = false;
+    if (!$overlay.classList.contains('active')) document.body.style.overflow = '';
+  }
+
+  function stepLightbox(delta) { if (!lightboxState.images.length) return; lightboxState.index += delta; updateLightbox(); }
+
+  function animateLightboxSwipe(direction) {
+    if (lightboxAnimating || !lightboxState.images.length) return;
+    lightboxAnimating = true;
+    var outX = direction > 0 ? '-36vw' : '36vw', inX = direction > 0 ? '36vw' : '-36vw';
+    $lightboxImg.style.transition = 'transform 0.18s ease, opacity 0.18s ease';
+    $lightboxImg.style.transform = 'translateX(' + outX + ')';
+    $lightboxImg.style.opacity = '0.25';
+    setTimeout(function() {
+      lightboxState.index += direction; updateLightbox();
+      $lightboxImg.style.transition = 'none';
+      $lightboxImg.style.transform = 'translateX(' + inX + ')';
+      $lightboxImg.style.opacity = '0.25';
+      requestAnimationFrame(function() { requestAnimationFrame(function() {
+        $lightboxImg.style.transition = 'transform 0.22s ease, opacity 0.22s ease';
+        $lightboxImg.style.transform = 'translateX(0)'; $lightboxImg.style.opacity = '1';
+      }); });
+      setTimeout(function() { lightboxAnimating = false; }, 230);
+    }, 180);
+  }
+
+  $lightboxOverlay.addEventListener('touchstart', function(e) {
+    if (!$lightboxOverlay.classList.contains('active') || lightboxAnimating) return;
+    if (!e.touches || !e.touches.length) return;
+    if (e.target && e.target.closest && e.target.closest('button')) return;
+    lightboxTouchStartX = e.touches[0].clientX; lightboxTouchStartY = e.touches[0].clientY; lightboxTouchDX = 0; lightboxSwipeTracking = false;
+    $lightboxImg.style.transition = 'none';
+  }, { passive: true });
+
+  $lightboxOverlay.addEventListener('touchmove', function(e) {
+    if (!$lightboxOverlay.classList.contains('active') || lightboxAnimating || lightboxTouchStartX === null) return;
+    var dx = e.touches[0].clientX - lightboxTouchStartX, dy = e.touches[0].clientY - lightboxTouchStartY;
+    if (!lightboxSwipeTracking) { if (Math.abs(dx) < 8 || Math.abs(dx) <= Math.abs(dy)) return; lightboxSwipeTracking = true; }
+    e.preventDefault(); lightboxTouchDX = dx;
+    $lightboxImg.style.transform = 'translateX(' + dx + 'px)';
+    $lightboxImg.style.opacity = String(Math.max(0.65, 1 - Math.abs(dx) / 360));
+  }, { passive: false });
+
+  $lightboxOverlay.addEventListener('touchend', function(e) {
+    if (!$lightboxOverlay.classList.contains('active') || lightboxTouchStartX === null) return;
+    var dx = lightboxTouchDX;
+    lightboxTouchStartX = null; lightboxTouchStartY = null; lightboxTouchDX = 0;
+    if (!lightboxSwipeTracking || Math.abs(dx) < 30) {
+      $lightboxImg.style.transition = 'transform 0.2s ease, opacity 0.2s ease';
+      $lightboxImg.style.transform = 'translateX(0)'; $lightboxImg.style.opacity = '1';
+      lightboxSwipeTracking = false; return;
+    }
+    lightboxSwipeTracking = false;
+    if (Math.abs(dx) >= 70) animateLightboxSwipe(dx < 0 ? 1 : -1);
+    else { $lightboxImg.style.transition = 'transform 0.2s ease, opacity 0.2s ease'; $lightboxImg.style.transform = 'translateX(0)'; $lightboxImg.style.opacity = '1'; }
+  }, { passive: true });
+
+  function renderImage() {
+    var m = currentModel();
+    var images = getActiveImages();
+    var alt = m.productName + (state.colorId ? ' ' + (getColorObj(state.colorId) || {name: ''}).name : '');
+    $imageArea.style.background = '#f6f5f8';
+
+    if (!images || !images.length) return;
+    var realCount = images.length;
+    var slidesForTrack = realCount > 1 ? [images[realCount - 1]].concat(images).concat([images[0]]) : images;
+
+    var slidesHTML = slidesForTrack.map(function(url) {
+      return '<div class="ir-img-carousel-slide"><img class="ir-product-img" src="' + url + '" alt="' + alt + '" width="320" height="320" loading="lazy"></div>';
+    }).join('');
+    var dotsHTML = images.map(function(_, idx) {
+      return '<button type="button" class="ir-img-dot' + (idx === 0 ? ' active' : '') + '" aria-label="\u0424\u043e\u0442\u043e ' + (idx + 1) + '"></button>';
+    }).join('');
+
+    $imageArea.innerHTML =
+      '<div class="ir-img-frame"><div class="ir-img-carousel">' +
+        '<div class="ir-img-carousel-track" id="apImgTrack">' + slidesHTML + '</div>' +
+        '<div class="ir-img-carousel-dots' + (realCount > 1 ? '' : ' is-empty') + '" id="apImgDots">' + (realCount > 1 ? dotsHTML : '') + '</div>' +
+      '</div></div>' +
+      (realCount > 1
+        ? '<button type="button" class="ir-img-carousel-nav prev" id="apImgPrev" aria-label="\u041f\u0440\u0435\u0434\u044b\u0434\u0443\u0449\u0435\u0435 \u0444\u043e\u0442\u043e">&#8249;</button>' +
+          '<button type="button" class="ir-img-carousel-nav next" id="apImgNext" aria-label="\u0421\u043b\u0435\u0434\u0443\u044e\u0449\u0435\u0435 \u0444\u043e\u0442\u043e">&#8250;</button>'
+        : '');
+
+    var $track = $imageArea.querySelector('#apImgTrack');
+    var $dots  = $imageArea.querySelectorAll('#apImgDots .ir-img-dot');
+    var $prev  = $imageArea.querySelector('#apImgPrev');
+    var $next  = $imageArea.querySelector('#apImgNext');
+
+    function setIndex(i) {
+      var idx = Math.max(0, Math.min(realCount - 1, i));
+      if ($dots && $dots.length) $dots.forEach(function(d, di) { if (di === idx) d.classList.add('active'); else d.classList.remove('active'); });
+    }
+
+    if ($track) {
+      var w = function() { return $track.clientWidth || 1; };
+      var getLoopIndex = function() { return Math.round($track.scrollLeft / w()); };
+      var getRealIndex = function(loopIdx) { return realCount <= 1 ? 0 : ((loopIdx - 1) % realCount + realCount) % realCount; };
+      var scrollTimeout = null, lastReal = 0, raf = null;
+
+      function syncByScroll() {
+        var li = getLoopIndex(), ri = getRealIndex(li);
+        if (ri !== lastReal) { lastReal = ri; setIndex(ri); }
+        return li;
+      }
+      function handleSnap() {
+        if (realCount <= 1) return;
+        var li = syncByScroll();
+        if (li === 0) { $track.scrollLeft = w() * realCount; setIndex(realCount - 1); }
+        else if (li === realCount + 1) { $track.scrollLeft = w() * 1; setIndex(0); }
+      }
+
+      $track.addEventListener('scroll', function() {
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(function() { syncByScroll(); });
+        if (scrollTimeout) clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(handleSnap, 120);
+      });
+
+      if (realCount > 1) { $track.scrollLeft = w() * 1; setIndex(0); } else { setIndex(0); }
+
+      if (realCount > 1 && $prev && $next) {
+        $prev.addEventListener('click', function() {
+          var nr = (getRealIndex(getLoopIndex()) - 1 + realCount) % realCount;
+          $track.scrollTo({ left: (nr + 1) * w(), behavior: 'smooth' }); setIndex(nr);
+        });
+        $next.addEventListener('click', function() {
+          var nr = (getRealIndex(getLoopIndex()) + 1) % realCount;
+          $track.scrollTo({ left: (nr + 1) * w(), behavior: 'smooth' }); setIndex(nr);
+        });
+      }
+      if (realCount > 1 && $dots && $dots.length) {
+        $dots.forEach(function(dot, idx) {
+          dot.addEventListener('click', function() { $track.scrollTo({ left: (idx + 1) * w(), behavior: 'smooth' }); setIndex(idx); });
+        });
+      }
+      var $slideImages = $imageArea.querySelectorAll('.ir-img-carousel-slide .ir-product-img');
+      if ($slideImages && $slideImages.length) {
+        $slideImages.forEach(function(slideImg) {
+          slideImg.addEventListener('click', function() { openLightbox(images, getRealIndex(getLoopIndex()), alt); });
+        });
+      }
+    }
+  }
+
+  function scrollTabIntoView() {
+    var activeTab = $tabs.querySelector('.ir-model-tab.active');
+    if (!activeTab) return;
+    requestAnimationFrame(function() {
+      var containerWidth = $tabs.offsetWidth;
+      var tabLeft = activeTab.offsetLeft;
+      var tabWidth = activeTab.offsetWidth;
+      $tabs.scrollTo({ left: Math.max(0, tabLeft - (containerWidth / 2) + (tabWidth / 2)), behavior: 'smooth' });
+    });
+  }
+
+  function renderTabs() {
+    $tabs.innerHTML = '';
+    MODELS.forEach(function(m, i) {
+      var btn = document.createElement('button');
+      btn.className = 'ir-model-tab' + (i === state.modelIndex ? ' active' : '');
+      btn.textContent = m.name;
+      btn.addEventListener('click', function() { selectModel(i); });
+      $tabs.appendChild(btn);
+    });
+    scrollTabIntoView();
+  }
+
+  function renderVariantButtons() {
+    var m = currentModel();
+    if (!m.hasVariants) { $variantGroup.style.display = 'none'; return; }
+    $variantGroup.style.display = '';
+    $variantBtns.innerHTML = '';
+    m.variants.forEach(function(v) {
+      var btn = document.createElement('button');
+      btn.className = 'ir-option-btn' + (v.id === state.variantId ? ' active' : '');
+      btn.textContent = v.name;
+      btn.addEventListener('click', function() { selectVariant(v.id); });
+      $variantBtns.appendChild(btn);
+    });
+  }
+
+  function renderColorButtons() {
+    var m = currentModel();
+    if (!m.hasColors) { $colorGroup.style.display = 'none'; return; }
+    $colorGroup.style.display = '';
+    $colorBtns.innerHTML = '';
+    m.colors.forEach(function(c) {
+      var btn = document.createElement('button');
+      btn.className = 'ir-color-btn' + (c.id === state.colorId ? ' active' : '');
+      btn.type = 'button';
+      var isLight = c.hex === '#E8E0D0' || c.hex === '#F0EDE5' || c.hex === '#C8C8C8';
+      var dotStyle = 'background:' + c.hex + ';' + (isLight ? 'box-shadow:inset 0 0 0 1.5px rgba(0,0,0,0.14);' : 'box-shadow:inset 0 0 0 1.5px rgba(255,255,255,0.22);');
+      btn.title = c.name;
+      btn.setAttribute('aria-label', '\u0426\u0432\u0435\u0442: ' + c.name);
+      btn.innerHTML = '<span class="ir-color-dot" style="' + dotStyle + '"></span>';
+      btn.addEventListener('click', function() { selectColor(c.id); });
+      $colorBtns.appendChild(btn);
+    });
+    var $lv = document.getElementById('apColorLabelValue');
+    if ($lv) { var co = getColorObj(state.colorId); $lv.textContent = co ? ' - ' + co.name : ''; }
+  }
+
+  function renderTitle() { $title.textContent = currentModel().productName; }
+
+  function renderPrice() {
+    var price = getPrice();
+    var m = currentModel();
+    var hasPrices = Object.keys(m.prices).length > 0;
+    var $orig    = document.getElementById('apPriceOriginal');
+    var $cashRow = document.getElementById('apCashRow');
+    if (price) {
+      var origPrice = getOrigPrice();
+      $price.innerHTML = '<span>' + formatPrice(price) + '</span>';
+      $price.className = 'ir-price';
+      if ($orig) {
+        if (origPrice && origPrice > price) {
+          $orig.textContent = formatPrice(origPrice);
+          $orig.style.display = 'block';
+        } else {
+          $orig.style.display = 'none';
+        }
+      }
+      if ($cashRow) $cashRow.style.display = 'flex';
+      $btnOrder.disabled = false;
+    } else if (!hasPrices && !pricesLoaded) {
+      $price.innerHTML = '<span class="ir-price-unavailable">\u0417\u0430\u0433\u0440\u0443\u0437\u043a\u0430\u2026</span>';
+      $price.className = 'ir-price';
+      if ($orig) $orig.style.display = 'none';
+      if ($cashRow) $cashRow.style.display = 'none';
+      $btnOrder.disabled = true;
+    } else {
+      $price.innerHTML = '<span class="ir-price-unavailable">\u041d\u0435\u0442 \u0432 \u043d\u0430\u043b\u0438\u0447\u0438\u0438</span>';
+      $price.className = 'ir-price';
+      if ($orig) $orig.style.display = 'none';
+      if ($cashRow) $cashRow.style.display = 'none';
+      $btnOrder.disabled = true;
+    }
+    renderReadMore();
+  }
+
+  function renderAll() {
+    renderTabs(); renderVariantButtons(); renderColorButtons();
+    renderImage(); renderTitle(); renderPrice(); renderFaq();
+  }
+
+  function selectModel(index, skipHash) {
+    state.modelIndex = index;
+    var m = currentModel();
+    state.variantId = m.hasVariants ? m.variants[0].id : null;
+    state.colorId   = m.hasColors   ? m.colors[0].id   : null;
+    if (!skipHash) {
+      try { history.replaceState(null, '', location.pathname + location.search + '#' + currentModel().id); } catch(e) {}
+    }
+    renderAll();
+  }
+
+  function selectVariant(variantId) {
+    state.variantId = variantId;
+    renderVariantButtons(); renderPrice();
+  }
+
+  function selectColor(colorId) {
+    state.colorId = colorId;
+    renderColorButtons(); renderImage(); renderPrice();
+  }
+
+  var captchaAnswer = null, captchaSolved = false;
+
+  function generateCaptcha() {
+    captchaSolved = false;
+    document.getElementById('apFormSubmit').disabled = true;
+    captchaAnswer = Math.floor(Math.random() * 20) + 1;
+    document.getElementById('apCaptchaQuestion').textContent = '\u041d\u0430\u0436\u043c\u0438\u0442\u0435 \u043d\u0430 \u0447\u0438\u0441\u043b\u043e ' + captchaAnswer;
+    var options = [captchaAnswer];
+    while (options.length < 3) { var f = Math.floor(Math.random() * 20) + 1; if (f !== captchaAnswer && options.indexOf(f) === -1) options.push(f); }
+    options.sort(function() { return Math.random() - 0.5; });
+    var container = document.getElementById('apCaptchaOptions');
+    container.innerHTML = '';
+    options.forEach(function(num) {
+      var btn = document.createElement('button');
+      btn.type = 'button'; btn.className = 'ir-captcha-btn'; btn.textContent = num;
+      btn.addEventListener('click', function() {
+        var all = container.querySelectorAll('.ir-captcha-btn');
+        if (num === captchaAnswer) {
+          captchaSolved = true; all.forEach(function(b) { b.classList.remove('selected', 'wrong'); });
+          btn.classList.add('selected'); document.getElementById('apFormSubmit').disabled = false;
+        } else { btn.classList.add('wrong'); setTimeout(function() { btn.classList.remove('wrong'); }, 500); }
+      });
+      container.appendChild(btn);
+    });
+  }
+
+  function openModal() {
+    var m = currentModel();
+    var price = getPrice();
+    var configLabel = '', configValue = '';
+    if (m.hasVariants && state.variantId) {
+      var v = m.variants.filter(function(v) { return v.id === state.variantId; })[0];
+      configLabel = '\u0412\u0430\u0440\u0438\u0430\u043d\u0442'; configValue = v ? v.name : '';
+    } else if (m.hasColors && state.colorId) {
+      var c = getColorObj(state.colorId);
+      configLabel = '\u0426\u0432\u0435\u0442'; configValue = c ? c.name : '';
+    }
+
+    document.getElementById('apFieldModel').value   = m.productName;
+    document.getElementById('apFieldVariant').value = (m.hasVariants && state.variantId) ? (m.variants.filter(function(v) { return v.id === state.variantId; })[0] || {name:''}).name : '';
+    document.getElementById('apFieldColor').value   = (m.hasColors && state.colorId) ? (getColorObj(state.colorId) || {name:''}).name : '';
+    document.getElementById('apFieldPrice').value   = price ? formatPrice(price) : '';
+    document.getElementById('apDisplayModel').value = m.productName;
+    document.getElementById('apDisplayPrice').value = price ? formatPrice(price) : '\u041d\u0435\u0442 \u0432 \u043d\u0430\u043b\u0438\u0447\u0438\u0438';
+
+    var $configGroup = document.getElementById('apDisplayConfigGroup');
+    var $configLbl   = document.getElementById('apDisplayConfigLabel');
+    var $configInput = document.getElementById('apDisplayConfig');
+    if (configValue) {
+      $configLbl.textContent = configLabel; $configInput.value = configValue; $configGroup.style.display = '';
+    } else {
+      $configGroup.style.display = 'none';
+    }
+
+    $modalForm.style.display = ''; $modalSuccess.style.display = 'none';
+    generateCaptcha(); $overlay.classList.add('active'); document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() { $overlay.classList.remove('active'); document.body.style.overflow = ''; }
+
+  $btnOrder.addEventListener('click', openModal);
+  $modalClose.addEventListener('click', closeModal);
+  $overlay.addEventListener('click', function(e) { if (e.target === $overlay) closeModal(); });
+  $lightboxClose.addEventListener('click', closeLightbox);
+  $lightboxPrev.addEventListener('click', function() { stepLightbox(-1); });
+  $lightboxNext.addEventListener('click', function() { stepLightbox(1); });
+  $lightboxOverlay.addEventListener('click', function(e) { if (e.target === $lightboxOverlay) closeLightbox(); });
+  document.addEventListener('keydown', function(e) {
+    if (!$lightboxOverlay.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') stepLightbox(-1);
+    if (e.key === 'ArrowRight') stepLightbox(1);
+  });
+
+  var $cashInfoBtn = document.getElementById('apCashInfoBtn');
+  var $cashTooltip = document.getElementById('apCashTooltip');
+  if ($cashInfoBtn && $cashTooltip) {
+    $cashInfoBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var isActive = $cashTooltip.classList.contains('active');
+      $cashTooltip.classList.toggle('active');
+      if (!isActive) {
+        var rect = $cashInfoBtn.getBoundingClientRect();
+        var w = Math.min(340, window.innerWidth - 48);
+        var left = Math.max(24, Math.min(rect.left, window.innerWidth - w - 24));
+        $cashTooltip.style.width = w + 'px';
+        $cashTooltip.style.top = '-9999px';
+        $cashTooltip.style.left = left + 'px';
+        var tooltipH = $cashTooltip.offsetHeight;
+        var spaceBelow = window.innerHeight - rect.bottom - 8;
+        var spaceAbove = rect.top - 8;
+        var top = (spaceBelow >= tooltipH || spaceBelow >= spaceAbove)
+          ? Math.min(rect.bottom + 8, window.innerHeight - tooltipH - 8)
+          : Math.max(8, rect.top - tooltipH - 8);
+        $cashTooltip.style.top = top + 'px';
+      }
+    });
+    document.addEventListener('click', function(e) {
+      if ($cashTooltip.classList.contains('active') && !$cashTooltip.contains(e.target) && e.target !== $cashInfoBtn) {
+        $cashTooltip.classList.remove('active');
+      }
+    });
+  }
+
+  if ($faqBlock) {
+    $faqBlock.addEventListener('click', function(e) {
+      var btn = e.target.closest('[data-faq-toggle]');
+      if (!btn) return;
+      var item = btn.closest('[data-faq-item]'), panel = item ? item.querySelector('[data-faq-panel]') : null;
+      if (!item || !panel) return;
+      if (item.classList.contains('open')) {
+        item.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); panel.style.maxHeight = '0px';
+      } else {
+        item.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); panel.style.maxHeight = panel.scrollHeight + 'px';
+      }
+    });
+  }
+
+  $form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var secHash = '';
+    if (typeof Tygh !== 'undefined' && Tygh.security_hash) secHash = Tygh.security_hash;
+    else { var ex = document.querySelector('input[name="security_hash"]'); if (ex) secHash = ex.value; }
+
+    var iframe = document.createElement('iframe');
+    iframe.name = 'apSubmit_' + Date.now();
+    iframe.style.cssText = 'position:absolute;width:0;height:0;border:0;';
+    document.body.appendChild(iframe);
+
+    var cleanForm = document.createElement('form');
+    cleanForm.method = 'POST'; cleanForm.action = window.location.origin + '/';
+    cleanForm.target = iframe.name; cleanForm.style.display = 'none';
+
+    var fields = {
+      'dispatch': 'pages.send_form', 'page_id': '59', 'security_hash': secHash,
+      'form_values[44]': document.getElementById('apFieldModel').value,
+      'form_values[45]': document.getElementById('apFieldVariant').value,
+      'form_values[46]': document.getElementById('apFieldColor').value,
+      'form_values[48]': document.getElementById('apFieldPrice').value,
+      'form_values[53]': document.getElementById('apFormName').value,
+      'form_values[54]': document.getElementById('apFormPhone').value
+    };
+    for (var key in fields) {
+      var inp = document.createElement('input'); inp.type = 'hidden'; inp.name = key; inp.value = fields[key];
+      cleanForm.appendChild(inp);
+    }
+    document.body.appendChild(cleanForm); cleanForm.submit();
+    setTimeout(function() {
+      if (cleanForm.parentNode) cleanForm.parentNode.removeChild(cleanForm);
+      if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+    }, 15000);
+    $modalForm.style.display = 'none'; $modalSuccess.style.display = ''; $form.reset();
+  });
+
+  document.getElementById('apFormPhone').addEventListener('input', function() {
+    var val = this.value.replace(/\D/g, '');
+    if (!val.length) { this.value = ''; return; }
+    if (val[0] === '8') val = '7' + val.slice(1);
+    if (val[0] !== '7') val = '7' + val;
+    var f = '+7';
+    if (val.length > 1) f += ' (' + val.slice(1, 4);
+    if (val.length > 4) f += ') ' + val.slice(4, 7);
+    if (val.length > 7) f += '-' + val.slice(7, 9);
+    if (val.length > 9) f += '-' + val.slice(9, 11);
+    this.value = f;
+  });
+
+  var pricesLoaded = false;
+
+  function loadPrices() {
+    var pending = MODELS.length;
+    var anyUpdated = false;
+
+    MODELS.forEach(function(model) {
+      if (!model.categoryUrl) { pending--; return; }
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', model.categoryUrl, true);
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          var parser = new DOMParser();
+          var doc = parser.parseFromString(xhr.responseText, 'text/html');
+          var priceMap = {}, origPriceMap = {};
+          doc.querySelectorAll('a.product-title').forEach(function(link) {
+            var href = link.getAttribute('href') || '';
+            var slug = href.replace(/\/$/, '').split('/').pop();
+            var pc = link.closest('.ty-grid-list__item');
+            if (!pc) return;
+            var pe = pc.querySelector('[id^="sec_discounted_price_"]');
+            if (!pe) return;
+            var pn = parseInt(pe.textContent.replace(/\D/g, ''), 10);
+            if (pn > 0) priceMap[slug] = pn;
+            var ope = pc.querySelector('[id^="sec_list_price_"]');
+            if (ope) { var on = parseInt(ope.textContent.replace(/\D/g, ''), 10); if (on > 0 && on > pn) origPriceMap[slug] = on; }
+          });
+          var updated = false;
+          for (var slug in model.slugMap) {
+            if (priceMap[slug] !== undefined) { model.prices[model.slugMap[slug]] = priceMap[slug]; updated = true; }
+            if (origPriceMap[slug] !== undefined) { model.origPrices[model.slugMap[slug]] = origPriceMap[slug]; }
+          }
+          if (updated) anyUpdated = true;
+        }
+        pending--;
+        if (pending <= 0) { pricesLoaded = true; if (anyUpdated) renderAll(); if ($priceLoader) $priceLoader.style.display = 'none'; }
+      };
+      xhr.onerror = function() {
+        pending--;
+        if (pending <= 0) { pricesLoaded = true; if ($priceLoader) $priceLoader.style.display = 'none'; }
+      };
+      xhr.send();
+    });
+  }
+
+  function getIndexByHash(hash) {
+    hash = (hash || '').replace('#', '');
+    for (var hi = 0; hi < MODELS.length; hi++) { if (MODELS[hi].id === hash) return hi; }
+    return -1;
+  }
+
+  function updateMenuHighlight(modelId) {
+    var modelIds = MODELS.map(function(m) { return m.id; });
+    modelIds.forEach(function(mid) {
+      var links = document.querySelectorAll('a[href*="#' + mid + '"]');
+      links.forEach(function(link) {
+        var li = link.closest('li');
+        if (!li) return;
+        li.classList.toggle('ty-menu__item-active', mid === modelId);
+        li.classList.toggle('ty-menu__submenu-item-active', mid === modelId);
+      });
+    });
+  }
+
+  window.addEventListener('hashchange', function() {
+    var idx = getIndexByHash(window.location.hash);
+    if (idx !== -1 && idx !== state.modelIndex) selectModel(idx, true);
+    updateMenuHighlight(MODELS[state.modelIndex].id);
+  });
+
+  var initIndex = getIndexByHash(window.location.hash);
+  if (initIndex === -1) initIndex = 0;
+  selectModel(initIndex, true);
+  updateMenuHighlight(MODELS[initIndex].id);
+  loadPrices();
+
+})();
+</script>
+{/literal}

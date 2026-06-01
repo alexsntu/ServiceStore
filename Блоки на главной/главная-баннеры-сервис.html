@@ -1,0 +1,356 @@
+<style>
+/* ============================================================
+   iRepair Store — Сервисный центр (Ремонт Apple-техники)
+   Тип блока CS-Cart: HTML-блок
+   ПК: 4 stories-иконки | Мобайл: сетка 2×2
+   ============================================================ */
+
+#irbr {
+  font-family: "SF Pro Display","SF Pro Text",-apple-system,BlinkMacSystemFont,
+               "Helvetica Neue",Arial,sans-serif !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  background: #f5f5f7 !important;
+  padding: 72px 0 80px !important;
+  width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important;
+  box-sizing: border-box !important;
+}
+
+#irbr *, #irbr *::before, #irbr *::after { box-sizing: border-box !important; }
+#irbr a { text-decoration: none !important; color: inherit !important; }
+
+.irbr-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Eyebrow */
+.irbr-eyebrow {
+  font-family: "SF Pro Display","SF Pro Text",-apple-system,BlinkMacSystemFont,
+               "Helvetica Neue",Arial,sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  background: linear-gradient(95deg, #0055d4 0%, #0071e3 45%, #34aadc 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  text-align: center !important;
+  margin: 0 0 12px !important;
+  padding: 0 !important;
+}
+
+/* Heading */
+.irbr-heading {
+  all: unset !important;
+  display: block !important;
+  font-family: "SF Pro Display","SF Pro Text",-apple-system,BlinkMacSystemFont,
+               "Helvetica Neue",Arial,sans-serif !important;
+  font-size: 34px !important;
+  font-weight: 300 !important;
+  line-height: 1.18 !important;
+  letter-spacing: -0.03em !important;
+  color: #1d1d1f !important;
+  text-align: center !important;
+  margin: 0 0 71px !important;
+  padding: 0 !important;
+  background: none !important;
+  border: none !important;
+  text-transform: none !important;
+}
+
+.irbr-br { display: none; }
+
+.irbr-heading strong {
+  font-weight: 600 !important;
+  background: linear-gradient(95deg, #0055d4 0%, #0071e3 45%, #34aadc 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+/* Stories grid */
+.irbr-grid {
+  display: flex;
+  justify-content: center;
+  gap: 52px;
+}
+
+/* Одна story */
+.irbr-story {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  cursor: pointer;
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+
+.irbr-story:hover {
+  transform: translateY(-6px);
+}
+
+/* iOS 26 — squircle app icon */
+.irbr-ring {
+  width: 120px;
+  height: 120px;
+  border-radius: 26%;
+  background: linear-gradient(145deg, #42b0ff 0%, #0055d4 100%);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow:
+    0 10px 32px rgba(0,85,212,0.28),
+    0 2px 8px rgba(0,0,0,0.10),
+    inset 0 1px 0 rgba(255,255,255,0.30);
+  transition: box-shadow .3s ease;
+}
+
+/* Liquid glass — бликовый слой */
+.irbr-ring::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg,
+    rgba(255,255,255,0.32) 0%,
+    rgba(255,255,255,0.10) 35%,
+    transparent 65%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* iPhone — синий */
+.irbr-story:nth-child(1) .irbr-ring {
+  background: linear-gradient(145deg, #42b0ff 0%, #0055d4 100%);
+  box-shadow: 0 10px 32px rgba(0,113,227,0.30), 0 2px 8px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.30);
+}
+.irbr-story:nth-child(1):hover .irbr-ring {
+  box-shadow: 0 18px 48px rgba(0,113,227,0.44), 0 4px 16px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.30);
+}
+
+/* MacBook — тёмный графит */
+.irbr-story:nth-child(2) .irbr-ring {
+  background: linear-gradient(145deg, #78909c 0%, #263238 100%);
+  box-shadow: 0 10px 32px rgba(38,50,56,0.38), 0 2px 8px rgba(0,0,0,0.14), inset 0 1px 0 rgba(255,255,255,0.18);
+}
+.irbr-story:nth-child(2):hover .irbr-ring {
+  box-shadow: 0 18px 48px rgba(38,50,56,0.52), 0 4px 16px rgba(0,0,0,0.16), inset 0 1px 0 rgba(255,255,255,0.18);
+}
+
+/* iPad — фиолетовый */
+.irbr-story:nth-child(3) .irbr-ring {
+  background: linear-gradient(145deg, #ce93d8 0%, #6a1b9a 100%);
+  box-shadow: 0 10px 32px rgba(106,27,154,0.30), 0 2px 8px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.26);
+}
+.irbr-story:nth-child(3):hover .irbr-ring {
+  box-shadow: 0 18px 48px rgba(106,27,154,0.44), 0 4px 16px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.26);
+}
+
+/* Apple Watch — красный */
+.irbr-story:nth-child(4) .irbr-ring {
+  background: linear-gradient(145deg, #ff6b6b 0%, #b71c1c 100%);
+  box-shadow: 0 10px 32px rgba(183,28,28,0.30), 0 2px 8px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.24);
+}
+.irbr-story:nth-child(4):hover .irbr-ring {
+  box-shadow: 0 18px 48px rgba(183,28,28,0.44), 0 4px 16px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.24);
+}
+
+/* Внутренний контейнер — прозрачный */
+.irbr-circle {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* SF Symbols-стиль — белая иконка */
+.irbr-icon {
+  width: 60px;
+  height: 60px;
+  fill: none;
+  stroke: rgba(255,255,255,0.95);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+/* Подпись */
+.irbr-label {
+  font-family: "SF Pro Display","SF Pro Text",-apple-system,BlinkMacSystemFont,
+               "Helvetica Neue",Arial,sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.015em !important;
+  color: #1d1d1f !important;
+  text-align: center !important;
+  line-height: 1.3 !important;
+}
+
+.irbr-sublabel {
+  font-family: "SF Pro Display","SF Pro Text",-apple-system,BlinkMacSystemFont,
+               "Helvetica Neue",Arial,sans-serif !important;
+  font-size: 12.5px !important;
+  font-weight: 400 !important;
+  color: #6e6e73 !important;
+  text-align: center !important;
+  margin-top: 2px !important;
+}
+
+/* Стрелка «перейти» */
+.irbr-arrow-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  font-family: "SF Pro Display","SF Pro Text",-apple-system,BlinkMacSystemFont,
+               "Helvetica Neue",Arial,sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #0071e3 !important;
+  margin-top: 4px !important;
+  transition: gap .2s !important;
+  text-decoration: none !important;
+}
+.irbr-story:hover .irbr-arrow-icon { gap: 7px !important; }
+.irbr-arrow-icon svg {
+  width: 13px !important;
+  height: 13px !important;
+  stroke: currentColor !important;
+  fill: none !important;
+  stroke-width: 2 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+}
+
+@media (max-width: 767px) {
+  #irbr { padding: 52px 0 60px; }
+
+  .irbr-heading { font-size: 22px !important; margin-bottom: 55px !important; }
+  .irbr-br { display: inline !important; }
+  .irbr-eyebrow { font-size: 11.5px; }
+
+  .irbr-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 24px;
+    justify-items: center;
+  }
+
+  .irbr-ring { width: 104px; height: 104px; }
+  .irbr-icon { width: 50px; height: 50px; }
+  .irbr-label { font-size: 14px; }
+}
+</style>
+
+<!-- ============================================================
+     БЛОК — РЕМОНТ APPLE-ТЕХНИКИ (STORIES)
+     ============================================================ -->
+
+<div id="irbr">
+  <div class="irbr-wrap">
+
+    <p class="irbr-eyebrow">Сервисный центр</p>
+    <h2 class="irbr-heading">Профессиональный ремонт<br class="irbr-br"> <strong>Apple-техники</strong></h2>
+
+    <div class="irbr-grid">
+
+      <!-- iPhone -->
+      <a href="https://irepair.ru/catalog/remont-iphone/" target="_blank" rel="noopener noreferrer" class="irbr-story" aria-label="Ремонт iPhone">
+        <div class="irbr-ring">
+          <div class="irbr-circle">
+            <svg class="irbr-icon" viewBox="0 0 24 24">
+              <rect x="6.5" y="1.5" width="11" height="21" rx="2.5"/>
+              <line x1="10" y1="4" x2="14" y2="4"/>
+              <circle cx="12" cy="19" r="0.7" fill="rgba(255,255,255,0.95)" stroke="none"/>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <div class="irbr-label">Ремонт iPhone</div>
+          <div class="irbr-sublabel">Все модели</div>
+          <div class="irbr-arrow-icon">
+            Подробнее
+            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- MacBook -->
+      <a href="https://irepair.ru/catalog/remont-macbook/" target="_blank" rel="noopener noreferrer" class="irbr-story" aria-label="Ремонт MacBook">
+        <div class="irbr-ring">
+          <div class="irbr-circle">
+            <svg class="irbr-icon" viewBox="0 0 24 24">
+              <rect x="2" y="4.5" width="20" height="13" rx="2"/>
+              <path d="M1 17.5h22" stroke-width="1.35"/>
+              <path d="M8.5 17.5 7 19.5h10l-1.5-2"/>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <div class="irbr-label">Ремонт MacBook</div>
+          <div class="irbr-sublabel">Air и Pro</div>
+          <div class="irbr-arrow-icon">
+            Подробнее
+            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- iPad -->
+      <a href="https://irepair.ru/catalog/remont-ipad/" target="_blank" rel="noopener noreferrer" class="irbr-story" aria-label="Ремонт iPad">
+        <div class="irbr-ring">
+          <div class="irbr-circle">
+            <svg class="irbr-icon" viewBox="0 0 24 24">
+              <rect x="4.5" y="1.5" width="15" height="21" rx="2.5"/>
+              <circle cx="12" cy="19.5" r="0.7" fill="rgba(255,255,255,0.95)" stroke="none"/>
+              <line x1="10" y1="3.5" x2="14" y2="3.5"/>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <div class="irbr-label">Ремонт iPad</div>
+          <div class="irbr-sublabel">Все поколения</div>
+          <div class="irbr-arrow-icon">
+            Подробнее
+            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- Apple Watch -->
+      <a href="https://irepair.ru/catalog/remont-apple-watch/" target="_blank" rel="noopener noreferrer" class="irbr-story" aria-label="Ремонт Apple Watch">
+        <div class="irbr-ring">
+          <div class="irbr-circle">
+            <svg class="irbr-icon" viewBox="0 0 24 24">
+              <rect x="7" y="5.5" width="10" height="13" rx="4"/>
+              <path d="M9.5 5.5 8.5 2.5h7l-1 3"/>
+              <path d="M9.5 18.5l-1 3h7l-1-3"/>
+              <line x1="12" y1="8.5" x2="12" y2="12"/>
+              <line x1="12" y1="12" x2="14.5" y2="12"/>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <div class="irbr-label">Ремонт Watch</div>
+          <div class="irbr-sublabel">Apple Watch</div>
+          <div class="irbr-arrow-icon">
+            Подробнее
+            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</div>

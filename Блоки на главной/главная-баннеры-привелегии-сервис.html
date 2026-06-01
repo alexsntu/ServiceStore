@@ -1,0 +1,385 @@
+<style>
+/* ============================================================
+   iRepair Store — Баннеры «Привелегии и Сервис»
+   Тип блока CS-Cart: HTML-блок
+   ПК: 4 карточки 410px в ряд | Мобайл: карусель Apple-style
+   ============================================================ */
+
+#irbp {
+  font-family: "SF Pro Display","SF Pro Text",-apple-system,BlinkMacSystemFont,
+               "Helvetica Neue",Arial,sans-serif !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  background: #fff !important;
+  padding: 72px 0 80px !important;
+  width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important;
+  box-sizing: border-box !important;
+}
+
+#irbp *, #irbp *::before, #irbp *::after {
+  box-sizing: border-box !important;
+}
+
+#irbp a {
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+/* ── Внутренний контейнер ── */
+.irbp-wrap {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 24px !important;
+}
+
+/* ── Заголовок H2 — полный сброс от CS-Cart ── */
+#irbp h2.irbp-heading {
+  all: unset !important;
+  display: block !important;
+  font-family: "SF Pro Display","SF Pro Text",-apple-system,BlinkMacSystemFont,
+               "Helvetica Neue",Arial,sans-serif !important;
+  font-size: 34px !important;
+  font-weight: 300 !important;
+  line-height: 1.18 !important;
+  letter-spacing: -0.03em !important;
+  color: #1d1d1f !important;
+  text-align: center !important;
+  max-width: 860px !important;
+  margin: 0 auto 52px !important;
+  padding: 0 !important;
+  background: none !important;
+  border: none !important;
+  text-transform: none !important;
+}
+
+/* ── Градиентный акцент ── */
+#irbp .irbp-grad {
+  font-weight: 600 !important;
+  background: linear-gradient(95deg, #0055d4 0%, #0071e3 45%, #34aadc 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+/* ── Обёртка с позиционированием для стрелок ── */
+.irbp-outer {
+  position: relative !important;
+}
+
+/* ── DESKTOP: 4 колонки по 305px ── */
+.irbp-track {
+  display: grid !important;
+  grid-template-columns: repeat(4, 305px) !important;
+  justify-content: center !important;
+  gap: 16px !important;
+  padding: 0 !important;
+}
+
+/* ── Карточка — высота 410px ── */
+.irbp-card {
+  display: block !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  background: #f5f5f7 !important;
+  box-shadow: 0 2px 16px rgba(0,0,0,.07) !important;
+  position: relative !important;
+  width: 305px !important;
+  height: 410px !important;
+  flex-shrink: 0 !important;
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1),
+              box-shadow .3s ease !important;
+}
+
+.irbp-card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 16px 48px rgba(0,0,0,.14) !important;
+}
+
+.irbp-card img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  max-width: none !important;
+  max-height: none !important;
+}
+
+/* ── Стрелки и dots — скрыты на десктопе ── */
+.irbp-arrow { display: none !important; }
+.irbp-dots  { display: none !important; }
+
+/* ============================================================
+   МОБИЛЬНАЯ КАРУСЕЛЬ ≤ 767px
+   ============================================================ */
+@media (max-width: 767px) {
+
+  #irbp {
+    padding: 44px 0 56px !important;
+  }
+
+  #irbp h2.irbp-heading {
+    font-size: 26px !important;
+    font-weight: 300 !important;
+    letter-spacing: -0.02em !important;
+    margin-bottom: 32px !important;
+    padding: 0 20px !important;
+    max-width: 100% !important;
+  }
+
+  .irbp-wrap {
+    padding: 0 !important;
+  }
+
+  /* Трек — горизонтальный скролл со snap */
+  .irbp-track {
+    display: flex !important;
+    grid-template-columns: unset !important;
+    overflow-x: scroll !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    padding: 8px 12% 16px !important;
+    gap: 14px !important;
+    scroll-padding-inline: 12% !important;
+  }
+
+  .irbp-track::-webkit-scrollbar { display: none !important; }
+
+  /* Карточка в карусели */
+  .irbp-card {
+    min-width: 305px !important;
+    width: 305px !important;
+    height: 410px !important;
+    scroll-snap-align: center !important;
+    scroll-snap-stop: always !important;
+    /* dim по умолчанию — все неактивные */
+    opacity: 0.5 !important;
+    transform: scale(0.97) !important;
+    transition: opacity .35s ease,
+                transform .35s ease,
+                box-shadow .35s ease !important;
+  }
+
+  /* Активная карточка — полная яркость */
+  .irbp-card.irbp-card--active {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,.18) !important;
+  }
+
+  /* ── Стрелки — Apple-style тонкий шеврон ── */
+  .irbp-arrow {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 48px !important;
+    height: 48px !important;
+    background: none !important;
+    border: none !important;
+    cursor: pointer !important;
+    z-index: 20 !important;
+    padding: 0 !important;
+    color: #fff !important;
+    filter: drop-shadow(0 1px 6px rgba(0,0,0,.55)) !important;
+    transition: opacity .2s !important;
+  }
+
+  .irbp-arrow--prev { left: 4px !important; }
+  .irbp-arrow--next { right: 4px !important; }
+
+  .irbp-arrow:disabled {
+    opacity: .25 !important;
+    pointer-events: none !important;
+  }
+
+  .irbp-arrow svg {
+    width: 32px !important;
+    height: 32px !important;
+    fill: none !important;
+    stroke: currentColor !important;
+    stroke-width: 1.6 !important;
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* ── Dots ── */
+  .irbp-dots {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 6px !important;
+    margin-top: 20px !important;
+    padding: 0 24px !important;
+  }
+
+  .irbp-dot {
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 50% !important;
+    background: #d2d2d7 !important;
+    transition: background .25s, width .25s !important;
+    border: none !important;
+    padding: 0 !important;
+    cursor: pointer !important;
+    flex-shrink: 0 !important;
+  }
+
+  .irbp-dot--active {
+    background: #1d1d1f !important;
+    width: 20px !important;
+    border-radius: 3px !important;
+  }
+}
+</style>
+
+<div id="irbp">
+  <div class="irbp-wrap">
+
+    <h2 class="irbp-heading">Откройте для себя пространство, где <span class="irbp-grad">покупка, сервис и забота</span> о технике&nbsp;Apple объединены в единый опыт&nbsp;—<br>воплощение <span class="irbp-grad">качества, доверия</span> и персонального подхода.</h2>
+
+    <div class="irbp-outer">
+
+      <!-- Стрелки Apple-style (только мобайл) -->
+      <button class="irbp-arrow irbp-arrow--prev" id="irbp-prev" aria-label="Назад" disabled>
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="irbp-arrow irbp-arrow--next" id="irbp-next" aria-label="Вперёд">
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <!-- Карточки -->
+      <div class="irbp-track" id="irbp-track">
+
+        <div class="irbp-card">
+          <img src="https://irepair-store.ru/images/about%20images/image11.jpg"
+               alt="iRepair Store" loading="lazy">
+        </div>
+
+        <div class="irbp-card">
+          <img src="https://irepair-store.ru/images/about%20images/image21.jpg"
+               alt="iRepair Store" loading="lazy">
+        </div>
+
+        <div class="irbp-card">
+          <img src="https://irepair-store.ru/images/about%20images/image31.jpg"
+               alt="iRepair Store" loading="lazy">
+        </div>
+
+        <div class="irbp-card">
+          <img src="https://irepair-store.ru/images/about%20images/image41.jpg"
+               alt="iRepair Store" loading="lazy">
+        </div>
+
+      </div>
+
+      <!-- Dots (только мобайл) -->
+      <div class="irbp-dots" id="irbp-dots">
+        <div class="irbp-dot irbp-dot--active"></div>
+        <div class="irbp-dot"></div>
+        <div class="irbp-dot"></div>
+        <div class="irbp-dot"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var track    = document.getElementById('irbp-track');
+  var prevBtn  = document.getElementById('irbp-prev');
+  var nextBtn  = document.getElementById('irbp-next');
+  var dotsWrap = document.getElementById('irbp-dots');
+
+  if (!track || !prevBtn || !nextBtn || !dotsWrap) return;
+
+  var cards    = Array.prototype.slice.call(track.querySelectorAll('.irbp-card'));
+  var dots     = Array.prototype.slice.call(dotsWrap.querySelectorAll('.irbp-dot'));
+  var total    = cards.length;
+  var current  = 0;
+  var scrollTimer = null;
+
+  function isMobile() { return window.innerWidth <= 767; }
+
+  /* Dim-эффект: активная карточка яркая, остальные приглушены */
+  function applyDim(activeIdx) {
+    if (!isMobile()) return;
+    cards.forEach(function (c, i) {
+      c.classList.toggle('irbp-card--active', i === activeIdx);
+    });
+  }
+
+  /* Скролл к карточке по индексу */
+  function goTo(idx) {
+    if (!isMobile()) return;
+    idx = Math.max(0, Math.min(total - 1, idx));
+    var card      = cards[idx];
+    var trackRect = track.getBoundingClientRect();
+    var cardRect  = card.getBoundingClientRect();
+    var left = track.scrollLeft
+      + cardRect.left - trackRect.left
+      - (trackRect.width - cardRect.width) / 2;
+    track.scrollTo({ left: left, behavior: 'smooth' });
+  }
+
+  /* Обновить кнопки и точки */
+  function update(idx) {
+    current = idx;
+    prevBtn.disabled = idx === 0;
+    nextBtn.disabled = idx === total - 1;
+    dots.forEach(function (d, i) {
+      d.classList.toggle('irbp-dot--active', i === idx);
+    });
+    applyDim(idx);
+  }
+
+  /* Найти ближайшую к центру карточку */
+  function getActive() {
+    var tr  = track.getBoundingClientRect();
+    var cx  = tr.left + tr.width / 2;
+    var best = 0, minD = Infinity;
+    cards.forEach(function (c, i) {
+      var r = c.getBoundingClientRect();
+      var d = Math.abs(r.left + r.width / 2 - cx);
+      if (d < minD) { minD = d; best = i; }
+    });
+    return best;
+  }
+
+  /* Стрелки */
+  prevBtn.addEventListener('click', function () { goTo(current - 1); });
+  nextBtn.addEventListener('click', function () { goTo(current + 1); });
+
+  /* Скролл */
+  track.addEventListener('scroll', function () {
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(function () { update(getActive()); }, 60);
+  }, { passive: true });
+
+  /* Точки */
+  dots.forEach(function (d, i) {
+    d.addEventListener('click', function () { goTo(i); });
+  });
+
+  /* Инициализация */
+  update(0);
+
+  /* Сброс при смене ориентации/ресайзе */
+  window.addEventListener('resize', function () {
+    if (!isMobile()) {
+      cards.forEach(function (c) { c.classList.remove('irbp-card--active'); });
+    } else {
+      update(current);
+    }
+  }, { passive: true });
+
+}());
+</script>
