@@ -1,2 +1,40 @@
+# --- Чувствительные данные: подключение к серверу, ключи, пароли ---
+.cursor/rules/server-connection.mdc
+
+# SSH-ключи
+*.pem
+*.ppk
+id_rsa*
+id_ed25519*
+id_ecdsa*
+*.key
+!*.example.key
+
+# Переменные окружения / конфиги с секретами
 .env
+.env.*
+!.env.example
+config.local.php
+*.local.php
+secrets.*
+credentials.*
+*password*
+*secret*
+
+# Дампы БД и бэкапы (могут содержать пароли/личные данные клиентов)
+*.sql
+*.sql.gz
+*.sql.zip
+*.dump
+*.bak
+*.bak.*
+*_backup.*
+
+# Временные скрипты для диагностики/деплоя (использовались с паролями сервера)
+.tmp_*.sh
+.tmp_*.py
+.tmp_*.ps1
+
+# Системные/IDE файлы
 .DS_Store
+Thumbs.db
