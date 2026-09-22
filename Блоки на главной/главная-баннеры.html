@@ -225,6 +225,20 @@
 }
 
 /* ─────────────────────────────────────────────────────────────
+   ИЗОБРАЖЕНИЕ БЕЗ ОБРЕЗКИ (ПК и мобайл)
+   Для баннеров, где важно показать картинку целиком (не cover,
+   а contain) — свободное место добивается чёрным фоном самой
+   картинки. Специфичность выше базового правила (2 класса),
+   поэтому переопределяет как десктопное, так и мобильное
+   правило object-fit:cover.
+───────────────────────────────────────────────────────────── */
+#irb .irb-slide.irb-media-contain > picture > img {
+  object-fit: contain !important;
+  object-position: center calc(50% + 50px) !important;
+  background: #000 !important;
+}
+
+/* ─────────────────────────────────────────────────────────────
    МОБИЛЬНАЯ АДАПТАЦИЯ ≤ 767px
 ───────────────────────────────────────────────────────────── */
 @media (max-width: 767px) {
@@ -263,15 +277,15 @@
   <!-- ═══════════════════════════════════════
        1. iPhone — полная ширина
   ═══════════════════════════════════════ -->
-  <a class="irb-slide irb-slide--light" href="https://irepair-store.ru/shop-iphone/">
+  <a class="irb-slide irb-slide--dark irb-media-contain" href="https://irepair-store.ru/shop-iphone/">
     <picture>
-      <source media="(max-width: 767px)" srcset="https://irepair-store.ru/images/Home%20page%20banner/iphone-m.jpg">
-      <img src="https://irepair-store.ru/images/Home%20page%20banner/iphone-pc.jpg" alt="iPhone">
+      <source media="(max-width: 767px)" srcset="https://irepair-store.ru/images/Home%20page%20banner/iphone-18-pro-m.webp">
+      <img src="https://irepair-store.ru/images/Home%20page%20banner/iphone-18-pro-pc.webp" alt="iPhone 18 Pro">
     </picture>
     <div class="irb-overlay irb-overlay--top">
       <div class="irb-text">
-        <h2 class="irb-title">iPhone</h2>
-        <p class="irb-sub">Сила. Скорость. Интеллект.</p>
+        <h2 class="irb-title">iPhone 18 Pro</h2>
+        <p class="irb-sub">Новое поколение. Больше возможностей.</p>
         <div class="irb-cta">
           <span class="irb-btn irb-btn--primary">Подробнее</span>
           <span class="irb-btn irb-btn--secondary">Купить</span>
