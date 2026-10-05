@@ -134,8 +134,10 @@
 .mm-block.ir-calc .ir-option-btn:hover { border-color: #86868b; }
 .mm-block.ir-calc .ir-option-btn.active { border-color: #0071e3; border-width: 2px; background: #fff; color: #1d1d1f; }
 
-.mm-block.ir-calc #awScreenButtons, .mm-block.ir-calc #awColorButtons { gap: 8px; flex-wrap: wrap; }
-.mm-block.ir-calc #awScreenButtons .ir-option-btn, .mm-block.ir-calc #awColorButtons .ir-option-btn { width: auto; flex: 0 0 auto; min-width: max-content; }
+.mm-block.ir-calc #awScreenButtons, .mm-block.ir-calc #awColorButtons, .mm-block.ir-calc #awConnButtons { gap: 8px; flex-wrap: wrap; }
+.mm-block.ir-calc .ir-option-btn.disabled { opacity: 0.4; cursor: not-allowed; border-color: #e0e0e0; background: #fafafa; color: #86868b; }
+.mm-block.ir-calc .ir-option-btn.disabled:hover { border-color: #e0e0e0; }
+.mm-block.ir-calc #awScreenButtons .ir-option-btn, .mm-block.ir-calc #awColorButtons .ir-option-btn, .mm-block.ir-calc #awConnButtons .ir-option-btn { width: auto; flex: 0 0 auto; min-width: max-content; }
 
 .mm-block.ir-calc .ir-price-block { margin: 0; padding-top: 18px; border-top: 1px solid #e5e5e7; }
 .mm-block.ir-calc .ir-read-more { display: inline-block; font-size: 14px; font-weight: 400; color: #0071e3; text-decoration: none; margin-bottom: 10px; line-height: 1.4; transition: color 0.2s ease; }
@@ -309,6 +311,11 @@
           <div class="ir-option-buttons" id="awColorButtons"></div>
         </div>
 
+        <div class="ir-option-group" id="awConnGroup" style="display:none;">
+          <span class="ir-option-label">Связь</span>
+          <div class="ir-option-buttons" id="awConnButtons"></div>
+        </div>
+
         <div class="ir-price-block">
           <div class="ir-price-row">
             <div class="ir-price" id="awPrice"></div>
@@ -420,6 +427,85 @@
 
   var MODELS = [
     {
+      id: 'ws12',
+      label: 'Watch S12',
+      name: 'Часы Apple Watch Series 12',
+      categoryUrl: '/apple-watch/apple-watch-series-12/',
+      screens: ['42\u00a0мм', '46\u00a0мм'],
+      connectivity: ['GPS', 'GPS + Cellular'],
+      colors: [
+        { id: 'light-gold', label: 'Алюминий, Light Gold | Sand' },
+        { id: 'space-gray', label: 'Алюминий, Space Gray | Navy Blue' },
+        { id: 'black', label: 'Алюминий, Black' },
+        { id: 'dark-bronze', label: 'Алюминий, Dark Bronze' },
+        { id: 'natural-ti', label: 'Титан, Natural Titanium' },
+        { id: 'radiant-gold', label: 'Титан, Radiant Gold' },
+        { id: 'pearl-white', label: 'Керамика, Pearl White | Sand' },
+        { id: 'night-blue', label: 'Керамика, Night Blue | Navy Blue' }
+      ],
+      images: {
+        'light-gold': [BASE+'/images/Store%20menu/Watch/S12-al/w12-al-gold1.webp', BASE+'/images/Store%20menu/Watch/S12-al/w12-al-gold2.webp', BASE+'/images/Store%20menu/Watch/S12-al/w12-al-gold3.webp'],
+        'space-gray': [BASE+'/images/Store%20menu/Watch/S12-al/w12-al-gray1.webp', BASE+'/images/Store%20menu/Watch/S12-al/w12-al-gray2.webp', BASE+'/images/Store%20menu/Watch/S12-al/w12-al-gray3.webp'],
+        'black': [BASE+'/images/Store%20menu/Watch/S12-al/w12-al-black1.webp', BASE+'/images/Store%20menu/Watch/S12-al/w12-al-black2.webp', BASE+'/images/Store%20menu/Watch/S12-al/w12-al-black3.webp'],
+        'dark-bronze': [BASE+'/images/Store%20menu/Watch/S12-al/w12-al-bronze1.webp', BASE+'/images/Store%20menu/Watch/S12-al/w12-al-bronze2.webp', BASE+'/images/Store%20menu/Watch/S12-al/w12-al-bronze3.webp'],
+        'natural-ti': [BASE+'/images/Store%20menu/Watch/S12-Tit/w12-ti-nt1.webp', BASE+'/images/Store%20menu/Watch/S12-Tit/w12-ti-nt2.webp', BASE+'/images/Store%20menu/Watch/S12-Tit/w12-ti-nt3.webp'],
+        'radiant-gold': [BASE+'/images/Store%20menu/Watch/S12-Tit/w12-ti-rg1.webp', BASE+'/images/Store%20menu/Watch/S12-Tit/w12-ti-rg2.webp', BASE+'/images/Store%20menu/Watch/S12-Tit/w12-ti-rg3.webp'],
+        'pearl-white': [BASE+'/images/Store%20menu/Watch/S12-Cer/w12-cer-white1.webp', BASE+'/images/Store%20menu/Watch/S12-Cer/w12-cer-white2.webp', BASE+'/images/Store%20menu/Watch/S12-Cer/w12-cer-white3.webp'],
+        'night-blue': [BASE+'/images/Store%20menu/Watch/S12-Cer/w12-cer-blue1.webp', BASE+'/images/Store%20menu/Watch/S12-Cer/w12-cer-blue2.webp', BASE+'/images/Store%20menu/Watch/S12-Cer/w12-cer-blue3.webp']
+      },
+      variants: {
+        '42\u00a0мм|GPS|light-gold': BASE+'/apple-watch/apple-watch-series-12/apple-watch-series-12-gps-42mm-korpus-alyuminiy-light-gold-svetloe-zoloto-a3581/',
+        '42\u00a0мм|GPS|space-gray': BASE+'/apple-watch/apple-watch-series-12/apple-watch-series-12-gps-42mm-korpus-alyuminiy-space-gray-kosmicheskiy-seryy-a3581/',
+        '42\u00a0мм|GPS|black': BASE+'/apple-watch/apple-watch-series-12/apple-watch-series-12-gps-42mm-korpus-alyuminiy-black-chernyy-a3581/',
+        '42\u00a0мм|GPS|dark-bronze': BASE+'/apple-watch/apple-watch-series-12/apple-watch-series-12-gps-42mm-korpus-alyuminiy-dark-bronze-temno-bronzovyy-a3581/',
+        '46\u00a0мм|GPS|light-gold': BASE+'/apple-watch/apple-watch-series-12/apple-watch-series-12-gps-46mm-korpus-alyuminiy-light-gold-svetloe-zoloto-a3584/',
+        '46\u00a0мм|GPS|space-gray': BASE+'/apple-watch/apple-watch-series-12/apple-watch-series-12-gps-46mm-korpus-alyuminiy-space-gray-kosmicheskiy-seryy-a3584/',
+        '46\u00a0мм|GPS|black': BASE+'/apple-watch/apple-watch-series-12/apple-watch-series-12-gps-46mm-korpus-alyuminiy-black-chernyy-a3584/',
+        '46\u00a0мм|GPS|dark-bronze': BASE+'/apple-watch/apple-watch-series-12/apple-watch-series-12-gps-46mm-korpus-alyuminiy-dark-bronze-temno-bronzovyy-a3584/',
+        '42\u00a0мм|GPS + Cellular|light-gold': BASE+'/apple-watch/apple-watch-series-12/apple-watch-series-12-gps-cellular-42mm-korpus-alyuminiy-light-gold-svetloe-zoloto-a3582/',
+        '42\u00a0мм|GPS + Cellular|space-gray': BASE+'/apple-watch/apple-watch-series-12/apple-watch-series-12-gps-cellular-42mm-korpus-alyuminiy-space-gray-kosmicheskiy-seryy-a3582/',
+        '42\u00a0мм|GPS + Cellular|black': BASE+'/apple-watch/apple-watch-series-12/apple-watch-series-12-gps-cellular-42mm-korpus-alyuminiy-black-chernyy-a3582/',
+        '42\u00a0мм|GPS + Cellular|dark-bronze': BASE+'/apple-watch/apple-watch-series-12/apple-watch-series-12-gps-cellular-42mm-korpus-alyuminiy-dark-bronze-temno-bronzovyy-a3582/',
+        '42\u00a0мм|GPS + Cellular|natural-ti': BASE+'/apple-watch/apple-watch-series-12/apple-watch-series-12-gps-cellular-42mm-korpus-titan-natural-titanium-naturalnyy-titan-a3582/',
+        '42\u00a0мм|GPS + Cellular|radiant-gold': BASE+'/apple-watch/apple-watch-series-12/apple-watch-series-12-gps-cellular-42mm-korpus-titan-radiant-gold-siyayuschee-zoloto-a3582/',
+        '42\u00a0мм|GPS + Cellular|pearl-white': BASE+'/apple-watch/apple-watch-series-12/apple-watch-series-12-gps-cellular-42mm-korpus-keramika-pearl-white-zhemchuzhno-belyy-a3582/',
+        '42\u00a0мм|GPS + Cellular|night-blue': BASE+'/apple-watch/apple-watch-series-12/apple-watch-series-12-gps-cellular-42mm-korpus-keramika-night-blue-nochnoy-siniy-a3582/',
+        '46\u00a0мм|GPS + Cellular|light-gold': BASE+'/apple-watch/apple-watch-series-12/apple-watch-series-12-gps-cellular-46mm-korpus-alyuminiy-light-gold-svetloe-zoloto-a3587/',
+        '46\u00a0мм|GPS + Cellular|space-gray': BASE+'/apple-watch/apple-watch-series-12/apple-watch-series-12-gps-cellular-46mm-korpus-alyuminiy-space-gray-kosmicheskiy-seryy-a3587/',
+        '46\u00a0мм|GPS + Cellular|black': BASE+'/apple-watch/apple-watch-series-12/apple-watch-series-12-gps-cellular-46mm-korpus-alyuminiy-black-chernyy-a3587/',
+        '46\u00a0мм|GPS + Cellular|dark-bronze': BASE+'/apple-watch/apple-watch-series-12/apple-watch-series-12-gps-cellular-46mm-korpus-alyuminiy-dark-bronze-temno-bronzovyy-a3587/',
+        '46\u00a0мм|GPS + Cellular|natural-ti': BASE+'/apple-watch/apple-watch-series-12/apple-watch-series-12-gps-cellular-46mm-korpus-titan-natural-titanium-naturalnyy-titan-a3587/',
+        '46\u00a0мм|GPS + Cellular|radiant-gold': BASE+'/apple-watch/apple-watch-series-12/apple-watch-series-12-gps-cellular-46mm-korpus-titan-radiant-gold-siyayuschee-zoloto-a3587/',
+        '46\u00a0мм|GPS + Cellular|pearl-white': BASE+'/apple-watch/apple-watch-series-12/apple-watch-series-12-gps-cellular-46mm-korpus-keramika-pearl-white-zhemchuzhno-belyy-a3587/',
+        '46\u00a0мм|GPS + Cellular|night-blue': BASE+'/apple-watch/apple-watch-series-12/apple-watch-series-12-gps-cellular-46mm-korpus-keramika-night-blue-nochnoy-siniy-a3587/'
+      },
+      faqHtml: 'Apple Watch Series 12 — новое поколение умных часов с системой датчиков Health Sensing на процессоре S11: непрерывный мониторинг сердца, оценка готовности к нагрузкам и анализ восстановления. Экран яркостью до 2000\u00a0нит, водозащита 5\u00a0атм, 64\u00a0ГБ встроенной памяти. Корпус из алюминия, титана или керамики. Алюминиевые модели доступны в версиях GPS и GPS + Cellular, титановые и керамические — только GPS + Cellular с поддержкой 5G и eSIM.',
+      faqStrapHtml: FAQ_STRAP_DEFAULT,
+      prices: {}, origPrices: {}
+    },
+    {
+      id: 'wultra4',
+      label: 'Watch Ultra 4',
+      name: 'Часы Apple Watch Ultra 4, титан',
+      categoryUrl: '/apple-watch/apple-watch-ultra-4/',
+      screens: ['49\u00a0мм'],
+      colors: [
+        { id: 'blk-mil-blk', label: 'Black | Milanese Black' },
+        { id: 'nat-mil-nat', label: 'Natural | Milanese Natural' }
+      ],
+      images: {
+        'blk-mil-blk': [BASE+'/images/Store%20menu/Watch/Ultra4/w-ul-4-bmb1.webp', BASE+'/images/Store%20menu/Watch/Ultra4/w-ul-4-bmb2.webp', BASE+'/images/Store%20menu/Watch/Ultra4/w-ul-4-bmb3.webp'],
+        'nat-mil-nat': [BASE+'/images/Store%20menu/Watch/Ultra4/w-ul-4-nmn1.webp', BASE+'/images/Store%20menu/Watch/Ultra4/w-ul-4-nmn2.webp', BASE+'/images/Store%20menu/Watch/Ultra4/w-ul-4-nmn3.webp']
+      },
+      variants: {
+        '49\u00a0мм|blk-mil-blk': BASE+'/apple-watch/apple-watch-ultra-4/apple-watch-ultra-4-gps-cellular-49mm-korpus-titan-black-titanium-chernyy-titan-a3579/',
+        '49\u00a0мм|nat-mil-nat': BASE+'/apple-watch/apple-watch-ultra-4/apple-watch-ultra-4-gps-cellular-49mm-korpus-titan-natural-titanium-naturalnyy-titan-a3579/'
+      },
+      faqHtml: 'Apple Watch Ultra 4 созданы для спорта и путешествий: корпус 49\u00a0мм из авиационного титана, сапфировое стекло, защита по стандарту MIL-STD-810H, водозащита WR100 для погружений до 40\u00a0метров и пылезащита IP6X. Процессор S11 и система датчиков Heartcore обеспечивают точный мониторинг сердца и ежедневный индекс готовности к нагрузкам, а встроенный модуль спутниковой связи позволяет оставаться на связи без сотовой сети и Wi\u2011Fi. Яркость экрана до 3000\u00a0нит.',
+      faqStrapHtml: null,
+      prices: {}, origPrices: {}
+    },
+    {
       id: 'ws11al',
       label: 'Watch S11, алюминий',
       name: 'Часы Apple Watch Series 11, алюминий',
@@ -446,6 +532,34 @@
         '46\u00a0мм|jet-black':     BASE+'/apple-watch/apple-watch-series-11/apple-watch-series-11-gps-46mm-korpus-chernyy-remeshok-sport-band-chernyy/',
         '46\u00a0мм|silver-purple': BASE+'/apple-watch/apple-watch-series-11/apple-watch-series-11-gps-46mm-korpus-serebristyy-remeshok-sport-band-fioletovyy/',
         '46\u00a0мм|space-gray':    BASE+'/apple-watch/apple-watch-series-11/apple-watch-series-11-gps-46mm-korpus-kosmicheskiy-seryy-remeshok-sport-band-chernyy/'
+      },
+      faqHtml: 'Новые Apple Watch Series 11 помогают контролировать давление и качество ночного отдыха, удобны в повседневном использовании. Защищённое стекло устойчиво к царапинам, а время работы до 24 часов позволяет носить часы днём и ночью. Режимы тренировок и датчики здоровья обеспечивают точный трекинг активности и самочувствия.',
+      faqStrapHtml: FAQ_STRAP_DEFAULT,
+      prices: {}, origPrices: {}
+    },
+    {
+      id: 'ws11ti',
+      label: 'Watch S11, титан',
+      name: 'Часы Apple Watch Series 11, титан',
+      categoryUrl: '/apple-watch/apple-watch-series-11/',
+      screens: ['42\u00a0мм', '46\u00a0мм'],
+      colors: [
+        { id: 'slate-ti',   label: 'Slate Titanium' },
+        { id: 'natural-ti', label: 'Natural Titanium' },
+        { id: 'gold-ti',    label: 'Gold Titanium' }
+      ],
+      images: {
+        'slate-ti':   [BASE+'/images/Store%20menu/Watch/S11-Tit/w11-st1.webp', BASE+'/images/Store%20menu/Watch/S11-Tit/w11-st2.webp', BASE+'/images/Store%20menu/Watch/S11-Tit/w11-st3.webp'],
+        'natural-ti': [BASE+'/images/Store%20menu/Watch/S11-Tit/w11-nt1.webp', BASE+'/images/Store%20menu/Watch/S11-Tit/w11-nt2.webp', BASE+'/images/Store%20menu/Watch/S11-Tit/w11-nt3.webp'],
+        'gold-ti':    [BASE+'/images/Store%20menu/Watch/S11-Tit/w11-gt1.webp', BASE+'/images/Store%20menu/Watch/S11-Tit/w11-gt2.webp', BASE+'/images/Store%20menu/Watch/S11-Tit/w11-gt3.webp']
+      },
+      variants: {
+        '42\u00a0мм|slate-ti':   BASE+'/apple-watch/apple-watch-series-11/chasy-apple-watch-series-11-42mm-slate-titanium/',
+        '42\u00a0мм|natural-ti': BASE+'/apple-watch/apple-watch-series-11/chasy-apple-watch-series-11-42mm-natural-titanium/',
+        '42\u00a0мм|gold-ti':    BASE+'/apple-watch/apple-watch-series-11/chasy-apple-watch-series-11-42mm-gold-titanium/',
+        '46\u00a0мм|slate-ti':   BASE+'/apple-watch/apple-watch-series-11/chasy-apple-watch-series-11-46mm-slate-titanium/',
+        '46\u00a0мм|natural-ti': BASE+'/apple-watch/apple-watch-series-11/chasy-apple-watch-series-11-46mm-natural-titanium/',
+        '46\u00a0мм|gold-ti':    BASE+'/apple-watch/apple-watch-series-11/chasy-apple-watch-series-11-46mm-gold-titanium/'
       },
       faqHtml: 'Новые Apple Watch Series 11 помогают контролировать давление и качество ночного отдыха, удобны в повседневном использовании. Защищённое стекло устойчиво к царапинам, а время работы до 24 часов позволяет носить часы днём и ночью. Режимы тренировок и датчики здоровья обеспечивают точный трекинг активности и самочувствия.',
       faqStrapHtml: FAQ_STRAP_DEFAULT,
@@ -492,34 +606,6 @@
       prices: {}, origPrices: {}
     },
     {
-      id: 'ws11ti',
-      label: 'Watch S11, титан',
-      name: 'Часы Apple Watch Series 11, титан',
-      categoryUrl: '/apple-watch/apple-watch-series-11/',
-      screens: ['42\u00a0мм', '46\u00a0мм'],
-      colors: [
-        { id: 'slate-ti',   label: 'Slate Titanium' },
-        { id: 'natural-ti', label: 'Natural Titanium' },
-        { id: 'gold-ti',    label: 'Gold Titanium' }
-      ],
-      images: {
-        'slate-ti':   [BASE+'/images/Store%20menu/Watch/S11-Tit/w11-st1.webp', BASE+'/images/Store%20menu/Watch/S11-Tit/w11-st2.webp', BASE+'/images/Store%20menu/Watch/S11-Tit/w11-st3.webp'],
-        'natural-ti': [BASE+'/images/Store%20menu/Watch/S11-Tit/w11-nt1.webp', BASE+'/images/Store%20menu/Watch/S11-Tit/w11-nt2.webp', BASE+'/images/Store%20menu/Watch/S11-Tit/w11-nt3.webp'],
-        'gold-ti':    [BASE+'/images/Store%20menu/Watch/S11-Tit/w11-gt1.webp', BASE+'/images/Store%20menu/Watch/S11-Tit/w11-gt2.webp', BASE+'/images/Store%20menu/Watch/S11-Tit/w11-gt3.webp']
-      },
-      variants: {
-        '42\u00a0мм|slate-ti':   BASE+'/apple-watch/apple-watch-series-11/chasy-apple-watch-series-11-42mm-slate-titanium/',
-        '42\u00a0мм|natural-ti': BASE+'/apple-watch/apple-watch-series-11/chasy-apple-watch-series-11-42mm-natural-titanium/',
-        '42\u00a0мм|gold-ti':    BASE+'/apple-watch/apple-watch-series-11/chasy-apple-watch-series-11-42mm-gold-titanium/',
-        '46\u00a0мм|slate-ti':   BASE+'/apple-watch/apple-watch-series-11/chasy-apple-watch-series-11-46mm-slate-titanium/',
-        '46\u00a0мм|natural-ti': BASE+'/apple-watch/apple-watch-series-11/chasy-apple-watch-series-11-46mm-natural-titanium/',
-        '46\u00a0мм|gold-ti':    BASE+'/apple-watch/apple-watch-series-11/chasy-apple-watch-series-11-46mm-gold-titanium/'
-      },
-      faqHtml: 'Новые Apple Watch Series 11 помогают контролировать давление и качество ночного отдыха, удобны в повседневном использовании. Защищённое стекло устойчиво к царапинам, а время работы до 24 часов позволяет носить часы днём и ночью. Режимы тренировок и датчики здоровья обеспечивают точный трекинг активности и самочувствия.',
-      faqStrapHtml: FAQ_STRAP_DEFAULT,
-      prices: {}, origPrices: {}
-    },
-    {
       id: 'wse3',
       label: 'Watch SE 3',
       name: 'Часы Apple Watch SE 3, алюминий',
@@ -545,13 +631,15 @@
     }
   ];
 
-  var state = { modelIndex: 0, screen: null, colorId: null };
+  var state = { modelIndex: 0, screen: null, conn: null, colorId: null };
 
   var $tabs        = document.getElementById('awModelTabs');
   var $imageArea   = document.getElementById('awImageArea');
   var $title       = document.getElementById('awProductTitle');
   var $screenGroup = document.getElementById('awScreenGroup');
   var $screenBtns  = document.getElementById('awScreenButtons');
+  var $connGroup   = document.getElementById('awConnGroup');
+  var $connBtns    = document.getElementById('awConnButtons');
   var $colorBtns   = document.getElementById('awColorButtons');
   var $price       = document.getElementById('awPrice');
   var $priceLoader = document.getElementById('awPriceLoader');
@@ -585,7 +673,10 @@
 
   function currentModel() { return MODELS[state.modelIndex]; }
 
-  function getCurrentKey() { return state.screen + '|' + state.colorId; }
+  function getCurrentKey() {
+    if (currentModel().connectivity) return state.screen + '|' + state.conn + '|' + state.colorId;
+    return state.screen + '|' + state.colorId;
+  }
 
   function getPrice() {
     var m = currentModel();
@@ -864,6 +955,38 @@
     });
   }
 
+  function isConnAvailable(conn) {
+    return !!currentModel().variants[state.screen + '|' + conn + '|' + state.colorId];
+  }
+
+  // у титана и керамики нет версии GPS — переключаем связь на доступную
+  function fixConn() {
+    var m = currentModel();
+    if (!m.connectivity || isConnAvailable(state.conn)) return;
+    var ok = m.connectivity.filter(isConnAvailable)[0];
+    if (ok) state.conn = ok;
+  }
+
+  function renderConnButtons() {
+    var m = currentModel();
+    $connBtns.innerHTML = '';
+    if (!m.connectivity) { $connGroup.style.display = 'none'; return; }
+    $connGroup.style.display = '';
+    m.connectivity.forEach(function(c) {
+      var available = isConnAvailable(c);
+      var btn = document.createElement('button');
+      btn.className = 'ir-option-btn' + (c === state.conn ? ' active' : '') + (available ? '' : ' disabled');
+      btn.textContent = c;
+      if (available) {
+        btn.addEventListener('click', function() { selectConn(c); });
+      } else {
+        btn.disabled = true;
+        btn.title = 'Недоступно для выбранного корпуса';
+      }
+      $connBtns.appendChild(btn);
+    });
+  }
+
   function renderColorButtons() {
     var m = currentModel();
     $colorBtns.innerHTML = '';
@@ -882,6 +1005,7 @@
     var parts = [m.name];
     if (m.screens.length > 1 && state.screen) parts.push(state.screen);
     if (color) parts.push(color.label);
+    if (m.connectivity && state.conn) parts.push(state.conn);
     $title.textContent = parts.join(', ');
   }
 
@@ -922,13 +1046,14 @@
   }
 
   function renderAll() {
-    renderTabs(); renderScreenButtons(); renderColorButtons(); renderImage(); renderTitle(); renderPrice(); renderFaq();
+    renderTabs(); renderScreenButtons(); renderConnButtons(); renderColorButtons(); renderImage(); renderTitle(); renderPrice(); renderFaq();
   }
 
   function selectModel(index, skipHash) {
     state.modelIndex = index;
     var m = currentModel();
     state.screen  = m.screens[0];
+    state.conn    = m.connectivity ? m.connectivity[0] : null;
     state.colorId = m.colors[0].id;
     if (!skipHash) {
       try { history.replaceState(null, '', location.pathname + location.search + '#' + currentModel().id); } catch(e) {}
@@ -938,12 +1063,19 @@
 
   function selectScreen(screen) {
     state.screen = screen;
-    renderScreenButtons(); renderTitle(); renderPrice();
+    fixConn();
+    renderScreenButtons(); renderConnButtons(); renderTitle(); renderPrice();
+  }
+
+  function selectConn(conn) {
+    state.conn = conn;
+    renderConnButtons(); renderTitle(); renderPrice();
   }
 
   function selectColor(colorId) {
     state.colorId = colorId;
-    renderColorButtons(); renderImage(); renderTitle(); renderPrice();
+    fixConn();
+    renderColorButtons(); renderConnButtons(); renderImage(); renderTitle(); renderPrice();
   }
 
   var captchaAnswer = null, captchaSolved = false;
@@ -978,10 +1110,11 @@
     var price = getPrice();
     var configParts = [];
     configParts.push(state.screen);
+    if (m.connectivity && state.conn) configParts.push(state.conn);
     if (color) configParts.push(color.label);
 
     document.getElementById('awFieldModel').value  = m.name;
-    document.getElementById('awFieldScreen').value = state.screen || '';
+    document.getElementById('awFieldScreen').value = (state.screen || '') + ((m.connectivity && state.conn) ? ', ' + state.conn : '');
     document.getElementById('awFieldColor').value  = color ? color.label : '';
     document.getElementById('awFieldPrice').value  = price ? formatPrice(price) : '';
     document.getElementById('awDisplayModel').value = m.name;
@@ -1107,7 +1240,42 @@
 
   var pricesLoaded = false;
 
+  var PRICES_URL = '/calc/prices.json';
+  var PRICES_MAX_AGE = 3 * 60 * 60;
+
+  function finishPrices(anyUpdated) {
+    pricesLoaded = true;
+    if (anyUpdated) renderAll(); else renderPrice();
+    if ($priceLoader) $priceLoader.style.display = 'none';
+  }
+
+  // цены из файла, который раз в час собирает крон на сервере;
+  // если файл недоступен или устарел — берём цены со страниц категорий
   function loadPrices() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', PRICES_URL + '?t=' + Math.floor(Date.now() / 3600000), true);
+    xhr.onload = function() {
+      var data = null;
+      if (xhr.status === 200) { try { data = JSON.parse(xhr.responseText); } catch (e) {} }
+      var fresh = data && data.products && data.updated_ts && (Date.now() / 1000 - data.updated_ts) < PRICES_MAX_AGE;
+      if (!fresh) { loadPricesFromCategories(); return; }
+      var anyUpdated = false;
+      MODELS.forEach(function(model) {
+        for (var varKey in model.variants) {
+          var varSlug = model.variants[varKey].replace(/\/$/, '').split('/').pop();
+          var item = data.products[varSlug];
+          if (!item || !item.price) continue;
+          model.prices[varKey] = item.price; anyUpdated = true;
+          if (item.list_price && item.list_price > item.price) model.origPrices[varKey] = item.list_price;
+        }
+      });
+      finishPrices(anyUpdated);
+    };
+    xhr.onerror = loadPricesFromCategories;
+    xhr.send();
+  }
+
+  function loadPricesFromCategories() {
     var urlModelMap = {};
     MODELS.forEach(function(model) {
       var catUrl = model.categoryUrl + '?items_per_page=128';
@@ -1117,7 +1285,7 @@
     var urls = Object.keys(urlModelMap);
     var pending = urls.length;
     var anyUpdated = false;
-    if (!pending) { pricesLoaded = true; if ($priceLoader) $priceLoader.style.display = 'none'; return; }
+    if (!pending) { finishPrices(false); return; }
 
     urls.forEach(function(catUrl) {
       var models = urlModelMap[catUrl];
@@ -1153,11 +1321,11 @@
           });
         }
         pending--;
-        if (pending <= 0) { pricesLoaded = true; if (anyUpdated) renderAll(); if ($priceLoader) $priceLoader.style.display = 'none'; }
+        if (pending <= 0) finishPrices(anyUpdated);
       };
       xhr.onerror = function() {
         pending--;
-        if (pending <= 0) { pricesLoaded = true; if ($priceLoader) $priceLoader.style.display = 'none'; }
+        if (pending <= 0) finishPrices(anyUpdated);
       };
       xhr.send();
     });

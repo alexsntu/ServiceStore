@@ -2121,11 +2121,32 @@
   });
 
   var pricesLoaded = false;
+  // откуда берём цены: 'pending' — ждём файл, 'file' — из файла, 'pages' — со страниц товаров (запасной способ)
+  var priceSource = 'pending';
+
+  var PRICES_URL = '/calc/prices.json';
+  var PRICES_MAX_AGE = 3 * 60 * 60;
+
+  // цены из файла, который раз в час собирает крон на сервере;
+  // если файл недоступен или устарел — вызывается onFail
+  function fetchPriceFile(onData, onFail) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', PRICES_URL + '?t=' + Math.floor(Date.now() / 3600000), true);
+    xhr.onload = function() {
+      var data = null;
+      if (xhr.status === 200) { try { data = JSON.parse(xhr.responseText); } catch (e) {} }
+      var fresh = data && data.products && data.updated_ts && (Date.now() / 1000 - data.updated_ts) < PRICES_MAX_AGE;
+      if (fresh) onData(data.products); else onFail();
+    };
+    xhr.onerror = onFail;
+    xhr.send();
+  }
 
   function loadCurrentVariantPrice() {
     var m = currentModel();
     var key = variantKey(state.storage, state.sim, state.colorId);
     var url = getProductUrl();
+    if (priceSource !== 'pages') return;
     if (!url) return;
     if (m.prices && m.prices[key]) return;
     if (variantPriceLoading[key]) return;
@@ -2164,6 +2185,7 @@
   }
 
   function prefetchModelPrices(model) {
+    if (priceSource !== 'pages') return;
     if (!model || !model.variantLinks) return;
     if (modelPricePrefetchStarted[model.id]) return;
     modelPricePrefetchStarted[model.id] = true;
@@ -2205,6 +2227,27 @@
   }
 
   function loadPrices() {
+    fetchPriceFile(function(products) {
+      MODELS.forEach(function(model) {
+        if (!model.variantLinks) return;
+        if (!model.origPrices) model.origPrices = {};
+        for (var key in model.variantLinks) {
+          var item = products[model.variantLinks[key].replace(/\/$/, '').split('/').pop()];
+          if (!item || !item.price) continue;
+          model.prices[key] = item.price;
+          if (item.list_price && item.list_price > item.price) model.origPrices[key] = item.list_price;
+        }
+      });
+      priceSource = 'file';
+      pricesLoaded = true;
+      var loader = document.getElementById('irPriceLoader');
+      if (loader) loader.style.display = 'none';
+      renderAll();
+    }, loadPricesFromPages);
+  }
+
+  function loadPricesFromPages() {
+    priceSource = 'pages';
     pricesLoaded = true;
     var loader = document.getElementById('irPriceLoader');
     if (loader) loader.style.display = 'none';

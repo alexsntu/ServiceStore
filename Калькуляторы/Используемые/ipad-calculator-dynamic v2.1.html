@@ -1414,7 +1414,46 @@
 
   var pricesLoaded = false;
 
+  var PRICES_URL = '/calc/prices.json';
+  var PRICES_MAX_AGE = 3 * 60 * 60;
+
+  // цены из файла, который раз в час собирает крон на сервере;
+  // если файл недоступен или устарел — вызывается onFail
+  function fetchPriceFile(onData, onFail) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', PRICES_URL + '?t=' + Math.floor(Date.now() / 3600000), true);
+    xhr.onload = function() {
+      var data = null;
+      if (xhr.status === 200) { try { data = JSON.parse(xhr.responseText); } catch (e) {} }
+      var fresh = data && data.products && data.updated_ts && (Date.now() / 1000 - data.updated_ts) < PRICES_MAX_AGE;
+      if (fresh) onData(data.products); else onFail();
+    };
+    xhr.onerror = onFail;
+    xhr.send();
+  }
+
+  function finishPrices(anyUpdated) {
+    pricesLoaded = true;
+    if (anyUpdated) renderAll(); else renderPrice();
+    if ($priceLoader) $priceLoader.style.display = 'none';
+  }
+
   function loadPrices() {
+    fetchPriceFile(function(products) {
+      var anyUpdated = false;
+      MODELS.forEach(function(model) {
+        for (var varKey in model.variants) {
+          var item = products[model.variants[varKey].replace(/\/$/, '').split('/').pop()];
+          if (!item || !item.price) continue;
+          model.prices[varKey] = item.price; anyUpdated = true;
+          if (item.list_price && item.list_price > item.price) model.origPrices[varKey] = item.list_price;
+        }
+      });
+      finishPrices(anyUpdated);
+    }, loadPricesFromCategories);
+  }
+
+  function loadPricesFromCategories() {
     var urlModelMap = {};
     MODELS.forEach(function(model) {
       model.categoryUrls.forEach(function(catUrl) {
@@ -1425,7 +1464,7 @@
     var urls = Object.keys(urlModelMap);
     var pending = urls.length;
     var anyUpdated = false;
-    if (!pending) { pricesLoaded = true; if ($priceLoader) $priceLoader.style.display = 'none'; return; }
+    if (!pending) { finishPrices(false); return; }
 
     urls.forEach(function(catUrl) {
       var models = urlModelMap[catUrl];
@@ -1461,11 +1500,11 @@
           });
         }
         pending--;
-        if (pending <= 0) { pricesLoaded = true; if (anyUpdated) renderAll(); if ($priceLoader) $priceLoader.style.display = 'none'; }
+        if (pending <= 0) finishPrices(anyUpdated);
       };
       xhr.onerror = function() {
         pending--;
-        if (pending <= 0) { pricesLoaded = true; if ($priceLoader) $priceLoader.style.display = 'none'; }
+        if (pending <= 0) finishPrices(anyUpdated);
       };
       xhr.send();
     });
