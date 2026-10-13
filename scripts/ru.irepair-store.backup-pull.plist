@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>ru.irepair-store.backup-pull</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/a0000/Документы/Cursor/ServiceStor-Cursor/scripts/site-backup-pull.sh</string>
+  </array>
+  <key>StartInterval</key><integer>3600</integer>
+  <key>RunAtLoad</key><true/>
+  <key>EnvironmentVariables</key>
+  <dict><key>PATH</key><string>/usr/bin:/bin:/usr/sbin:/sbin</string></dict>
+  <key>StandardOutPath</key><string>/Users/a0000/Документы/Cursor/ServiceStor-Cursor/backups/launchd.log</string>
+  <key>StandardErrorPath</key><string>/Users/a0000/Документы/Cursor/ServiceStor-Cursor/backups/launchd.log</string>
+</dict>
+</plist>
